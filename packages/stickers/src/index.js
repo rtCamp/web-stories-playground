@@ -24,6 +24,14 @@ import * as fashionOnTheGoStickers from './fashion-on-the-go';
 import * as noDaysOffStickers from './no-days-off';
 import * as experienceThailandStickers from './experience-thailand';
 import * as wellbeingSleepStickers from './sleep';
+import * as almondosFilmsStickers from './women-in-almondos-films';
+import * as bestPizzaInNYCStickers from './best-pizza-in-nyc';
+import * as twelveHoursInBarcelonaStickers from './12-hours-in-barcelona';
+import * as bestFitnessAppsStickers from './best-fitness-apps';
+import * as streetStyleOnTheGoStickers from './street-style-on-the-go';
+import * as plantBasedDyesStickers from './plant-based-dyes';
+import * as indoorGardenOasisStickers from './indoor-garden-oasis';
+import * as killBellyFatStickers from './kill-belly-fat';
 
 export default {
   ...beautyStickers,
@@ -34,4 +42,12 @@ export default {
   ...noDaysOffStickers,
   ...experienceThailandStickers,
   ...wellbeingSleepStickers,
+  ...almondosFilmsStickers,
+  ...bestPizzaInNYCStickers,
+  ...twelveHoursInBarcelonaStickers,
+  ...bestFitnessAppsStickers,
+  ...streetStyleOnTheGoStickers,
+  ...plantBasedDyesStickers,
+  ...indoorGardenOasisStickers,
+  ...killBellyFatStickers,
 };
