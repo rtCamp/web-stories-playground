@@ -24,6 +24,13 @@ import * as fashionOnTheGoStickers from './fashion-on-the-go';
 import * as noDaysOffStickers from './no-days-off';
 import * as experienceThailandStickers from './experience-thailand';
 import * as wellbeingSleepStickers from './sleep';
+import * as crownSeasonsRecappedStickers from './crown-seasons-recapped';
+import * as honeymooningInItalyStickers from './honeymooning-in-italy';
+import * as stayAtAceHotelKyotoStickers from './stay-at-ace-hotel-kyoto';
+import * as videoCallsSavedTheDayStickers from './how-video-calls-saved-the-day';
+import * as pickTheRightLaptopStickers from './pick-the-right-laptop';
+import * as quizForYourBestSkinStickers from './quiz-for-your-best-skin';
+import * as atHomeOfficeStickers from './diy-budget-friendly-home-office';
 
 export default {
   ...beautyStickers,
@@ -34,4 +41,11 @@ export default {
   ...noDaysOffStickers,
   ...experienceThailandStickers,
   ...wellbeingSleepStickers,
+  ...crownSeasonsRecappedStickers,
+  ...honeymooningInItalyStickers,
+  ...stayAtAceHotelKyotoStickers,
+  ...videoCallsSavedTheDayStickers,
+  ...pickTheRightLaptopStickers,
+  ...quizForYourBestSkinStickers,
+  ...atHomeOfficeStickers,
 };
