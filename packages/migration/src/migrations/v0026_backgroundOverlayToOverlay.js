@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * Internal dependencies
- */
-import { AnimationPulse } from '../../parts/pulse';
-
-export function EffectPulse({
-  iterations = 1,
-  scale = 0.5,
-  duration = 1450,
-  delay,
-  easing = 'ease-in-out',
-}) {
-  return AnimationPulse({
-    scale,
-    duration,
-    delay,
-    easing,
-    iterations,
-  });
+function backgroundOverlayToOverlay({ pages, ...rest }) {
+  return {
+    pages: pages.map(reducePage),
+    ...rest,
+  };
 }
+
+function reducePage({ elements, ...rest }) {
+  return {
+    elements: elements.map(updateElement),
+    ...rest,
+  };
+}
+
+function updateElement(element) {
+  if (typeof element.backgroundOverlay !== 'undefined') {
+    element.overlay = element.backgroundOverlay;
+    delete element.backgroundOverlay;
+  }
+  return element;
+}
+
+export default backgroundOverlayToOverlay;
