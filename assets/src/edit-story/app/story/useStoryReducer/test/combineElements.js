@@ -201,7 +201,7 @@ describe('combineElements', () => {
       {
         id: '123',
         type: 'image',
-        backgroundOverlay: { color: { r: 0, g: 0, b: 0 } },
+        overlay: { color: { r: 0, g: 0, b: 0 } },
         isBackground: true,
         x: 1,
         y: 1,
@@ -289,6 +289,7 @@ describe('combineElements', () => {
       {
         id: '123',
         resource: { type: 'image', src: '1' },
+        alt: 'Hello',
         type: 'image',
         focalX: 50,
         focalY: 50,
@@ -338,6 +339,7 @@ describe('combineElements', () => {
         id: '456',
         type: 'image',
         resource: { type: 'image', src: '1' },
+        alt: 'Hello',
         x: 10,
         y: 10,
         width: 10,
@@ -754,6 +756,7 @@ function getDefaultState2() {
             y: 10,
             width: 10,
             height: 10,
+            alt: 'Hello',
           },
         ],
       },

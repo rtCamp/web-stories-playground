@@ -28,6 +28,7 @@ import {
   Bucket,
   CircleSpeed,
   Eraser,
+  LetterTLargeLetterTSmall,
   LetterTPlus,
   Link,
   Media,
@@ -36,7 +37,7 @@ import {
 import updateProperties from '../../../components/inspector/design/updateProperties';
 import { useHistory } from '../../history';
 import { useConfig } from '../../config';
-import { useStory } from '../../story';
+import { useStory, useStoryTriggersDispatch, STORY_EVENTS } from '../../story';
 import { getResetProperties, getSnackbarClearCopy } from './utils';
 import { ELEMENT_TYPE, ACTION_TEXT, RESET_PROPERTIES } from './constants';
 
@@ -53,6 +54,7 @@ import { ELEMENT_TYPE, ACTION_TEXT, RESET_PROPERTIES } from './constants';
  */
 const useQuickActions = () => {
   const { isRTL } = useConfig();
+  const dispatchStoryEvent = useStoryTriggersDispatch();
   const {
     currentPage,
     selectedElementAnimations,
@@ -172,6 +174,8 @@ const useQuickActions = () => {
     handleFocusAnimationPanel,
     handleFocusLinkPanel,
     handleFocusPageBackground,
+    handleFocusTextColor,
+    handleFocusFontPicker,
     handleFocusTextSetsPanel,
     handleFocusStylePanel,
   } = useMemo(
@@ -179,7 +183,9 @@ const useQuickActions = () => {
       handleFocusAnimationPanel: handleFocusPanel(states.ANIMATION),
       handleFocusLinkPanel: handleFocusPanel(states.LINK),
       handleFocusPageBackground: handleFocusPanel(states.PAGE_BACKGROUND),
-      handleFocusTextSetsPanel: handleFocusPanel(states.TEXT),
+      handleFocusTextSetsPanel: handleFocusPanel(states.TEXT_SET),
+      handleFocusFontPicker: handleFocusPanel(states.FONT),
+      handleFocusTextColor: handleFocusPanel(states.TEXT_COLOR),
       handleFocusStylePanel: handleFocusPanel(states.STYLE),
     }),
     [handleFocusPanel]
@@ -279,7 +285,10 @@ const useQuickActions = () => {
       {
         Icon: PictureSwap,
         label: ACTION_TEXT.REPLACE_MEDIA,
-        onClick: handleFocusMediaPanel(selectedElement?.id),
+        onClick: (ev) => {
+          dispatchStoryEvent(STORY_EVENTS.onReplaceForegroundMedia);
+          handleFocusMediaPanel(selectedElement?.id)(ev);
+        },
         ...actionMenuProps,
       },
       ...foregroundCommonActions,
@@ -289,6 +298,7 @@ const useQuickActions = () => {
       handleFocusMediaPanel,
       foregroundCommonActions,
       selectedElement?.id,
+      dispatchStoryEvent,
     ]
   );
 
@@ -310,6 +320,31 @@ const useQuickActions = () => {
     ]
   );
 
+  const textActions = useMemo(
+    () => [
+      {
+        Icon: Bucket,
+        label: ACTION_TEXT.CHANGE_COLOR,
+        onClick: handleFocusTextColor(selectedElement?.id),
+        ...actionMenuProps,
+      },
+      {
+        Icon: LetterTLargeLetterTSmall,
+        label: ACTION_TEXT.CHANGE_FONT,
+        onClick: handleFocusFontPicker(selectedElement?.id),
+        ...actionMenuProps,
+      },
+      ...foregroundCommonActions,
+    ],
+    [
+      foregroundCommonActions,
+      actionMenuProps,
+      selectedElement?.id,
+      handleFocusTextColor,
+      handleFocusFontPicker,
+    ]
+  );
+
   const backgroundElementMediaActions = useMemo(() => {
     const resetProperties = getResetProperties(
       selectedElement,
@@ -320,7 +355,10 @@ const useQuickActions = () => {
       {
         Icon: PictureSwap,
         label: ACTION_TEXT.REPLACE_BACKGROUND_MEDIA,
-        onClick: handleFocusMediaPanel(selectedElement?.id),
+        onClick: (ev) => {
+          dispatchStoryEvent(STORY_EVENTS.onReplaceBackgroundMedia);
+          handleFocusMediaPanel(selectedElement?.id)(ev);
+        },
         ...actionMenuProps,
       },
       {
@@ -354,6 +392,7 @@ const useQuickActions = () => {
     actionMenuProps,
     handleFocusAnimationPanel,
     handleClearAnimationsAndFilters,
+    dispatchStoryEvent,
   ]);
 
   // Hide menu if there are multiple elements selected
@@ -391,6 +430,7 @@ const useQuickActions = () => {
     case ELEMENT_TYPE.SHAPE:
       return shapeActions;
     case ELEMENT_TYPE.TEXT:
+      return textActions;
     case ELEMENT_TYPE.VIDEO:
     default:
       return [];
