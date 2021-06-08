@@ -20,7 +20,6 @@ import { _x } from '@web-stories-wp/i18n';
 import PropTypes from 'prop-types';
 
 const title = _x('Leaf Length', 'sticker name', 'web-stories');
-
 function HomeGardenLength({ style }) {
   return (
     <svg

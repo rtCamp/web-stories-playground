@@ -20,7 +20,6 @@ import { _x } from '@web-stories-wp/i18n';
 import PropTypes from 'prop-types';
 
 const title = _x('Bag', 'sticker name', 'web-stories');
-
 function HomeGardenBag({ style }) {
   return (
     <svg
