@@ -25,24 +25,23 @@ import { __, _x } from '@web-stories-wp/i18n';
 import { default as template } from './template';
 
 export default {
-  title: _x('Trendy Winter Veggie', 'template name', 'web-stories'),
+  title: _x('Baking Bread Guide ', 'template name', 'web-stories'),
   tags: [
     _x('Food', 'template keyword', 'web-stories'),
-    _x('Healthy', 'template keyword', 'web-stories'),
+    _x('Cooking', 'template keyword', 'web-stories'),
     _x('Recipe', 'template keyword', 'web-stories'),
-    _x('How-To', 'template keyword', 'web-stories'),
-    _x('Earthy', 'template keyword', 'web-stories'),
-    _x('Vegan', 'template keyword', 'web-stories'),
-    _x('Green', 'template keyword', 'web-stories'),
+    _x('Bread', 'template keyword', 'web-stories'),
+    _x('White', 'template keyword', 'web-stories'),
+    _x('Violet', 'template keyword', 'web-stories'),
+    _x('Guide', 'template keyword', 'web-stories'),
   ],
   colors: [
-    { label: _x('Jewel Green', 'color', 'web-stories'), color: '#0e662a' },
-    { label: _x('Tabasco Red', 'color', 'web-stories'), color: '#9f240f' },
-    { label: _x('Yukon Sky Gray', 'color', 'web-stories'), color: '#dfe3e4' },
-    { label: _x('White', 'color', 'web-stories'), color: '#fff' },
+    { label: _x('Hawaii Blue', 'color', 'web-stories'), color: '#bcebee' },
+    { label: _x('Earth Violet', 'color', 'web-stories'), color: '#2d2a35' },
+    { label: _x('Papaya Orange', 'color', 'web-stories'), color: '#fff0d8' },
   ],
   description: __(
-    'From veggies, with love. This template’s natural green color palette and lively typography will inspire your audience to cook a healthy meal today.',
+    'With its earthy tones and vintage elegance, this template is perfect for creating instructionals that are calm and soothing. Use it for recipes, woodworking tutorials, meditation guides, or anything that could use some rustic charm.',
     'web-stories'
   ),
   ...template,
