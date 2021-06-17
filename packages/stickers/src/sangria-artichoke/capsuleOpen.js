@@ -20,7 +20,6 @@ import { _x } from '@web-stories-wp/i18n';
 import PropTypes from 'prop-types';
 
 const title = _x('Pill Open', 'sticker name', 'web-stories');
-
 function CapsuleOpen({ style }) {
   return (
     <svg
