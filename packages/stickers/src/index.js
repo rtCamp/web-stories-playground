@@ -25,7 +25,7 @@ import * as noDaysOffStickers from './no-days-off';
 import * as experienceThailandStickers from './experience-thailand';
 import * as wellbeingSleepStickers from './sleep';
 import * as crownSeasonsRecappedStickers from './crown-seasons-recapped';
-import * as guideTobakingBreadStrickers from './baking-bread-guide';
+import * as guideTobakingBreadStickers from './baking-bread-guide';
 import * as sangriaArtichokeStickers from './sangria-artichoke';
 import * as crispyChickenThighStickers from './kitchen-stories';
 import * as almondosFilmsStickers from './women-in-almondos-films';
@@ -59,7 +59,7 @@ export default {
   ...noDaysOffStickers,
   ...experienceThailandStickers,
   ...wellbeingSleepStickers,
-  ...guideTobakingBreadStrickers,
+  ...guideTobakingBreadStickers,
   ...sangriaArtichokeStickers,
   ...crispyChickenThighStickers,
   ...almondosFilmsStickers,
