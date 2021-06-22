@@ -31,6 +31,7 @@ import * as nycPartyRoundUpStickers from './nyc-party-round-up';
 import * as aDayInTheLifeStickers from './a-day-in-the-life';
 import * as orientExpressStickers from './venice-simplon-orient-express';
 import * as creativeGuideToTravelStickers from './creative-guide-to-travel';
+import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-features';
 
 export default {
   ...beautyStickers,
@@ -48,4 +49,5 @@ export default {
   ...aDayInTheLifeStickers,
   ...orientExpressStickers,
   ...creativeGuideToTravelStickers,
+  ...getSafarisPrivacyFeaturesStickers,
 };
