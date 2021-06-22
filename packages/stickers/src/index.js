@@ -32,6 +32,7 @@ import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-featur
 import * as insideJeanLegeresClosetStickers from './inside-jean-legeres-closet';
 import * as facialsYouCanTryAtHomeStickers from './facials-to-try-at-home';
 import * as giftGuideArtBooksStickers from './gift-guide-art-books';
+import * as vintageChairsWhatToLookForStickers from './vintage-chairs-what-to-look-for';
 
 export default {
   ...beautyStickers,
@@ -50,4 +51,5 @@ export default {
   ...insideJeanLegeresClosetStickers,
   ...facialsYouCanTryAtHomeStickers,
   ...giftGuideArtBooksStickers,
+  ...vintageChairsWhatToLookForStickers,
 };
