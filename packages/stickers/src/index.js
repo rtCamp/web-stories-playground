@@ -26,6 +26,7 @@ import * as experienceThailandStickers from './experience-thailand';
 import * as wellbeingSleepStickers from './sleep';
 import * as nycPartyRoundUpStickers from './nyc-party-round-up';
 import * as aDayInTheLifeStickers from './a-day-in-the-life';
+import * as orientExpressStickers from './venice-simplon-orient-express';
 
 export default {
   ...beautyStickers,
@@ -38,4 +39,5 @@ export default {
   ...wellbeingSleepStickers,
   ...nycPartyRoundUpStickers,
   ...aDayInTheLifeStickers,
+  ...orientExpressStickers,
 };
