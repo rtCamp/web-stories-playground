@@ -29,6 +29,7 @@ import * as aDayInTheLifeStickers from './a-day-in-the-life';
 import * as orientExpressStickers from './venice-simplon-orient-express';
 import * as creativeGuideToTravelStickers from './creative-guide-to-travel';
 import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-features';
+import * as insideTheFutureOfAviationTechnologyStickers from './inside-the-future-of-aviation-technology';
 import * as insideJeanLegeresClosetStickers from './inside-jean-legeres-closet';
 import * as facialsYouCanTryAtHomeStickers from './facials-to-try-at-home';
 import * as giftGuideArtBooksStickers from './gift-guide-art-books';
@@ -48,6 +49,7 @@ export default {
   ...orientExpressStickers,
   ...creativeGuideToTravelStickers,
   ...getSafarisPrivacyFeaturesStickers,
+  ...insideTheFutureOfAviationTechnologyStickers,
   ...insideJeanLegeresClosetStickers,
   ...facialsYouCanTryAtHomeStickers,
   ...giftGuideArtBooksStickers,
