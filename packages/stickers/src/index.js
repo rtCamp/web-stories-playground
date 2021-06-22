@@ -27,6 +27,7 @@ import * as wellbeingSleepStickers from './sleep';
 import * as guideTobakingBreadStickers from './baking-bread-guide';
 import * as sangriaArtichokeStickers from './sangria-artichoke';
 import * as crispyChickenThighStickers from './kitchen-stories';
+import * as nycPartyRoundUpStickers from './nyc-party-round-up';
 
 export default {
   ...beautyStickers,
@@ -40,4 +41,5 @@ export default {
   ...guideTobakingBreadStickers,
   ...sangriaArtichokeStickers,
   ...crispyChickenThighStickers,
+  ...nycPartyRoundUpStickers,
 };
