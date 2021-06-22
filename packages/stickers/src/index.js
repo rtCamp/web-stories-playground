@@ -49,6 +49,16 @@ import * as googleMusicNewStudioStickers from './google-music-brand-new-studio';
 import * as contactTracingStickers from './how-it-works-contact-tracing';
 import * as summerTrendsStickers from './summer-trend-round-up';
 import * as artOnTheInternetStickers from './affordable-art-on-the-internet';
+import * as nycPartyRoundUpStickers from './nyc-party-round-up';
+import * as aDayInTheLifeStickers from './a-day-in-the-life';
+import * as orientExpressStickers from './venice-simplon-orient-express';
+import * as creativeGuideToTravelStickers from './creative-guide-to-travel';
+import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-features';
+import * as insideTheFutureOfAviationTechnologyStickers from './inside-the-future-of-aviation-technology';
+import * as insideJeanLegeresClosetStickers from './inside-jean-legeres-closet';
+import * as facialsYouCanTryAtHomeStickers from './facials-to-try-at-home';
+import * as giftGuideArtBooksStickers from './gift-guide-art-books';
+import * as vintageChairsWhatToLookForStickers from './vintage-chairs-what-to-look-for';
 
 export default {
   ...beautyStickers,
@@ -84,4 +94,14 @@ export default {
   ...contactTracingStickers,
   ...summerTrendsStickers,
   ...artOnTheInternetStickers,
+  ...nycPartyRoundUpStickers,
+  ...aDayInTheLifeStickers,
+  ...orientExpressStickers,
+  ...creativeGuideToTravelStickers,
+  ...getSafarisPrivacyFeaturesStickers,
+  ...insideTheFutureOfAviationTechnologyStickers,
+  ...insideJeanLegeresClosetStickers,
+  ...facialsYouCanTryAtHomeStickers,
+  ...giftGuideArtBooksStickers,
+  ...vintageChairsWhatToLookForStickers,
 };
