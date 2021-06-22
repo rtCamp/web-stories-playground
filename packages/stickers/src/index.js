@@ -33,6 +33,7 @@ import * as orientExpressStickers from './venice-simplon-orient-express';
 import * as creativeGuideToTravelStickers from './creative-guide-to-travel';
 import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-features';
 import * as insideJeanLegeresClosetStickers from './inside-jean-legeres-closet';
+import * as facialsYouCanTryAtHomeStickers from './facials-to-try-at-home';
 
 export default {
   ...beautyStickers,
@@ -52,4 +53,5 @@ export default {
   ...creativeGuideToTravelStickers,
   ...getSafarisPrivacyFeaturesStickers,
   ...insideJeanLegeresClosetStickers,
+  ...facialsYouCanTryAtHomeStickers,
 };
