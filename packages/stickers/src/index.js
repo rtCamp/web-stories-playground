@@ -34,6 +34,7 @@ import * as creativeGuideToTravelStickers from './creative-guide-to-travel';
 import * as getSafarisPrivacyFeaturesStickers from './get-safaris-privacy-features';
 import * as insideJeanLegeresClosetStickers from './inside-jean-legeres-closet';
 import * as facialsYouCanTryAtHomeStickers from './facials-to-try-at-home';
+import * as giftGuideArtBooksStickers from './gift-guide-art-books';
 
 export default {
   ...beautyStickers,
@@ -54,4 +55,5 @@ export default {
   ...getSafarisPrivacyFeaturesStickers,
   ...insideJeanLegeresClosetStickers,
   ...facialsYouCanTryAtHomeStickers,
+  ...giftGuideArtBooksStickers,
 };
