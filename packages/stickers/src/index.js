@@ -29,6 +29,7 @@ import * as sangriaArtichokeStickers from './sangria-artichoke';
 import * as crispyChickenThighStickers from './kitchen-stories';
 import * as nycPartyRoundUpStickers from './nyc-party-round-up';
 import * as aDayInTheLifeStickers from './a-day-in-the-life';
+import * as orientExpressStickers from './venice-simplon-orient-express';
 
 export default {
   ...beautyStickers,
@@ -44,4 +45,5 @@ export default {
   ...crispyChickenThighStickers,
   ...nycPartyRoundUpStickers,
   ...aDayInTheLifeStickers,
+  ...orientExpressStickers,
 };
