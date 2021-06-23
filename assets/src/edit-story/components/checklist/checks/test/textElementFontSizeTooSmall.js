@@ -17,18 +17,24 @@
 /**
  * Internal dependencies
  */
-import PublisherLogoSize from './checks/publisherLogoSize';
-import StoryMissingTitle from './checks/storyMissingTitle';
-import StoryPosterAspectRatio from './checks/storyPosterAspectRatio';
-import StoryPosterPortraitSize from './checks/storyPosterPortraitSize';
+import { textElementFontSizeTooSmall } from '../textElementFontSizeTooSmall';
 
-export function PriorityChecks() {
-  return (
-    <div>
-      <StoryMissingTitle />
-      <StoryPosterPortraitSize />
-      <StoryPosterAspectRatio />
-      <PublisherLogoSize />
-    </div>
-  );
-}
+describe('textElementFontSizeTooSmall', () => {
+  it('should return true if text element font size is too small', () => {
+    const element = {
+      id: 'elementid',
+      type: 'text',
+      fontSize: 11,
+    };
+    expect(textElementFontSizeTooSmall(element)).toBe(true);
+  });
+
+  it('should return false if text element font size is large enough', () => {
+    const element = {
+      id: 'elementid',
+      type: 'text',
+      fontSize: 12,
+    };
+    expect(textElementFontSizeTooSmall(element)).toBe(false);
+  });
+});
