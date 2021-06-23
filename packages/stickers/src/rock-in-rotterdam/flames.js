@@ -26,7 +26,7 @@ function Flames({ style }) {
   return (
     <svg
       style={style}
-      viewBox="0 0 58 16"
+      viewBox="0 0 60 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -44,7 +44,7 @@ Flames.propTypes = {
 };
 
 export default {
-  aspectRatio: 58 / 16,
+  aspectRatio: 60 / 30,
   svg: Flames,
   title,
 };
