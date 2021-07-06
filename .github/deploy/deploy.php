@@ -72,7 +72,7 @@ task( 'setup:webstories', function () {
 	export CI=true && \
 	export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true && \
 	echo "Removing node_modules if exists" && rm -rf node_modules && \
-	nvm use && \
+	export NVM_DIR=$HOME/.nvm && source $NVM_DIR/nvm.sh && nvm use && \
 	npm ci && \
 	npx rollup --config packages/migration/src/rollup.config.migrate.js && \
 	composer install --prefer-dist --no-suggest --no-progress --no-interaction && \
