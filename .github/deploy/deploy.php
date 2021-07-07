@@ -74,7 +74,6 @@ task( 'setup:webstories', function () {
 	echo "Removing node_modules if exists" && rm -rf node_modules && \
 	export NVM_DIR=$HOME/.nvm && source $NVM_DIR/nvm.sh && nvm use && \
 	npm ci && \
-	npx rollup --config packages/migration/src/rollup.config.migrate.js && \
 	composer install --prefer-dist --no-suggest --no-progress --no-interaction && \
 	npm run build && \
 	rm -rf node_modules
