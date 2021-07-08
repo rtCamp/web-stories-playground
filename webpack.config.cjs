@@ -364,11 +364,37 @@ const storiesMCEButton = {
   ].filter(Boolean),
 };
 
-module.exports = [
-  editorAndDashboard,
-  activationNotice,
-  webStoriesBlock,
-  webStoriesScripts,
-  widgetScript,
-  storiesMCEButton,
-];
+module.exports = ( env ) => {
+
+  if ( env?.playground ) {
+    editorAndDashboard.plugins = [
+      ...sharedConfig.plugins,
+      new WebpackBar({
+        name: 'Web Stories Playground',
+      }),
+      new HtmlWebpackPlugin({
+        inject: true, // Don't inject default <script> tags, etc.
+        minify: false, // PHP not HTML so don't attempt to minify.
+        template: path.resolve(
+          process.cwd(),
+          'packages',
+          'playground/src/index.html'
+        ),
+        chunks: ['edit-story'],
+      }),
+    ];
+
+    return [
+      editorAndDashboard
+    ];
+  }
+
+  return [
+    editorAndDashboard,
+    activationNotice,
+    webStoriesBlock,
+    webStoriesScripts,
+    widgetScript,
+    storiesMCEButton,
+  ];
+};

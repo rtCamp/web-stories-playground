@@ -47,6 +47,7 @@
     "@web-stories-wp/media": "*",
     "@web-stories-wp/migration": "*",
     "@web-stories-wp/patterns": "*",
+    "@web-stories-wp/playground": "*",
     "@web-stories-wp/stickers": "*",
     "@web-stories-wp/stories-carousel": "*",
     "@web-stories-wp/stories-lightbox": "*",
@@ -206,6 +207,7 @@
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2",
     "webpackbar": "^4.0.0"
   },
   "scripts": {
@@ -283,7 +285,8 @@
     "workflow:migrate:templates": "migration packages/templates/src/raw",
     "postworkflow:migrate:templates": "npx prettier --write packages/templates/src/raw",
     "workflow:migrate:ftue-story": "migration includes/data/stories",
-    "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories"
+    "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories",
+    "playground": "webpack serve --env playground --config webpack.config.cjs --progress --open"
   },
   "husky": {
     "hooks": {
