@@ -28,10 +28,6 @@ import {
 } from '@web-stories-wp/i18n';
 import { trackEvent } from '@web-stories-wp/tracking';
 import { resourceList } from '@web-stories-wp/media';
-
-/**
- * Internal dependencies
- */
 import {
   Button as DefaultButton,
   BUTTON_SIZES,
@@ -40,7 +36,11 @@ import {
   Text,
   THEME_CONSTANTS,
   useSnackbar,
-} from '../../../../../../design-system';
+} from '@web-stories-wp/design-system';
+
+/**
+ * Internal dependencies
+ */
 import { useConfig } from '../../../../../app/config';
 import { useLocalMedia } from '../../../../../app/media';
 import { useMediaPicker } from '../../../../mediaPicker';
@@ -109,6 +109,7 @@ function MediaPane(props) {
     uploadVideoPoster,
     totalItems,
     optimizeVideo,
+    optimizeGif,
   } = useLocalMedia(
     ({
       state: {
@@ -127,6 +128,7 @@ function MediaPane(props) {
         setSearchTerm,
         uploadVideoPoster,
         optimizeVideo,
+        optimizeGif,
       },
     }) => {
       return {
@@ -143,14 +145,13 @@ function MediaPane(props) {
         setSearchTerm,
         uploadVideoPoster,
         optimizeVideo,
+        optimizeGif,
       };
     }
   );
 
   const { showSnackbar } = useSnackbar();
-  const enableMediaPickerVideoOptimization = useFeature(
-    'enableMediaPickerVideoOptimization'
-  );
+  const isGifOptimizationEnabled = useFeature('enableGifOptimization');
 
   const {
     allowedTranscodableMimeTypes,
@@ -161,14 +162,10 @@ function MediaPane(props) {
     },
   } = useConfig();
 
-  const { isFeatureEnabled, isTranscodingEnabled } = useFFmpeg();
+  const { isTranscodingEnabled } = useFFmpeg();
 
   const allowedMimeTypes = useMemo(() => {
-    if (
-      enableMediaPickerVideoOptimization &&
-      isFeatureEnabled &&
-      isTranscodingEnabled
-    ) {
+    if (isTranscodingEnabled) {
       return [
         ...allowedTranscodableMimeTypes,
         ...allowedImageMimeTypes,
@@ -179,9 +176,7 @@ function MediaPane(props) {
   }, [
     allowedImageMimeTypes,
     allowedVideoMimeTypes,
-    isFeatureEnabled,
     isTranscodingEnabled,
-    enableMediaPickerVideoOptimization,
     allowedTranscodableMimeTypes,
   ]);
 
@@ -209,15 +204,15 @@ function MediaPane(props) {
   const onSelect = (mediaPickerEl) => {
     const resource = getResourceFromMediaPicker(mediaPickerEl);
     try {
-      if (
-        enableMediaPickerVideoOptimization &&
-        isFeatureEnabled &&
-        isTranscodingEnabled &&
-        transcodableMimeTypes.includes(resource.mimeType)
-      ) {
-        optimizeVideo({ resource });
-      }
+      if (isTranscodingEnabled) {
+        if (transcodableMimeTypes.includes(resource.mimeType)) {
+          optimizeVideo({ resource });
+        }
 
+        if (isGifOptimizationEnabled && resource.mimeType === 'image/gif') {
+          optimizeGif({ resource });
+        }
+      }
       // WordPress media picker event, sizes.medium.url is the smallest image
       insertMediaElement(
         resource,
@@ -227,7 +222,8 @@ function MediaPane(props) {
       if (
         !resource.posterId &&
         !resource.local &&
-        allowedVideoMimeTypes.includes(resource.mimeType)
+        (allowedVideoMimeTypes.includes(resource.mimeType) ||
+          resource.type === 'gif')
       ) {
         // Upload video poster and update media element afterwards, so that the
         // poster will correctly show up in places like the Accessibility panel.
@@ -333,8 +329,8 @@ function MediaPane(props) {
                 {sprintf(
                   /* translators: %d: number of results. */
                   _n(
-                    '%d result found',
-                    '%d results found',
+                    '%s result found.',
+                    '%s results found.',
                     totalItems,
                     'web-stories'
                   ),
@@ -358,8 +354,8 @@ function MediaPane(props) {
         {isMediaLoaded && !media.length ? (
           <MediaGalleryMessage>
             {isSearching
-              ? __('No results found', 'web-stories')
-              : __('No media found', 'web-stories')}
+              ? __('No results found.', 'web-stories')
+              : __('No media found.', 'web-stories')}
           </MediaGalleryMessage>
         ) : (
           <PaginatedMediaGallery

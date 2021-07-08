@@ -24,31 +24,17 @@ import * as fashionOnTheGoStickers from './fashion-on-the-go';
 import * as noDaysOffStickers from './no-days-off';
 import * as experienceThailandStickers from './experience-thailand';
 import * as wellbeingSleepStickers from './sleep';
-import * as crownSeasonsRecappedStickers from './crown-seasons-recapped';
-import * as guideTobakingBreadStrickers from './baking-bread-guide';
+import * as guideTobakingBreadStickers from './baking-bread-guide';
 import * as sangriaArtichokeStickers from './sangria-artichoke';
 import * as crispyChickenThighStickers from './kitchen-stories';
-import * as almondosFilmsStickers from './women-in-almondos-films';
-import * as bestPizzaInNYCStickers from './best-pizza-in-nyc';
+import * as almondosFilmsStickers from './almodos-films';
+import * as bestPizzaInNYCStickers from './pizzas-in-nyc';
 import * as twelveHoursInBarcelonaStickers from './12-hours-in-barcelona';
-import * as bestFitnessAppsStickers from './best-fitness-apps';
+import * as bestFitnessAppsStickers from './fitness-apps-ranked';
 import * as streetStyleOnTheGoStickers from './street-style-on-the-go';
 import * as plantBasedDyesStickers from './plant-based-dyes';
 import * as indoorGardenOasisStickers from './indoor-garden-oasis';
-import * as killBellyFatStickers from './kill-belly-fat';
-import * as honeymooningInItalyStickers from './honeymooning-in-italy';
-import * as stayAtAceHotelKyotoStickers from './stay-at-ace-hotel-kyoto';
-import * as videoCallsSavedTheDayStickers from './how-video-calls-saved-the-day';
-import * as pickTheRightLaptopStickers from './pick-the-right-laptop';
-import * as quizForYourBestSkinStickers from './quiz-for-your-best-skin';
-import * as atHomeOfficeStickers from './diy-budget-friendly-home-office';
-import * as rockInRotterdamStickers from './rock-in-rotterdam';
-import * as thingsYouDidnotKnowAboutLosAngelesStickers from './everything-you-did-not-know-about-los-angeles';
-import * as packingForHawaiiMainIslandsStickers from './what-to-pack-for-hawaii-main-islands';
-import * as googleMusicNewStudioStickers from './google-music-brand-new-studio';
-import * as contactTracingStickers from './how-it-works-contact-tracing';
-import * as summerTrendsStickers from './summer-trend-round-up';
-import * as artOnTheInternetStickers from './affordable-art-on-the-internet';
+import * as killBellyFatStickers from './belly-fat-workout';
 
 export default {
   ...beautyStickers,
@@ -59,7 +45,7 @@ export default {
   ...noDaysOffStickers,
   ...experienceThailandStickers,
   ...wellbeingSleepStickers,
-  ...guideTobakingBreadStrickers,
+  ...guideTobakingBreadStickers,
   ...sangriaArtichokeStickers,
   ...crispyChickenThighStickers,
   ...almondosFilmsStickers,
@@ -70,18 +56,4 @@ export default {
   ...plantBasedDyesStickers,
   ...indoorGardenOasisStickers,
   ...killBellyFatStickers,
-  ...crownSeasonsRecappedStickers,
-  ...honeymooningInItalyStickers,
-  ...stayAtAceHotelKyotoStickers,
-  ...videoCallsSavedTheDayStickers,
-  ...pickTheRightLaptopStickers,
-  ...quizForYourBestSkinStickers,
-  ...atHomeOfficeStickers,
-  ...rockInRotterdamStickers,
-  ...thingsYouDidnotKnowAboutLosAngelesStickers,
-  ...packingForHawaiiMainIslandsStickers,
-  ...googleMusicNewStudioStickers,
-  ...contactTracingStickers,
-  ...summerTrendsStickers,
-  ...artOnTheInternetStickers,
 };

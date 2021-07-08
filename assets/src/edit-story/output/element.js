@@ -19,10 +19,11 @@
  */
 import { generatePatternStyles } from '@web-stories-wp/patterns';
 import { getBox } from '@web-stories-wp/units';
+import { StoryAnimation } from '@web-stories-wp/animation';
+
 /**
  * Internal dependencies
  */
-import { StoryAnimation } from '../../animation';
 import WithLink from '../components/elementLink/output';
 import { getDefinitionForType } from '../elements';
 import WithMask from '../masks/output';
@@ -95,6 +96,7 @@ function OutputElement({ element }) {
             position: 'absolute',
             top: 0,
             left: 0,
+            zIndex: 0,
             ...getBorderRadius(element),
             ...(backgroundTextMode === BACKGROUND_TEXT_MODE.FILL
               ? bgStyles

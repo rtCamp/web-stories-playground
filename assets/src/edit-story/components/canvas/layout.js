@@ -23,20 +23,18 @@ import { forwardRef, createRef, useRef, useEffect } from 'react';
 import { __ } from '@web-stories-wp/i18n';
 import { generatePatternStyles } from '@web-stories-wp/patterns';
 import { FULLBLEED_RATIO } from '@web-stories-wp/units';
-/**
- * Internal dependencies
- */
 import {
   useResizeEffect,
   THEME_CONSTANTS,
   themeHelpers,
-} from '../../../design-system';
+} from '@web-stories-wp/design-system';
+/**
+ * Internal dependencies
+ */
 import { HEADER_HEIGHT } from '../../constants';
 import pointerEventsCss from '../../utils/pointerEventsCss';
 import { useLayout } from '../../app';
-import { useRightClickMenu } from '../../app/rightClickMenu';
 import usePinchToZoom from './usePinchToZoom';
-import RightClickMenu from './rightClickMenu';
 
 /**
  * @file See https://user-images.githubusercontent.com/726049/72654503-bfffe780-3944-11ea-912c-fc54d68b6100.png
@@ -342,6 +340,8 @@ const PageArea = forwardRef(function PageArea(
     className = '',
     showOverflow = false,
     isBackgroundSelected = false,
+    pageAreaRef = createRef(),
+    withSafezone = true,
     ...rest
   },
   ref
@@ -369,7 +369,6 @@ const PageArea = forwardRef(function PageArea(
       scrollTop,
     })
   );
-  const { rightClickAreaRef } = useRightClickMenu();
 
   // We need to ref scroll, because scroll changes should not update a non-controlled layer
   const scroll = useRef();
@@ -387,7 +386,6 @@ const PageArea = forwardRef(function PageArea(
 
   return (
     <PageAreaContainer
-      ref={rightClickAreaRef}
       showOverflow={showOverflow}
       isControlled={isControlled}
       hasHorizontalOverflow={hasHorizontalOverflow}
@@ -396,7 +394,6 @@ const PageArea = forwardRef(function PageArea(
       data-scroll-container
       {...rest}
     >
-      <RightClickMenu />
       <PageClip
         hasHorizontalOverflow={hasHorizontalOverflow}
         hasVerticalOverflow={hasVerticalOverflow}
@@ -411,10 +408,17 @@ const PageArea = forwardRef(function PageArea(
             isControlled={isControlled}
             isBackgroundSelected={isBackgroundSelected}
           >
-            <PageAreaWithoutOverflow showOverflow={showOverflow}>
-              <PageAreaSafeZone ref={ref} data-testid="safezone">
-                {children}
-              </PageAreaSafeZone>
+            <PageAreaWithoutOverflow
+              ref={pageAreaRef}
+              showOverflow={showOverflow}
+            >
+              {withSafezone ? (
+                <PageAreaSafeZone ref={ref} data-testid="safezone">
+                  {children}
+                </PageAreaSafeZone>
+              ) : (
+                children
+              )}
             </PageAreaWithoutOverflow>
           </FullbleedContainer>
         </PaddedPage>
@@ -433,6 +437,8 @@ PageArea.propTypes = {
   className: PropTypes.string,
   showOverflow: PropTypes.bool,
   isBackgroundSelected: PropTypes.bool,
+  pageAreaRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  withSafezone: PropTypes.bool,
 };
 
 export {
