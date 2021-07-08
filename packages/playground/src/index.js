@@ -13,5 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Internal dependencies
+ */
+import './style.css';
+
 export { default as isPlayground } from './utils/isPlayground';
 export { default as appConfig } from './appConfig';
