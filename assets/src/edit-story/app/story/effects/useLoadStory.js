@@ -19,6 +19,7 @@
  */
 import { useEffect } from 'react';
 import { migrate } from '@web-stories-wp/migration';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -39,6 +40,38 @@ function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
 
   useEffect(() => {
     if (storyId && shouldLoad) {
+      if (isPlayground()) {
+        // If there are no pages, create empty page.
+        const storyData = migrate([], 0);
+        const newPage = createPage();
+        const pages =
+          storyData?.pages?.length > 0 ? storyData.pages : [newPage];
+
+        const story = {
+          storyId: 1,
+          currentStoryStyles: {
+            colors: storyData?.currentStoryStyles?.colors
+              ? getUniquePresets(storyData.currentStoryStyles.colors)
+              : [],
+          },
+          globalStoryStyles: {
+            colors: [],
+            textStyles: [],
+          },
+          autoAdvance: storyData?.autoAdvance,
+          defaultPageDuration: storyData?.defaultPageDuration,
+        };
+
+        restore({
+          pages,
+          story,
+          selection: [],
+          current: null, // will be set to first page by `restore`
+        });
+
+        return;
+      }
+
       const callback = isDemo ? getDemoStoryById : getStoryById;
       callback(storyId).then((post) => {
         const {
