@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 const isPlayground = () => {
-  return true; // @todo Add some logic to figure out if it playground.
+  // @todo Add some logic to figure out if it is a playground.
+  return '/wp-admin/post.php' !== location.pathname;
 };
 
 export default isPlayground;
