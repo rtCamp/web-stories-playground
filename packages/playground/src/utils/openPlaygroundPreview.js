@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Internal dependencies
  */
-import './style.css';
+import getCurrentUrl from './getCurrentUrl';
 
-export { default as isPlayground } from './utils/isPlayground';
-export { default as openPlaygroundPreview } from './utils/openPlaygroundPreview';
-export { default as appConfig } from './appConfig';
+function openPlaygroundPreview() {
+  window.open(getCurrentUrl() + 'preview.html', '_blank').focus();
+}
+
+export default openPlaygroundPreview;

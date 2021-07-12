@@ -27,6 +27,10 @@ import {
   BUTTON_VARIANTS,
   Icons,
 } from '@web-stories-wp/design-system';
+import {
+  isPlayground,
+  openPlaygroundPreview,
+} from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -74,6 +78,11 @@ function Preview() {
    */
   const openPreviewLink = useCallback(() => {
     trackEvent('preview_story');
+
+    if (isPlayground()) {
+      openPlaygroundPreview();
+      return;
+    }
 
     // Start a about:blank popup with waiting message until we complete
     // the saving operation. That way we will not bust the popup timeout.
