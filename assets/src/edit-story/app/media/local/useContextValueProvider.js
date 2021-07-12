@@ -19,6 +19,7 @@
  */
 import { useEffect, useCallback, useRef } from 'react';
 import { getTimeTracker } from '@web-stories-wp/tracking';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -132,13 +133,15 @@ export default function useContextValueProvider(reducerState, reducerActions) {
 
     resetFilters();
     const isFirstPage = !pageToken;
-    if (!mediaType && !searchTerm && isFirstPage) {
+    if (!mediaType && !searchTerm && isFirstPage && !isPlayground()) {
       fetchMedia({ mediaType, cacheBust: true }, fetchMediaSuccess);
     }
   }, [fetchMedia, fetchMediaSuccess, resetFilters]);
 
   useEffect(() => {
-    fetchMedia({ searchTerm, pageToken, mediaType }, fetchMediaSuccess);
+    if (!isPlayground()) {
+      fetchMedia({ searchTerm, pageToken, mediaType }, fetchMediaSuccess);
+    }
   }, [fetchMedia, fetchMediaSuccess, mediaType, pageToken, searchTerm]);
 
   const uploadVideoPoster = useCallback(
