@@ -60,6 +60,12 @@ function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
           },
           autoAdvance: storyData?.autoAdvance,
           defaultPageDuration: storyData?.defaultPageDuration,
+          featuredMedia: {
+            id: 0,
+            height: 0,
+            width: 0,
+            url: '',
+          },
         };
 
         restore({

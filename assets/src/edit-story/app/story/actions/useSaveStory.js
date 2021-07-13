@@ -22,6 +22,7 @@ import { useCallback, useState } from 'react';
 import { useFeatures } from 'flagged';
 import { getTimeTracker } from '@web-stories-wp/tracking';
 import { useSnackbar } from '@web-stories-wp/design-system';
+import { isPlayground, savePlaygroundStory } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -62,6 +63,19 @@ function useSaveStory({ storyId, pages, story, updateStory }) {
     (props) => {
       setIsSaving(true);
 
+      const storyPropsToSave = getStoryPropsToSave({
+        story,
+        pages,
+        metadata,
+        flags,
+      });
+
+      if (isPlayground()) {
+        return savePlaygroundStory(storyPropsToSave).then(() => {
+          setIsSaving(false);
+        });
+      }
+
       const isStoryAlreadyPublished = ['publish', 'future'].includes(
         story.status
       );
@@ -70,7 +84,7 @@ function useSaveStory({ storyId, pages, story, updateStory }) {
 
       return saveStoryById({
         storyId,
-        ...getStoryPropsToSave({ story, pages, metadata, flags }),
+        ...storyPropsToSave,
         ...props,
       })
         .then((post) => {

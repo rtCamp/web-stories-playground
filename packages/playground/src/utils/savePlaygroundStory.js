@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Internal dependencies
- */
-import getCurrentUrl from './getCurrentUrl';
+function savePlaygroundStory(storyPropsToSave) {
+  const { content } = storyPropsToSave;
+  localStorage.setItem('preview_markup', content);
 
-function openPlaygroundPreview() {
-  window.open(getCurrentUrl() + 'preview.html', '_blank').focus();
+  // Delay because, sometimes when the preview button is immediately clicked after adding a heavy media, the
+  // media doesn't appear in preview.
+  return new Promise((resolve) => setTimeout(resolve, 500));
 }
 
-export default openPlaygroundPreview;
+export default savePlaygroundStory;
