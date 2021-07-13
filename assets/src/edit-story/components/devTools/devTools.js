@@ -98,7 +98,7 @@ const replaceResourcesWithDummy = (state) => {
 };
 
 const templateResourcePlaceholder =
-  '____WEB_STORIES_TEMPLATE_BASE_URL__/images/templates/%%templateName%%/';
+  '__WEB_STORIES_TEMPLATE_BASE_URL__/images/templates/%%templateName%%/';
 
 const getResourceFileName = (src) => {
   // If empty source return empty.
