@@ -54,7 +54,7 @@ define( 'WEBSTORIES_MINIMUM_WP_VERSION', '5.5' );
 // define( 'WEBSTORIES_CDN_URL', 'https://wp.stories.google/static/main' );
 
 // @todo remove this before merging.
-define( 'WEBSTORIES_CDN_URL', 'https://media.githubusercontent.com/media/google/web-stories-wp/assets/batch-1/public/static/main/' );
+define( 'WEBSTORIES_CDN_URL', 'https://media.githubusercontent.com/media/google/web-stories-wp/assets/batch-2/public/static/main/' );
 
 if ( ! defined( 'WEBSTORIES_DEV_MODE' ) ) {
 	define( 'WEBSTORIES_DEV_MODE', false );
