@@ -229,6 +229,7 @@ class Experiments extends Service_Base {
 				'label'       => __( 'Bulk video optimization', 'web-stories' ),
 				'description' => __( 'Enable option to optimize multiple videos at once in the new pre-publish checklist', 'web-stories' ),
 				'group'       => 'editor',
+				'default'     => true,
 			],
 			/**
 			 * Author: @littlemilkstudio
@@ -240,6 +241,7 @@ class Experiments extends Service_Base {
 				'label'       => __( 'Checklist companion', 'web-stories' ),
 				'description' => __( 'Enable the new version of the pre-publish checklist as a popup in the editor', 'web-stories' ),
 				'group'       => 'editor',
+				'default'     => true,
 			],
 			/**
 			 * Author: @samwhale
@@ -376,6 +378,18 @@ class Experiments extends Service_Base {
 			],
 			/**
 			 * Author: @spacedmonkey
+			 * Issue: #7232
+			 * Creation date: 2021-07-14
+			 */
+			[
+				'name'        => 'enableGifOptimization',
+				'label'       => __( 'GIF optimization', 'web-stories' ),
+				'description' => __( 'Enable the conversion of animated GIFs to videos', 'web-stories' ),
+				'group'       => 'editor',
+				'default'     => true,
+			],
+			/**
+			 * Author: @spacedmonkey
 			 * Issue: #3126
 			 * Creation date: 2021-02-02
 			 */
@@ -384,6 +398,28 @@ class Experiments extends Service_Base {
 				'label'       => __( 'Story locking', 'web-stories' ),
 				'description' => __( 'Lock in-progress stories from being edited by other authors', 'web-stories' ),
 				'group'       => 'general',
+			],
+			/**
+			 * Author: @miina
+			 * Issue #7986
+			 * Creation date: 2021-08-08
+			 */
+			[
+				'name'        => 'enableSmartTextColor',
+				'label'       => __( 'Smart text color', 'web-stories' ),
+				'description' => __( 'Enable text insertion with smart color ensuring good contrast with the background', 'web-stories' ),
+				'group'       => 'editor',
+			],
+			/**
+			 * Author: @merapi
+			 * Issue: #262
+			 * Creation date: 2021-07-08
+			 */
+			[
+				'name'        => 'enableEyedropper',
+				'label'       => __( 'Eyedropper', 'web-stories' ),
+				'description' => __( 'Enable choosing color using an eyedropper', 'web-stories' ),
+				'group'       => 'editor',
 			],
 		];
 	}
