@@ -37,6 +37,7 @@ import {
   THEME_CONSTANTS,
   useSnackbar,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -62,6 +63,7 @@ import { PANE_PADDING } from '../../shared';
 import { LOCAL_MEDIA_TYPE_ALL } from '../../../../../app/media/local/types';
 import { focusStyle } from '../../../../panels/shared';
 import useFFmpeg from '../../../../../app/media/utils/useFFmpeg';
+import Tooltip from '../../../../tooltip';
 import MissingUploadPermissionDialog from './missingUploadPermissionDialog';
 import paneId from './paneId';
 import VideoOptimizationDialog from './videoOptimizationDialog';
@@ -332,14 +334,22 @@ function MediaPane(props) {
               </SearchCount>
             )}
             {!isSearching && (
-              <Button
-                variant={BUTTON_VARIANTS.RECTANGLE}
-                type={BUTTON_TYPES.SECONDARY}
-                size={BUTTON_SIZES.SMALL}
-                onClick={openMediaPicker}
+              <Tooltip
+                title={__(
+                  'Uploading is disabled for playground',
+                  'web-stories'
+                )}
               >
-                {__('Upload', 'web-stories')}
-              </Button>
+                <Button
+                  variant={BUTTON_VARIANTS.RECTANGLE}
+                  type={BUTTON_TYPES.SECONDARY}
+                  size={BUTTON_SIZES.SMALL}
+                  onClick={openMediaPicker}
+                  disabled={isPlayground()}
+                >
+                  {__('Upload', 'web-stories')}
+                </Button>
+              </Tooltip>
             )}
           </FilterArea>
         </PaneHeader>
