@@ -19,7 +19,7 @@
  */
 import { useEffect, useCallback, useRef } from 'react';
 import { getTimeTracker } from '@web-stories-wp/tracking';
-import { isPlayground } from '@web-stories-wp/playground';
+import { isPlayground, getDummyMedia } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -88,6 +88,7 @@ export default function useContextValueProvider(reducerState, reducerActions) {
         cacheBust: cacheBust,
       })
         .then(({ data, headers }) => {
+          window.sayed = data;
           const totalPages = parseInt(headers['X-WP-TotalPages']);
           const totalItems = parseInt(headers['X-WP-Total']);
           const mediaArray = data.map(getResourceFromAttachment);
@@ -139,9 +140,24 @@ export default function useContextValueProvider(reducerState, reducerActions) {
   }, [fetchMedia, fetchMediaSuccess, resetFilters]);
 
   useEffect(() => {
-    if (!isPlayground()) {
-      fetchMedia({ searchTerm, pageToken, mediaType }, fetchMediaSuccess);
+    if (isPlayground()) {
+      const dummyMedia = getDummyMedia();
+      const mediaArray = dummyMedia.map(getResourceFromAttachment);
+
+      fetchMediaSuccess({
+        media: mediaArray,
+        mediaType,
+        searchTerm,
+        pageToken,
+        nextPageToken: undefined,
+        totalPages: 1,
+        totalItems: mediaArray.length,
+      });
+
+      return;
     }
+
+    fetchMedia({ searchTerm, pageToken, mediaType }, fetchMediaSuccess);
   }, [fetchMedia, fetchMediaSuccess, mediaType, pageToken, searchTerm]);
 
   const uploadVideoPoster = useCallback(
