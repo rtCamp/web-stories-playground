@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,32 +15,21 @@
  */
 
 /**
- * External dependencies
- */
-import stickers from '@web-stories-wp/stickers';
-
-/**
  * Internal dependencies
  */
-import StoryPropTypes from '../../types';
+import checkVersion from './checkVersion';
 
-const style = {
-  display: 'block',
-  height: 20,
-  width: 'auto',
-};
-
-const Noop = () => null;
-
-function StickerLayerContent({ element }) {
-  const { sticker } = element;
-  const Sticker = stickers[sticker.type]?.svg || Noop;
-
-  return <Sticker style={style} />;
+/**
+ * Check minimum version of WordPress.
+ *
+ * @param {string} minVersion Minimum require WordPress version.
+ */
+function minWPVersionRequired(minVersion) {
+  if (!checkVersion(process.env?.WP_VERSION, minVersion)) {
+    //eslint-disable-next-line jest/require-top-level-describe, jest/no-focused-tests
+    test.only('minimum WordPress requirement not met', () => {});
+  }
 }
 
-StickerLayerContent.propTypes = {
-  element: StoryPropTypes.elements.sticker.isRequired,
-};
-
-export default StickerLayerContent;
+//eslint-disable-next-line jest/no-export
+export default minWPVersionRequired;
