@@ -21,6 +21,7 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { __ } from '@web-stories-wp/i18n';
 import { Input, Text, THEME_CONSTANTS } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 /**
  * Internal dependencies
  */
@@ -28,6 +29,7 @@ import { useStory } from '../../../../app/story';
 import { useConfig } from '../../../../app/config';
 import { Row, RadioGroup } from '../../../form';
 import { SimplePanel } from '../../panel';
+import Tooltip from '../../../tooltip';
 
 const InputRow = styled(Row)`
   margin-left: 34px;
@@ -150,7 +152,13 @@ function StatusPanel() {
       title={__('Status and visibility', 'web-stories')}
       collapsedByDefault={false}
     >
-      <>
+      <Tooltip
+        title={
+          isPlayground()
+            ? __('Status selection is disabled for playground', 'web-stories')
+            : ''
+        }
+      >
         <Row>
           <HelperText>
             {__('Set the current status of your story to', 'web-stories')}
@@ -163,6 +171,7 @@ function StatusPanel() {
             options={visibilityOptions}
             onChange={handleChangeVisibility}
             value={getStatusValue(status)}
+            disabled={isPlayground()}
           />
         </Row>
         {passwordProtected === status && (
@@ -176,7 +185,7 @@ function StatusPanel() {
             />
           </InputRow>
         )}
-      </>
+      </Tooltip>
     </SimplePanel>
   );
 }

@@ -76,7 +76,7 @@ function Preview() {
   const openPreviewLink = useCallback(() => {
     trackEvent('preview_story');
 
-    const playgroundPreviewLink = getCurrentUrl() + 'preview.html';
+    const playgroundPreviewLink = getCurrentUrl() + 'preview';
 
     // Start a about:blank popup with waiting message until we complete
     // the saving operation. That way we will not bust the popup timeout.

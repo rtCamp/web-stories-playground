@@ -335,10 +335,14 @@ function MediaPane(props) {
             )}
             {!isSearching && (
               <Tooltip
-                title={__(
-                  'Uploading is disabled for playground',
-                  'web-stories'
-                )}
+                title={
+                  isPlayground()
+                    ? __(
+                        'Uploading is disabled for the playground',
+                        'web-stories'
+                      )
+                    : ''
+                }
               >
                 <Button
                   variant={BUTTON_VARIANTS.RECTANGLE}
