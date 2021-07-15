@@ -25,6 +25,7 @@ import {
   Text,
   THEME_CONSTANTS,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -35,6 +36,7 @@ import { useFocusHighlight, states, styles } from '../../../../app/highlights';
 import { Row, Media, Required } from '../../../form';
 import useInspector from '../../../inspector/useInspector';
 import { Panel, PanelTitle, PanelContent } from '../../panel';
+import Tooltip from '../../../tooltip';
 import PublishTime from './publishTime';
 import Author from './author';
 
@@ -181,9 +183,28 @@ function PublishPanel() {
     >
       <PanelTitle>{__('Publishing', 'web-stories')}</PanelTitle>
       <PanelContent>
-        <PublishTime />
+        <Tooltip
+          title={
+            isPlayground()
+              ? __('Scheduling is disabled for the playground', 'web-stories')
+              : ''
+          }
+        >
+          <PublishTime />
+        </Tooltip>
         {capabilities && capabilities.hasAssignAuthorAction && users && (
-          <Author />
+          <Tooltip
+            title={
+              isPlayground()
+                ? __(
+                    'Author selection is disabled for the playground',
+                    'web-stories'
+                  )
+                : ''
+            }
+          >
+            <Author />
+          </Tooltip>
         )}
         <HighlightRow
           isHighlighted={
