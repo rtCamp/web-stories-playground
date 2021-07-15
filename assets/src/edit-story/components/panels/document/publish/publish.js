@@ -17,7 +17,7 @@
 /**
  * External dependencies
  */
-import { useCallback, useRef, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import { __, sprintf, translateToExclusiveList } from '@web-stories-wp/i18n';
 import {
@@ -25,18 +25,17 @@ import {
   Text,
   THEME_CONSTANTS,
 } from '@web-stories-wp/design-system';
-import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
  */
 import { useStory } from '../../../../app/story';
 import { useConfig } from '../../../../app/config';
-import { useFocusHighlight, states, styles } from '../../../../app/highlights';
-import { Row, Media, Required } from '../../../form';
+import { states, styles, useFocusHighlight } from '../../../../app/highlights';
+import { Media, Required, Row } from '../../../form';
 import useInspector from '../../../inspector/useInspector';
-import { Panel, PanelTitle, PanelContent } from '../../panel';
-import Tooltip from '../../../tooltip';
+import { Panel, PanelContent, PanelTitle } from '../../panel';
+import OptionalArea from '../../../optionalArea';
 import PublishTime from './publishTime';
 import Author from './author';
 
@@ -183,28 +182,23 @@ function PublishPanel() {
     >
       <PanelTitle>{__('Publishing', 'web-stories')}</PanelTitle>
       <PanelContent>
-        <Tooltip
-          title={
-            isPlayground()
-              ? __('Scheduling is disabled for the playground', 'web-stories')
-              : ''
-          }
+        <OptionalArea
+          playgroundTooltipTitle={__(
+            'Scheduling is disabled for the playground',
+            'web-stories'
+          )}
         >
           <PublishTime />
-        </Tooltip>
+        </OptionalArea>
         {capabilities && capabilities.hasAssignAuthorAction && users && (
-          <Tooltip
-            title={
-              isPlayground()
-                ? __(
-                    'Author selection is disabled for the playground',
-                    'web-stories'
-                  )
-                : ''
-            }
+          <OptionalArea
+            playgroundTooltipTitle={__(
+              'Author selection is disabled for the playground',
+              'web-stories'
+            )}
           >
             <Author />
-          </Tooltip>
+          </OptionalArea>
         )}
         <HighlightRow
           isHighlighted={
@@ -213,8 +207,8 @@ function PublishPanel() {
         >
           <MediaInputWrapper>
             <MediaWrapper>
-              <Tooltip
-                title={__(
+              <OptionalArea
+                playgroundTooltipTitle={__(
                   'Uploading is disabled for the playground',
                   'web-stories'
                 )}
@@ -231,7 +225,7 @@ function PublishPanel() {
                   ariaLabel={__('Poster image', 'web-stories')}
                   onChangeErrorText={posterErrorMessage}
                 />
-              </Tooltip>
+              </OptionalArea>
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Poster image', 'web-stories')}</Label>
@@ -240,8 +234,8 @@ function PublishPanel() {
           </MediaInputWrapper>
           <MediaInputWrapper>
             <MediaWrapper>
-              <Tooltip
-                title={__(
+              <OptionalArea
+                playgroundTooltipTitle={__(
                   'Uploading is disabled for the playground',
                   'web-stories'
                 )}
@@ -262,7 +256,7 @@ function PublishPanel() {
                   ariaLabel={__('Publisher Logo', 'web-stories')}
                   variant={MEDIA_VARIANTS.CIRCLE}
                 />
-              </Tooltip>
+              </OptionalArea>
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Publisher Logo', 'web-stories')}</Label>

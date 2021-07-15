@@ -27,9 +27,9 @@ import { isPlayground } from '@web-stories-wp/playground';
  */
 import { useStory } from '../../../../app/story';
 import { useConfig } from '../../../../app/config';
-import { Row, RadioGroup } from '../../../form';
+import { RadioGroup, Row } from '../../../form';
 import { SimplePanel } from '../../panel';
-import Tooltip from '../../../tooltip';
+import OptionalArea from '../../../optionalArea';
 
 const InputRow = styled(Row)`
   margin-left: 34px;
@@ -152,18 +152,17 @@ function StatusPanel() {
       title={__('Status and visibility', 'web-stories')}
       collapsedByDefault={false}
     >
-      <Tooltip
-        title={
-          isPlayground()
-            ? __('Status selection is disabled for playground', 'web-stories')
-            : ''
-        }
+      <Row>
+        <HelperText>
+          {__('Set the current status of your story to', 'web-stories')}
+        </HelperText>
+      </Row>
+      <OptionalArea
+        playgroundTooltipTitle={__(
+          'Status selection is disabled for playground',
+          'web-stories'
+        )}
       >
-        <Row>
-          <HelperText>
-            {__('Set the current status of your story to', 'web-stories')}
-          </HelperText>
-        </Row>
         <Row>
           <RadioGroup
             groupLabel="Visibility"
@@ -185,7 +184,7 @@ function StatusPanel() {
             />
           </InputRow>
         )}
-      </Tooltip>
+      </OptionalArea>
     </SimplePanel>
   );
 }
