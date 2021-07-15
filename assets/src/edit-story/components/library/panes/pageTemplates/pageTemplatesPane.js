@@ -21,6 +21,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { __ } from '@web-stories-wp/i18n';
 import { FULLBLEED_RATIO, PAGE_RATIO } from '@web-stories-wp/units';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -129,11 +130,14 @@ function PageTemplatesPane(props) {
       value: DEFAULT,
       label: __('Default templates', 'web-stories'),
     },
-    {
+  ];
+
+  if (!isPlayground()) {
+    options.push({
       value: SAVED,
       label: __('Saved templates', 'web-stories'),
-    },
-  ];
+    });
+  }
 
   const pageSize = useMemo(() => {
     const width = PAGE_TEMPLATE_PANE_WIDTH;
