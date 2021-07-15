@@ -213,18 +213,25 @@ function PublishPanel() {
         >
           <MediaInputWrapper>
             <MediaWrapper>
-              <StyledMedia
-                ref={posterButtonRef}
-                width={54}
-                height={96}
-                value={featuredMedia?.url}
-                onChange={handleChangePoster}
-                title={__('Select as poster image', 'web-stories')}
-                buttonInsertText={__('Select as poster image', 'web-stories')}
-                type={allowedImageMimeTypes}
-                ariaLabel={__('Poster image', 'web-stories')}
-                onChangeErrorText={posterErrorMessage}
-              />
+              <Tooltip
+                title={__(
+                  'Uploading is disabled for the playground',
+                  'web-stories'
+                )}
+              >
+                <StyledMedia
+                  ref={posterButtonRef}
+                  width={54}
+                  height={96}
+                  value={featuredMedia?.url}
+                  onChange={handleChangePoster}
+                  title={__('Select as poster image', 'web-stories')}
+                  buttonInsertText={__('Select as poster image', 'web-stories')}
+                  type={allowedImageMimeTypes}
+                  ariaLabel={__('Poster image', 'web-stories')}
+                  onChangeErrorText={posterErrorMessage}
+                />
+              </Tooltip>
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Poster image', 'web-stories')}</Label>
@@ -233,19 +240,29 @@ function PublishPanel() {
           </MediaInputWrapper>
           <MediaInputWrapper>
             <MediaWrapper>
-              <StyledMedia
-                width={72}
-                height={72}
-                ref={publisherLogoRef}
-                value={publisherLogoUrl}
-                onChange={handleChangePublisherLogo}
-                onChangeErrorText={publisherLogoErrorMessage}
-                title={__('Select as publisher logo', 'web-stories')}
-                buttonInsertText={__('Select as publisher logo', 'web-stories')}
-                type={allowedImageMimeTypes}
-                ariaLabel={__('Publisher Logo', 'web-stories')}
-                variant={MEDIA_VARIANTS.CIRCLE}
-              />
+              <Tooltip
+                title={__(
+                  'Uploading is disabled for the playground',
+                  'web-stories'
+                )}
+              >
+                <StyledMedia
+                  width={72}
+                  height={72}
+                  ref={publisherLogoRef}
+                  value={publisherLogoUrl}
+                  onChange={handleChangePublisherLogo}
+                  onChangeErrorText={publisherLogoErrorMessage}
+                  title={__('Select as publisher logo', 'web-stories')}
+                  buttonInsertText={__(
+                    'Select as publisher logo',
+                    'web-stories'
+                  )}
+                  type={allowedImageMimeTypes}
+                  ariaLabel={__('Publisher Logo', 'web-stories')}
+                  variant={MEDIA_VARIANTS.CIRCLE}
+                />
+              </Tooltip>
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Publisher Logo', 'web-stories')}</Label>
