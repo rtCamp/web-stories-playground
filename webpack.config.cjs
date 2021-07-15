@@ -27,6 +27,7 @@ const RtlCssPlugin = require('rtlcss-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const fs = require('fs');
 
 /**
  * WordPress dependencies
@@ -368,6 +369,9 @@ module.exports = ( env ) => {
     ].filter(Boolean),
   };
 
+  const playgroundFilePath = ( file ) => path.resolve( process.cwd(), 'packages', `playground/src/${ file }` );
+  const previewMarkup = fs.readFileSync(playgroundFilePath('preview.html'), 'utf8')
+
   if ( isPlayground ) {
     editorAndDashboard.plugins = [
       ...sharedConfig.plugins,
@@ -377,14 +381,18 @@ module.exports = ( env ) => {
       new HtmlWebpackPlugin({
         inject: true, // Don't inject default <script> tags, etc.
         minify: false, // PHP not HTML so don't attempt to minify.
-        template: path.resolve(
-          process.cwd(),
-          'packages',
-          'playground/src/index.html'
-        ),
+        template: playgroundFilePath( 'index.html' ),
         chunks: ['edit-story'],
       }),
     ];
+
+    editorAndDashboard.devServer = {
+      before: function ( app ) {
+        app.get('/preview', function (req, res) {
+          res.send( previewMarkup );
+        });
+      },
+    }
 
     return [
       editorAndDashboard
