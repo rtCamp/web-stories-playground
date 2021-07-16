@@ -28,6 +28,7 @@ import { useAPI } from '../../api';
 import { useHistory } from '../../history';
 import { createPage } from '../../../elements';
 import getUniquePresets from '../../../utils/getUniquePresets';
+import getPlaygroundInitialState from '../../../utils/getPlaygroundInitialState';
 
 // When ID is set, load story from API.
 function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
@@ -41,41 +42,7 @@ function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
   useEffect(() => {
     if (storyId && shouldLoad) {
       if (isPlayground()) {
-        // If there are no pages, create empty page.
-        const storyData = migrate([], 0);
-        const newPage = createPage();
-        const pages =
-          storyData?.pages?.length > 0 ? storyData.pages : [newPage];
-
-        const story = {
-          storyId: 1,
-          title: '',
-          currentStoryStyles: {
-            colors: storyData?.currentStoryStyles?.colors
-              ? getUniquePresets(storyData.currentStoryStyles.colors)
-              : [],
-          },
-          globalStoryStyles: {
-            colors: [],
-            textStyles: [],
-          },
-          autoAdvance: storyData?.autoAdvance,
-          defaultPageDuration: storyData?.defaultPageDuration,
-          featuredMedia: {
-            id: 0,
-            height: 0,
-            width: 0,
-            url: '',
-          },
-        };
-
-        restore({
-          pages,
-          story,
-          selection: [],
-          current: null, // will be set to first page by `restore`
-        });
-
+        restore(getPlaygroundInitialState());
         return;
       }
 

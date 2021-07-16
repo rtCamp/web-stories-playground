@@ -34,6 +34,7 @@ import { useCallback } from 'react';
  */
 import { useHistory, useStory } from '../../../app';
 import Tooltip from '../../tooltip';
+import getPlaygroundInitialState from '../../../utils/getPlaygroundInitialState';
 
 const ButtonContainer = styled.div`
   width: 32px;
@@ -62,7 +63,7 @@ function Reset() {
       return;
     }
 
-    const stateToReset = {};
+    const stateToReset = getPlaygroundInitialState();
 
     clearHistory();
     removeSessionStorage();
