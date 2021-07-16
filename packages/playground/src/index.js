@@ -18,9 +18,19 @@
  * Internal dependencies
  */
 import './style.css';
+import {
+  saveDataOnSessionStorage,
+  getDataFromSessionStorage,
+  removeSessionStorage,
+} from './utils/sessionStorage';
 
 export { default as isPlayground } from './utils/isPlayground';
 export { default as savePlaygroundStory } from './utils/savePlaygroundStory';
 export { default as getCurrentUrl } from './utils/getCurrentUrl';
 export { default as getDummyMedia } from './utils/getDummyMedia';
+export {
+  getDataFromSessionStorage,
+  saveDataOnSessionStorage,
+  removeSessionStorage,
+};
 export { default as appConfig } from './appConfig';

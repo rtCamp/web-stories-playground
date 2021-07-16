@@ -49,6 +49,7 @@ function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
 
         const story = {
           storyId: 1,
+          title: '',
           currentStoryStyles: {
             colors: storyData?.currentStoryStyles?.colors
               ? getUniquePresets(storyData.currentStoryStyles.colors)
