@@ -21,11 +21,18 @@ import { migrate } from '@web-stories-wp/migration/src/migrate';
 /**
  * Internal dependencies
  */
+import { getDataFromSessionStorage } from '@web-stories-wp/playground';
 import { createPage } from '../elements';
 import getUniquePresets from './getUniquePresets';
 
 // @todo Move to playground package.
 function getInitialPlaygroundInitialState() {
+  const sessionStorageState = getDataFromSessionStorage();
+
+  if (sessionStorageState) {
+    return sessionStorageState;
+  }
+
   // If there are no pages, create empty page.
   const storyData = migrate([], 0);
   const pages = storyData?.pages?.length > 0 ? storyData.pages : [createPage()];

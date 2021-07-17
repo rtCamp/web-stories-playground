@@ -42,6 +42,7 @@ const ButtonContainer = styled.div`
   margin-right: 10px;
 `;
 
+// @todo To be moved to playground package.
 function Reset() {
   const {
     internal: { restore },
@@ -63,12 +64,10 @@ function Reset() {
       return;
     }
 
-    const stateToReset = getPlaygroundInitialState();
-
-    clearHistory();
     removeSessionStorage();
+    clearHistory();
 
-    restore(stateToReset);
+    restore(getPlaygroundInitialState());
   }, [clearHistory, restore]);
 
   const label = __('Reset', 'web-stories');
