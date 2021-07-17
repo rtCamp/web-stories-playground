@@ -33,4 +33,5 @@ export {
   saveDataOnSessionStorage,
   removeSessionStorage,
 };
+export { default as useSessionStorage } from './effects/useSessionStorage';
 export { default as appConfig } from './appConfig';
