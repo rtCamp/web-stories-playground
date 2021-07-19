@@ -375,6 +375,10 @@ module.exports = ( env ) => {
   // Configuration for playground.
   const playground = {
     ...editorAndDashboard,
+    entry: {
+      ...editorAndDashboard.entry,
+      'web-stories-playground': playgroundFilePath( 'style.css' ),
+    },
     plugins: [
       ...sharedConfig.plugins,
       new WebpackBar({
@@ -384,7 +388,7 @@ module.exports = ( env ) => {
         inject: true, // Don't inject default <script> tags, etc.
         minify: false, // PHP not HTML so don't attempt to minify.
         template: playgroundFilePath( 'index.html' ),
-        chunks: ['edit-story'],
+        chunks: ['edit-story', 'web-stories-playground'],
       }),
     ],
     devServer: {

@@ -24,7 +24,6 @@ import { FlagsProvider } from 'flagged';
 import { updateSettings } from '@web-stories-wp/date';
 import { initializeTracking } from '@web-stories-wp/tracking';
 import { isPlayground, appConfig } from '@web-stories-wp/playground';
-import '@web-stories-wp/playground/src/style.css'; // @todo Update style path being imported here.
 
 /**
  * Internal dependencies

@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * Internal dependencies
- */
-import './style.css';
-import {
-  saveDataOnSessionStorage,
-  getDataFromSessionStorage,
-  removeSessionStorage,
-} from './utils/sessionStorage';
-
 export { default as isPlayground } from './utils/isPlayground';
 export { default as savePlaygroundStory } from './utils/savePlaygroundStory';
 export { default as getCurrentUrl } from './utils/getCurrentUrl';
@@ -32,6 +22,6 @@ export {
   getDataFromSessionStorage,
   saveDataOnSessionStorage,
   removeSessionStorage,
-};
+} from './utils/sessionStorage';
 export { default as useSessionStorage } from './effects/useSessionStorage';
 export { default as appConfig } from './appConfig';
