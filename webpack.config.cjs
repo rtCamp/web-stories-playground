@@ -370,10 +370,12 @@ module.exports = ( env ) => {
   };
 
   const playgroundFilePath = ( file ) => path.resolve( process.cwd(), 'packages', `playground/src/${ file }` );
-  const previewMarkup = fs.readFileSync(playgroundFilePath('preview.html'), 'utf8')
+  const previewMarkup = fs.readFileSync(playgroundFilePath('preview.html'), 'utf8');
 
-  if ( isPlayground ) {
-    editorAndDashboard.plugins = [
+  // Configuration for playground.
+  const playground = {
+    ...editorAndDashboard,
+    plugins: [
       ...sharedConfig.plugins,
       new WebpackBar({
         name: 'Web Stories Playground',
@@ -384,18 +386,19 @@ module.exports = ( env ) => {
         template: playgroundFilePath( 'index.html' ),
         chunks: ['edit-story'],
       }),
-    ];
-
-    editorAndDashboard.devServer = {
+    ],
+    devServer: {
       before: function ( app ) {
         app.get('/preview', function (req, res) {
           res.send( previewMarkup );
         });
       },
     }
+  };
 
+  if ( isPlayground ) {
     return [
-      editorAndDashboard
+      playground
     ];
   }
 
