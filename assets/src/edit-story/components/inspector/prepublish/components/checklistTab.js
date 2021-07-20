@@ -21,6 +21,8 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { __, sprintf } from '@web-stories-wp/i18n';
 import { Icons } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
+
 /**
  * Internal dependencies
  */
@@ -280,7 +282,7 @@ const ChecklistTab = ({
           }
           ariaLabel={TEXT.RECOMMENDED_TITLE}
         >
-          {hasUploadMediaAction && (
+          {hasUploadMediaAction && !isPlayground() && (
             <AutoVideoOptimization
               areVideosAutoOptimized={areVideosAutoOptimized}
               onAutoOptimizeVideoClick={onAutoVideoOptimizationClick}

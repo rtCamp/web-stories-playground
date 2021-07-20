@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
  * Internal dependencies
  */
 import { __ } from '@web-stories-wp/i18n';
+import { isPlayground } from '@web-stories-wp/playground';
 import { ISSUE_TYPES } from '../constants';
 import ElementLinkTappableRegionTooSmall from '../checks/elementLinkTappableRegionTooSmall';
 import ImageElementMissingAlt from '../checks/imageElementMissingAlt';
@@ -51,7 +52,7 @@ export function AccessibilityChecks({
         <PanelText>
           {__('Make your Web Story accessible.', 'web-stories')}
         </PanelText>
-        <VideoOptimizationToggle />
+        {!isPlayground() && <VideoOptimizationToggle />}
         <PageBackgroundTextLowContrast />
         <TextElementFontSizeTooSmall />
         <VideoElementMissingDescription />
