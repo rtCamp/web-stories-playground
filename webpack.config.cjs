@@ -105,6 +105,7 @@ module.exports = ( env ) => {
               options: {
                 titleProp: true,
                 svgo: true,
+                memo: true,
                 svgoConfig: {
                   plugins: [
                     {
@@ -130,6 +131,7 @@ module.exports = ( env ) => {
               options: {
                 titleProp: true,
                 svgo: true,
+                memo: true,
                 svgoConfig: {
                   plugins: [
                     {
@@ -383,6 +385,7 @@ module.exports = ( env ) => {
       ...sharedConfig.plugins,
       new WebpackBar({
         name: 'Web Stories Playground',
+        color: '#EEE070',
       }),
       new HtmlWebpackPlugin({
         inject: true, // Don't inject default <script> tags, etc.

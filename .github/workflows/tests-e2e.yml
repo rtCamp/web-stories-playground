@@ -51,7 +51,7 @@ jobs:
             wp: 'latest'
             snapshots: true
           - browser: 'chrome'
-            wp: '5.8-RC2'
+            wp: '5.8-RC4'
             experimental: true
             snapshots: false
           - browser: 'chrome'
@@ -123,10 +123,13 @@ jobs:
         run: npm run test:e2e:percy
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_E2E }}
+          WP_VERSION: ${{ matrix.wp }}
         if: ( matrix.snapshots ) && ( github.event.pull_request.draft == false )
 
       - name: Run E2E tests
         run: npm run test:e2e
+        env:
+          WP_VERSION: ${{ matrix.wp }}
         if: ( ! matrix.snapshots ) || ( github.event.pull_request.draft == true )
 
       - name: Stop Docker environment

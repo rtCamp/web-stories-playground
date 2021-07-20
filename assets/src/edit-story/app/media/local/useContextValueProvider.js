@@ -27,7 +27,7 @@ import { isPlayground, getDummyMedia } from '@web-stories-wp/playground';
 import { useAPI } from '../../api';
 import { useConfig } from '../../config';
 import useUploadVideoFrame from '../utils/useUploadVideoFrame';
-import useProcessVideo from '../utils/useProcessVideo';
+import useProcessMedia from '../utils/useProcessMedia';
 import useUploadMedia from '../useUploadMedia';
 import getResourceFromAttachment from '../utils/getResourceFromAttachment';
 import { LOCAL_MEDIA_TYPE_ALL } from './types';
@@ -190,7 +190,7 @@ export default function useContextValueProvider(reducerState, reducerActions) {
     [setProcessing, uploadVideoFrame, removeProcessing]
   );
 
-  const { optimizeVideo } = useProcessVideo({
+  const { optimizeVideo, optimizeGif } = useProcessMedia({
     uploadVideoPoster,
     uploadMedia,
     updateMedia,
@@ -198,9 +198,9 @@ export default function useContextValueProvider(reducerState, reducerActions) {
   });
 
   const generateMissingPosters = useCallback(
-    ({ mimeType, posterId, id, src, local }) => {
+    ({ mimeType, posterId, id, src, local, type }) => {
       if (
-        allowedVideoMimeTypes.includes(mimeType) &&
+        (allowedVideoMimeTypes.includes(mimeType) || type === 'gif') &&
         !local &&
         !posterId &&
         id
@@ -217,10 +217,14 @@ export default function useContextValueProvider(reducerState, reducerActions) {
     media?.forEach((mediaElement) => generateMissingPosters(mediaElement));
   }, [media, mediaType, searchTerm, generateMissingPosters]);
 
+  const isGeneratingPosterImages = Boolean(
+    stateRef.current?.processing?.length
+  );
+
   return {
     state: {
       ...reducerState,
-      isUploading,
+      isUploading: isUploading || isGeneratingPosterImages,
       isTranscoding,
     },
     actions: {
@@ -234,6 +238,7 @@ export default function useContextValueProvider(reducerState, reducerActions) {
       deleteMediaElement,
       updateMediaElement,
       optimizeVideo,
+      optimizeGif,
     },
   };
 }

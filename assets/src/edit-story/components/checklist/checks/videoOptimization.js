@@ -24,7 +24,6 @@ import styled from 'styled-components';
  * Internal dependencies
  */
 import { useCallback, useMemo, useReducer } from 'react';
-import { useFeature } from 'flagged';
 import {
   Button,
   BUTTON_SIZES,
@@ -32,7 +31,7 @@ import {
   Tooltip,
 } from '@web-stories-wp/design-system';
 import { useLocalMedia, useStory } from '../../../app';
-import { VIDEO_SIZE_THRESHOLD } from '../../../app/media/utils/useFFmpeg';
+import { MEDIA_VIDEO_DIMENSIONS_THRESHOLD } from '../../../constants';
 import { PRIORITY_COPY } from '../constants';
 import { LayerThumbnail, Thumbnail, THUMBNAIL_TYPES } from '../../thumbnail';
 import {
@@ -42,8 +41,8 @@ import {
 } from '../../checklistCard';
 import { filterStoryElements } from '../utils/filterStoryElements';
 import { useHighlights } from '../../../app/highlights';
-import { useRegisterCheck } from '../countContext';
 import { StyledVideoOptimizationIcon } from '../../checklistCard/styles';
+import { useRegisterCheck } from '../countContext';
 
 const OptimizeButton = styled(Button)`
   margin-top: 4px;
@@ -65,7 +64,9 @@ export function videoElementsNotOptimized(element = {}) {
   const videoArea =
     (element.resource?.height ?? 0) * (element.resource?.width ?? 0);
   const isLargeVideo =
-    videoArea >= VIDEO_SIZE_THRESHOLD.WIDTH * VIDEO_SIZE_THRESHOLD.HEIGHT;
+    videoArea >=
+    MEDIA_VIDEO_DIMENSIONS_THRESHOLD.WIDTH *
+      MEDIA_VIDEO_DIMENSIONS_THRESHOLD.HEIGHT;
   return isLargeVideo;
 }
 
@@ -100,11 +101,10 @@ function reducer(state, action) {
 
 export const BulkVideoOptimization = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const isBulkVideoOptimizationEnabled = useFeature(
-    'enableBulkVideoOptimization'
-  );
-  const unoptimizedElements = useStory(({ state: storyState }) =>
-    filterStoryElements(storyState, videoElementsNotOptimized)
+  const pages = useStory(({ state: storyState }) => storyState?.pages);
+  const unoptimizedElements = useMemo(
+    () => filterStoryElements(pages, videoElementsNotOptimized),
+    [pages]
   );
   const unoptimizedVideos = unoptimizedElements.filter(
     (element, index, array) =>
@@ -211,16 +211,14 @@ export const BulkVideoOptimization = () => {
     isRendered && (
       <ChecklistCard
         cta={
-          isBulkVideoOptimizationEnabled && (
-            <OptimizeButton
-              type={BUTTON_TYPES.SECONDARY}
-              size={BUTTON_SIZES.SMALL}
-              onClick={handleUpdateVideos}
-              disabled={isTranscoding}
-            >
-              {optimizeButtonCopy}
-            </OptimizeButton>
-          )
+          <OptimizeButton
+            type={BUTTON_TYPES.SECONDARY}
+            size={BUTTON_SIZES.SMALL}
+            onClick={handleUpdateVideos}
+            disabled={isTranscoding}
+          >
+            {optimizeButtonCopy}
+          </OptimizeButton>
         }
         title={title}
         cardType={

@@ -33,7 +33,6 @@ import { isPlayground } from '@web-stories-wp/playground';
  */
 import { useStory, useLocalMedia } from '../../../app';
 import Tooltip from '../../tooltip';
-import { usePrepublishChecklist } from '../../inspector/prepublish';
 
 function SwitchToDraft() {
   const { isSaving, saveStory } = useStory(
@@ -48,13 +47,9 @@ function SwitchToDraft() {
     isUploading: state.state.isUploading,
   }));
 
-  // TODO #7978 - Remove Old Checklist
-  const { resetReviewDialog } = usePrepublishChecklist();
-
   const handleUnPublish = useCallback(() => {
     saveStory({ status: 'draft' });
-    resetReviewDialog();
-  }, [resetReviewDialog, saveStory]);
+  }, [saveStory]);
 
   const label = __('Switch to Draft', 'web-stories');
   return (

@@ -139,7 +139,7 @@ function PublishPanel() {
       updateStory({
         properties: {
           publisherLogo: image.id,
-          publisherLogoUrl: image.sizes?.thumbnail?.url || image.url,
+          publisherLogoUrl: image.sizes?.full?.url || image.url,
         },
       });
     },
@@ -217,6 +217,10 @@ function PublishPanel() {
                   ref={posterButtonRef}
                   width={54}
                   height={96}
+                  cropParams={{
+                    width: 640,
+                    height: 853,
+                  }}
                   value={featuredMedia?.url}
                   onChange={handleChangePoster}
                   title={__('Select as poster image', 'web-stories')}
@@ -243,6 +247,10 @@ function PublishPanel() {
                 <StyledMedia
                   width={72}
                   height={72}
+                  cropParams={{
+                    width: 96,
+                    height: 96,
+                  }}
                   ref={publisherLogoRef}
                   value={publisherLogoUrl}
                   onChange={handleChangePublisherLogo}
