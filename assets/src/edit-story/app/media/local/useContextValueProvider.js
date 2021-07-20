@@ -142,9 +142,16 @@ export default function useContextValueProvider(reducerState, reducerActions) {
     if (isPlayground()) {
       const dummyMedia = getDummyMedia();
       const mediaArray = dummyMedia.map(getResourceFromAttachment);
+      let mediaItems = mediaArray;
+
+      if (['image', 'video'].includes(mediaType)) {
+        mediaItems = mediaArray.filter(
+          (mediaItem) => mediaType === mediaItem.type
+        );
+      }
 
       fetchMediaSuccess({
-        media: mediaArray,
+        media: mediaItems,
         mediaType,
         searchTerm,
         pageToken,
