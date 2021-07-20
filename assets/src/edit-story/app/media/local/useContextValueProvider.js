@@ -150,6 +150,12 @@ export default function useContextValueProvider(reducerState, reducerActions) {
         );
       }
 
+      if (searchTerm) {
+        mediaItems = mediaItems.filter((mediaItem) =>
+          mediaItem.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
       fetchMediaSuccess({
         media: mediaItems,
         mediaType,
