@@ -385,7 +385,7 @@ module.exports = ( env ) => {
       ...sharedConfig.plugins,
       new WebpackBar({
         name: 'Web Stories Playground',
-        color: '#EEE070',
+        color: '#00FFFF',
       }),
       new HtmlWebpackPlugin({
         inject: true, // Don't inject default <script> tags, etc.
