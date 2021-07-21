@@ -36,7 +36,6 @@ import { states, styles, useFocusHighlight } from '../../../../app/highlights';
 import { Media, Required, Row } from '../../../form';
 import useInspector from '../../../inspector/useInspector';
 import { Panel, PanelContent, PanelTitle } from '../../panel';
-import OptionalArea from '../../../optionalArea';
 import PublishTime from './publishTime';
 import Author from './author';
 
@@ -195,29 +194,22 @@ function PublishPanel() {
         >
           <MediaInputWrapper>
             <MediaWrapper>
-              <OptionalArea
-                playgroundTooltipTitle={__(
-                  'Uploading is disabled for the playground',
-                  'web-stories'
-                )}
-              >
-                <StyledMedia
-                  ref={posterButtonRef}
-                  width={54}
-                  height={96}
-                  cropParams={{
-                    width: 640,
-                    height: 853,
-                  }}
-                  value={featuredMedia?.url}
-                  onChange={handleChangePoster}
-                  title={__('Select as poster image', 'web-stories')}
-                  buttonInsertText={__('Select as poster image', 'web-stories')}
-                  type={allowedImageMimeTypes}
-                  ariaLabel={__('Poster image', 'web-stories')}
-                  onChangeErrorText={posterErrorMessage}
-                />
-              </OptionalArea>
+              <StyledMedia
+                ref={posterButtonRef}
+                width={54}
+                height={96}
+                cropParams={{
+                  width: 640,
+                  height: 853,
+                }}
+                value={featuredMedia?.url}
+                onChange={handleChangePoster}
+                title={__('Select as poster image', 'web-stories')}
+                buttonInsertText={__('Select as poster image', 'web-stories')}
+                type={allowedImageMimeTypes}
+                ariaLabel={__('Poster image', 'web-stories')}
+                onChangeErrorText={posterErrorMessage}
+              />
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Poster image', 'web-stories')}</Label>
@@ -226,33 +218,23 @@ function PublishPanel() {
           </MediaInputWrapper>
           <MediaInputWrapper>
             <MediaWrapper>
-              <OptionalArea
-                playgroundTooltipTitle={__(
-                  'Uploading is disabled for the playground',
-                  'web-stories'
-                )}
-              >
-                <StyledMedia
-                  width={72}
-                  height={72}
-                  cropParams={{
-                    width: 96,
-                    height: 96,
-                  }}
-                  ref={publisherLogoRef}
-                  value={publisherLogoUrl}
-                  onChange={handleChangePublisherLogo}
-                  onChangeErrorText={publisherLogoErrorMessage}
-                  title={__('Select as publisher logo', 'web-stories')}
-                  buttonInsertText={__(
-                    'Select as publisher logo',
-                    'web-stories'
-                  )}
-                  type={allowedImageMimeTypes}
-                  ariaLabel={__('Publisher Logo', 'web-stories')}
-                  variant={MEDIA_VARIANTS.CIRCLE}
-                />
-              </OptionalArea>
+              <StyledMedia
+                width={72}
+                height={72}
+                cropParams={{
+                  width: 96,
+                  height: 96,
+                }}
+                ref={publisherLogoRef}
+                value={publisherLogoUrl}
+                onChange={handleChangePublisherLogo}
+                onChangeErrorText={publisherLogoErrorMessage}
+                title={__('Select as publisher logo', 'web-stories')}
+                buttonInsertText={__('Select as publisher logo', 'web-stories')}
+                type={allowedImageMimeTypes}
+                ariaLabel={__('Publisher Logo', 'web-stories')}
+                variant={MEDIA_VARIANTS.CIRCLE}
+              />
             </MediaWrapper>
             <LabelWrapper>
               <Label>{__('Publisher Logo', 'web-stories')}</Label>
