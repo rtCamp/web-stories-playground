@@ -15,6 +15,11 @@
  */
 
 /**
+ * External dependencies
+ */
+import { isPlayground } from '@web-stories-wp/playground';
+
+/**
  * Internal dependencies
  */
 import {
@@ -28,10 +33,10 @@ import {
 function DocumentInspector() {
   return (
     <>
-      <StatusPanel />
+      {!isPlayground() && <StatusPanel />}
       <PublishPanel />
       <ExcerptPanel />
-      <SlugPanel />
+      {!isPlayground() && <SlugPanel />}
       <PageAdvancementPanel />
     </>
   );

@@ -26,7 +26,6 @@ import {
   BUTTON_VARIANTS,
   Icons,
 } from '@web-stories-wp/design-system';
-import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -59,7 +58,7 @@ function SwitchToDraft() {
         type={BUTTON_TYPES.QUATERNARY}
         size={BUTTON_SIZES.SMALL}
         onClick={handleUnPublish}
-        disabled={isSaving || isUploading || isPlayground()}
+        disabled={isSaving || isUploading}
         aria-label={label}
       >
         <Icons.PageSwap />

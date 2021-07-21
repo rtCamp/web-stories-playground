@@ -26,7 +26,6 @@ import {
   THEME_CONSTANTS,
   ThemeGlobals,
 } from '@web-stories-wp/design-system';
-import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -37,7 +36,6 @@ import inRange from '../../../../utils/inRange';
 import { Row } from '../../../form';
 import { SimplePanel } from '../../panel';
 import { inputContainerStyleOverride } from '../../shared';
-import OptionalArea from '../../../optionalArea';
 
 export const MIN_MAX = {
   PERMALINK: {
@@ -117,26 +115,18 @@ function SlugPanel() {
       title={__('Permalink', 'web-stories')}
       collapsedByDefault={false}
     >
-      <OptionalArea
-        playgroundTooltipTitle={__(
-          'Permalink is disabled for the playground',
-          'web-stories'
-        )}
-      >
-        <PermalinkRow>
-          <Input
-            value={String(slug)}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder={__('Enter slug', 'web-stories')}
-            aria-label={__('URL slug', 'web-stories')}
-            minLength={MIN_MAX.PERMALINK.MIN}
-            maxLength={MIN_MAX.PERMALINK.MAX}
-            containerStyleOverride={inputContainerStyleOverride}
-            disabled={isPlayground()}
-          />
-        </PermalinkRow>
-      </OptionalArea>
+      <PermalinkRow>
+        <Input
+          value={String(slug)}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder={__('Enter slug', 'web-stories')}
+          aria-label={__('URL slug', 'web-stories')}
+          minLength={MIN_MAX.PERMALINK.MIN}
+          maxLength={MIN_MAX.PERMALINK.MAX}
+          containerStyleOverride={inputContainerStyleOverride}
+        />
+      </PermalinkRow>
       <LinkContainer>
         <Link
           rel="noopener noreferrer"

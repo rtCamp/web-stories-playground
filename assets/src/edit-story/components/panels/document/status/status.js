@@ -21,7 +21,7 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { __ } from '@web-stories-wp/i18n';
 import { Input, Text, THEME_CONSTANTS } from '@web-stories-wp/design-system';
-import { isPlayground } from '@web-stories-wp/playground';
+
 /**
  * Internal dependencies
  */
@@ -29,7 +29,6 @@ import { useStory } from '../../../../app/story';
 import { useConfig } from '../../../../app/config';
 import { RadioGroup, Row } from '../../../form';
 import { SimplePanel } from '../../panel';
-import OptionalArea from '../../../optionalArea';
 
 const InputRow = styled(Row)`
   margin-left: 34px;
@@ -157,34 +156,26 @@ function StatusPanel() {
           {__('Set the current status of your story to', 'web-stories')}
         </HelperText>
       </Row>
-      <OptionalArea
-        playgroundTooltipTitle={__(
-          'Status selection is disabled for playground',
-          'web-stories'
-        )}
-      >
-        <Row>
-          <RadioGroup
-            groupLabel="Visibility"
-            name="radio-group-visibility"
-            options={visibilityOptions}
-            onChange={handleChangeVisibility}
-            value={getStatusValue(status)}
-            disabled={isPlayground()}
+      <Row>
+        <RadioGroup
+          groupLabel="Visibility"
+          name="radio-group-visibility"
+          options={visibilityOptions}
+          onChange={handleChangeVisibility}
+          value={getStatusValue(status)}
+        />
+      </Row>
+      {passwordProtected === status && (
+        <InputRow>
+          <Input
+            aria-label={__('Password', 'web-stories')}
+            value={password}
+            onBlur={handleUpdatePassword}
+            onChange={handleChangePassword}
+            placeholder={__('Enter a password', 'web-stories')}
           />
-        </Row>
-        {passwordProtected === status && (
-          <InputRow>
-            <Input
-              aria-label={__('Password', 'web-stories')}
-              value={password}
-              onBlur={handleUpdatePassword}
-              onChange={handleChangePassword}
-              placeholder={__('Enter a password', 'web-stories')}
-            />
-          </InputRow>
-        )}
-      </OptionalArea>
+        </InputRow>
+      )}
     </SimplePanel>
   );
 }

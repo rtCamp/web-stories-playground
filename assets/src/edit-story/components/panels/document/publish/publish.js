@@ -25,6 +25,7 @@ import {
   Text,
   THEME_CONSTANTS,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -182,24 +183,11 @@ function PublishPanel() {
     >
       <PanelTitle>{__('Publishing', 'web-stories')}</PanelTitle>
       <PanelContent>
-        <OptionalArea
-          playgroundTooltipTitle={__(
-            'Scheduling is disabled for the playground',
-            'web-stories'
-          )}
-        >
-          <PublishTime />
-        </OptionalArea>
-        {capabilities && capabilities.hasAssignAuthorAction && users && (
-          <OptionalArea
-            playgroundTooltipTitle={__(
-              'Author selection is disabled for the playground',
-              'web-stories'
-            )}
-          >
-            <Author />
-          </OptionalArea>
-        )}
+        {!isPlayground() && <PublishTime />}
+        {capabilities &&
+          capabilities.hasAssignAuthorAction &&
+          users &&
+          !isPlayground() && <Author />}
         <HighlightRow
           isHighlighted={
             highlightPoster?.showEffect || highlightLogo?.showEffect

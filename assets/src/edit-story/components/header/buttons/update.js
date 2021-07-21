@@ -26,7 +26,6 @@ import {
   useGlobalKeyDownEffect,
   Icons,
 } from '@web-stories-wp/design-system';
-import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -72,10 +71,7 @@ function Update() {
   // then only if there are new changes or the story has meta-boxes – as these
   // can update without us knowing it.
   const isEnabled =
-    !isSaving &&
-    !isUploading &&
-    (hasNewChanges || hasMetaBoxes) &&
-    !isPlayground();
+    !isSaving && !isUploading && (hasNewChanges || hasMetaBoxes);
   let text;
   switch (status) {
     case 'publish':
