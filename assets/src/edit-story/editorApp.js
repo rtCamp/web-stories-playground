@@ -70,7 +70,7 @@ function App({ config }) {
                       <MetaBoxesProvider>
                         <StoryProvider storyId={storyId}>
                           <CurrentUserProvider>
-                            { ! isPlayground() && <PostLock /> }
+                            {!isPlayground() && <PostLock />}
                             <FontProvider>
                               <MediaProvider>
                                 <AutoSaveHandler />
