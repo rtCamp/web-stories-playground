@@ -150,6 +150,7 @@ function Preview() {
   );
 
   const label = __('Preview', 'web-stories');
+  const isDisabled = !isPlayground() && (isSaving || isUploading);
   return (
     <>
       <Tooltip title={label} hasTail>
@@ -158,7 +159,7 @@ function Preview() {
           type={BUTTON_TYPES.QUATERNARY}
           size={BUTTON_SIZES.SMALL}
           onClick={openPreviewLink}
-          disabled={isSaving || isUploading}
+          disabled={isDisabled}
           aria-label={label}
         >
           <Icons.Eye />
