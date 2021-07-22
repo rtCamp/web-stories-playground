@@ -209,6 +209,7 @@ function PublishPanel() {
                 type={allowedImageMimeTypes}
                 ariaLabel={__('Poster image', 'web-stories')}
                 onChangeErrorText={posterErrorMessage}
+                disabled={isPlayground()}
               />
             </MediaWrapper>
             <LabelWrapper>
@@ -234,6 +235,7 @@ function PublishPanel() {
                 type={allowedImageMimeTypes}
                 ariaLabel={__('Publisher Logo', 'web-stories')}
                 variant={MEDIA_VARIANTS.CIRCLE}
+                disabled={isPlayground()}
               />
             </MediaWrapper>
             <LabelWrapper>

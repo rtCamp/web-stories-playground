@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import { useState, forwardRef, useMemo, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { __ } from '@web-stories-wp/i18n';
-import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -201,7 +200,6 @@ export const MediaInput = forwardRef(function Media(
           variant={BUTTON_VARIANTS.SQUARE}
           type={BUTTON_TYPES.TERTIARY}
           size={BUTTON_SIZES.SMALL}
-          disabled={isPlayground()}
           aria-label={ariaLabel}
           onClick={hasMenu ? () => setIsMenuOpen(true) : openMediaPicker}
           aria-owns={hasMenu ? listId : null}
