@@ -17,6 +17,7 @@ node_modules
 /static
 /third-party
 /vendor
+/dist
 phpcs.xml
 phpunit.xml
 phpunit-multisite.xml

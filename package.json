@@ -142,6 +142,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "browserslist": "^4.16.6",
     "commander": "^8.0.0",
+    "copy-webpack-plugin": "^6.4.1",
     "core-js": "^3.15.2",
     "css-loader": "^5.2.6",
     "cssnano": "^5.0.6",
@@ -163,6 +164,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-styled-components-a11y": "^0.0.34",
     "eslint-plugin-testing-library": "^4.9.0",
+    "gh-pages": "^3.2.3",
     "glob": "^7.1.7",
     "html-webpack-plugin": "^4.5.2",
     "husky": "^4.3.7",
@@ -287,7 +289,9 @@
     "postworkflow:migrate:templates": "npx prettier --write packages/templates/src/raw",
     "workflow:migrate:ftue-story": "migration includes/data/stories",
     "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories",
-    "playground": "webpack serve --env playground --config webpack.config.cjs --progress --open"
+    "playground": "NODE_IS_PLAYGROUND=true webpack serve --config webpack.config.cjs --progress --open",
+    "playground:predeploy": "NODE_IS_PLAYGROUND=true npm-run-all build:*",
+	"playground:deploy": "npm run playground:predeploy && gh-pages -d dist"
   },
   "husky": {
     "hooks": {
