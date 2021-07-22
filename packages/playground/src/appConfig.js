@@ -157,7 +157,7 @@ export default {
     enableSVG: false,
     enablePostLocking: false,
     enableBulkVideoOptimization: false,
-    enableChecklistCompanion: false,
+    enableChecklistCompanion: true,
     enableRightClickMenus: false,
     enableQuickActionMenus: false,
     enableStickers: false,
