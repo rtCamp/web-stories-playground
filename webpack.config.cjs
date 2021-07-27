@@ -228,7 +228,7 @@ const templateContent = ({ htmlWebpackPlugin }) => {
 const editorAndDashboard = {
   ...sharedConfig,
   entry: {
-    'edit-story': './assets/src/edit-story/index.js',
+    'edit-story': './packages/story-editor/src/index.js',
     'stories-dashboard': './assets/src/dashboard/index.js',
   },
   plugins: [
