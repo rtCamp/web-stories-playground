@@ -33,10 +33,14 @@ import {
 function DocumentInspector() {
   return (
     <>
-      {!isPlayground() && <StatusPanel />}
-      <PublishPanel />
-      {!isPlayground() && <ExcerptPanel />}
-      {!isPlayground() && <SlugPanel />}
+      {!isPlayground() && (
+        <>
+          <StatusPanel />
+          <PublishPanel />
+          <ExcerptPanel />
+          <SlugPanel />
+        </>
+      )}
       <PageAdvancementPanel />
     </>
   );
