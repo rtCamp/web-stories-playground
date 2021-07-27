@@ -34,7 +34,7 @@ import { DATA_VERSION } from '@web-stories-wp/migration';
 /**
  * Internal dependencies
  */
-import FixtureEvents from '../../../karma-fixture/events';
+import { FixtureEvents } from '@web-stories-wp/karma-fixture';
 import App from '../../editorApp';
 import APIProvider from '../../app/api/apiProvider';
 import APIContext from '../../app/api/context';
@@ -43,8 +43,8 @@ import FileContext from '../../app/file/context';
 import Layout from '../../components/layout';
 import { createPage } from '../../elements';
 import { TEXT_ELEMENT_DEFAULT_FONT } from '../../app/font/defaultFonts';
-import { formattedTemplatesArray } from '../../../dashboard/storybookUtils';
 import { PRESET_TYPES } from '../../components/panels/design/preset/constants';
+import formattedTemplatesArray from '../../temp/formattedTemplatesArray';
 import getMediaResponse from './db/getMediaResponse';
 import { Editor as EditorContainer } from './containers';
 import singleSavedTemplate from './db/singleSavedTemplate';

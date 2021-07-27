@@ -34,7 +34,7 @@ import { DATA_VERSION } from '@web-stories-wp/migration';
 /**
  * Internal dependencies
  */
-import FixtureEvents from '../../../karma-fixture/events';
+import { FixtureEvents } from '@web-stories-wp/karma-fixture';
 import App from '../../editorApp';
 import APIProvider from '../../app/api/apiProvider';
 import APIContext from '../../app/api/context';

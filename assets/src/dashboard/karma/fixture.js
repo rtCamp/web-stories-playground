@@ -31,11 +31,13 @@ import Modal from 'react-modal';
 /**
  * Internal dependencies
  */
+import {
+  FixtureEvents,
+  ComponentStub,
+  actPromise,
+} from '@web-stories-wp/karma-fixture';
 import App from '../app';
 import ApiProvider from '../app/api/apiProvider';
-import FixtureEvents from '../../karma-fixture/events';
-import ComponentStub from '../../karma-fixture/componentStub';
-import actPromise from '../../karma-fixture/actPromise';
 import { AppFrame } from '../components';
 import ApiProviderFixture from './apiProviderFixture';
 
