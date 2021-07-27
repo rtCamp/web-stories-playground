@@ -291,7 +291,7 @@
     "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories",
     "playground": "NODE_IS_PLAYGROUND=true webpack serve --config webpack.config.cjs --progress --open",
     "playground:predeploy": "NODE_IS_PLAYGROUND=true npm-run-all build:*",
-	"playground:deploy": "npm run playground:predeploy && gh-pages -d dist"
+    "playground:deploy": "npm run playground:predeploy && gh-pages -d dist"
   },
   "husky": {
     "hooks": {

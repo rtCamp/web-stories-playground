@@ -17,11 +17,11 @@
  * External dependencies
  */
 import PropTypes from 'prop-types';
+import { isPlayground } from '@web-stories-wp/playground';
 /**
  * Internal dependencies
  */
 import { __ } from '@web-stories-wp/i18n';
-import { isPlayground } from '@web-stories-wp/playground';
 import { ISSUE_TYPES } from '../constants';
 import ElementLinkTappableRegionTooSmall from '../checks/elementLinkTappableRegionTooSmall';
 import ImageElementMissingAlt from '../checks/imageElementMissingAlt';
@@ -55,8 +55,12 @@ export function AccessibilityChecks({
         {!isPlayground() && <VideoOptimizationToggle />}
         <PageBackgroundTextLowContrast />
         <TextElementFontSizeTooSmall />
-        <VideoElementMissingDescription />
-        <VideoElementMissingCaptions />
+        {!isPlayground() && (
+          <>
+            <VideoElementMissingDescription />
+            <VideoElementMissingCaptions />
+          </>
+        )}
         <ElementLinkTappableRegionTooSmall />
         <ImageElementMissingAlt />
       </StyledTablistPanel>
