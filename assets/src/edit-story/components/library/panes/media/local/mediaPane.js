@@ -51,7 +51,7 @@ import { Select } from '../../../../form';
 import { getResourceFromMediaPicker } from '../../../../../app/media/utils';
 import {
   MediaGalleryMessage,
-  PaneHeader,
+  PaneHeader as MediaPaneHeader,
   PaneInner,
   SearchInputContainer,
   StyledPane,
@@ -73,6 +73,12 @@ export const ROOT_MARGIN = 300;
 const Button = styled(DefaultButton)`
   ${focusStyle};
 `;
+
+const PlaygroundPaneHeader = styled(MediaPaneHeader)`
+  padding-top: 0;
+`;
+
+const PaneHeader = !isPlayground() ? MediaPaneHeader : PlaygroundPaneHeader;
 
 const FilterArea = styled.div`
   display: flex;
@@ -312,14 +318,16 @@ function MediaPane(props) {
     <StyledPane id={paneId} {...props}>
       <PaneInner>
         <PaneHeader>
-          <SearchInputContainer>
-            <SearchInput
-              initialValue={searchTerm}
-              placeholder={__('Search', 'web-stories')}
-              onSearch={onSearch}
-              incremental={incrementalSearchDebounceMedia}
-            />
-          </SearchInputContainer>
+          {!isPlayground() && (
+            <SearchInputContainer>
+              <SearchInput
+                initialValue={searchTerm}
+                placeholder={__('Search', 'web-stories')}
+                onSearch={onSearch}
+                incremental={incrementalSearchDebounceMedia}
+              />
+            </SearchInputContainer>
+          )}
           <FilterArea>
             <Select
               selectedValue={mediaType?.toString() || FILTER_NONE}
