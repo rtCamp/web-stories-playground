@@ -35,7 +35,7 @@ function DocumentInspector() {
     <>
       {!isPlayground() && <StatusPanel />}
       <PublishPanel />
-      <ExcerptPanel />
+      {!isPlayground() && <ExcerptPanel />}
       {!isPlayground() && <SlugPanel />}
       <PageAdvancementPanel />
     </>
