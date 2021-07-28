@@ -228,7 +228,7 @@ const templateContent = ({ htmlWebpackPlugin }) => {
 const editorAndDashboard = {
   ...sharedConfig,
   entry: {
-    'edit-story': './packages/story-editor/src/index.js',
+    'story-editor': './packages/story-editor/src/index.js',
     'stories-dashboard': './assets/src/dashboard/index.js',
   },
   plugins: [
@@ -242,11 +242,11 @@ const editorAndDashboard = {
       name: 'Editor & Dashboard',
     }),
     new HtmlWebpackPlugin({
-      filename: 'edit-story.chunks.php',
+      filename: 'story-editor.chunks.php',
       inject: false, // Don't inject default <script> tags, etc.
       minify: false, // PHP not HTML so don't attempt to minify.
       templateContent,
-      chunks: ['edit-story'],
+      chunks: ['story-editor'],
     }),
     new HtmlWebpackPlugin({
       filename: 'stories-dashboard.chunks.php',
