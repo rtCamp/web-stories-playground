@@ -117,9 +117,9 @@ export default {
     maxUpload: 536870912,
     isDemo: false,
     capabilities: {
-      hasPublishAction: true,
-      hasAssignAuthorAction: true,
-      hasUploadMediaAction: true,
+      hasPublishAction: false,
+      hasAssignAuthorAction: false,
+      hasUploadMediaAction: false,
     },
     api: {
       users: '',
