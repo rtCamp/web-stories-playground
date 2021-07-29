@@ -19,6 +19,8 @@
  */
 import { screen } from '@testing-library/react';
 import { SnackbarProvider, noop } from '@web-stories-wp/design-system';
+import { TransformProvider, FontContext } from '@web-stories-wp/story-editor';
+
 /**
  * Internal dependencies
  */
@@ -30,8 +32,6 @@ import {
   STORY_STATUS,
 } from '../../../../../constants';
 import StoriesView from '../storiesView';
-import { TransformProvider } from '../../../../../../edit-story/components/transform';
-import FontContext from '../../../../../../edit-story/app/font/context';
 
 const fakeStories = [
   {

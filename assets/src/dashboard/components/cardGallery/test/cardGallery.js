@@ -46,7 +46,7 @@ jest.mock('use-debounce', () => {
     useDebouncedCallback,
   };
 });
-import { PreviewPage } from '../../../../edit-story/components/previewPage';
+import { PreviewPage } from '@web-stories-wp/story-editor';
 import { renderWithProviders } from '../../../testUtils';
 import CardGallery from '..';
 

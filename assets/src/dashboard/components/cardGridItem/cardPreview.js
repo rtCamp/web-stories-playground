@@ -36,7 +36,7 @@ import { STORY_ANIMATION_STATE } from '@web-stories-wp/animation';
 import {
   PreviewErrorBoundary,
   PreviewPage,
-} from '../../../edit-story/components/previewPage';
+} from '@web-stories-wp/story-editor';
 import { resolveRoute } from '../../app/router';
 import { DEFAULT_STORY_PAGE_ADVANCE_DURATION } from '../../constants';
 import { PageSizePropType, StoryPropType } from '../../types';
