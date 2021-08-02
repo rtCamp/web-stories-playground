@@ -232,8 +232,8 @@ const useStoryApi = (dataAdapter, { storyApi, encodeMarkup }) => {
 
       try {
         const { createdBy, pages, version } = template;
-        const getStoryPropsToSave = await import(
-          /* webpackChunkName: "chunk-getStoryPropsToSave" */ '../../../edit-story/app/story/utils/getStoryPropsToSave'
+        const { getStoryPropsToSave } = await import(
+          /* webpackChunkName: "chunk-getStoryPropsToSave" */ '@web-stories-wp/story-editor'
         );
         const storyPropsToSave = await getStoryPropsToSave.default({
           story: {

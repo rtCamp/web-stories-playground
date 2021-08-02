@@ -21,7 +21,7 @@ export * from './app/config'; // useConfig
 export * from './components/previewPage'; // PreviewPage
 
 export { default as base64Encode } from './utils/base64Encode';
-export { default as getStoryPropsToSave } from './app/story/utils/getStoryPropsToSave'; // @todo Dynamic import.
+export { default as getStoryPropsToSave } from './app/story/utils/getStoryPropsToSave';
 export { default as FontContext } from './app/font/context';
 export { default as useLoadFontFiles } from './app/font/actions/useLoadFontFiles';
 export { default as localStore } from './utils/localStore';
