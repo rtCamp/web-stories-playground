@@ -19,9 +19,6 @@
  */
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
-/**
- * Internal dependencies
- */
 jest.mock('@web-stories-wp/story-editor', () => ({
   __esModule: true,
   ...jest.requireActual('@web-stories-wp/story-editor'),
@@ -50,6 +47,9 @@ jest.mock('use-debounce', () => {
     useDebouncedCallback,
   };
 });
+/**
+ * Internal dependencies
+ */
 import { renderWithProviders } from '../../../testUtils';
 import CardGallery from '..';
 
