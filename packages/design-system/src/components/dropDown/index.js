@@ -17,7 +17,13 @@
 /**
  * External dependencies
  */
-import { forwardRef, useCallback, useMemo, useRef } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from '@web-stories-wp/react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { __, sprintf } from '@web-stories-wp/i18n';
@@ -79,13 +85,33 @@ export const DropDown = forwardRef(
     },
     ref
   ) => {
-    const defaultRef = useRef();
-    const selectRef = ref || defaultRef;
+    const internalRef = useRef();
+    const [dynamicPlacement, setDynamicPlacement] = useState(placement);
 
     const { activeOption, isOpen, normalizedOptions } = useDropDown({
       options,
       selectedValue,
     });
+
+    const positionPlacement = useCallback(
+      (popupRef) => {
+        // check to see if there's an overlap with the window edge
+        const { bottom, top } = popupRef.current?.getBoundingClientRect() || {};
+
+        // if the popup was assigned as bottom we want to always check it
+        if (
+          dynamicPlacement.startsWith('bottom') &&
+          bottom >= window.innerHeight
+        ) {
+          setDynamicPlacement(PLACEMENT.TOP);
+        }
+        // if the popup was assigned as top we want to always check it
+        if (dynamicPlacement.startsWith('top') && top <= 0) {
+          setDynamicPlacement(PLACEMENT.BOTTOM);
+        }
+      },
+      [dynamicPlacement]
+    );
 
     const handleSelectClick = useCallback(
       (event) => {
@@ -97,8 +123,9 @@ export const DropDown = forwardRef(
 
     const handleDismissMenu = useCallback(() => {
       isOpen.set(false);
-      selectRef.current.focus();
-    }, [isOpen, selectRef]);
+      internalRef.current.focus();
+      setDynamicPlacement(placement);
+    }, [isOpen, placement]);
 
     const handleMenuItemClick = useCallback(
       (event, menuItem) => {
@@ -147,16 +174,25 @@ export const DropDown = forwardRef(
           id={selectButtonId}
           isOpen={isOpen.value}
           onSelectClick={handleSelectClick}
-          ref={selectRef}
+          ref={(node) => {
+            // `ref` can either be a callback ref or a normal ref.
+            if (typeof ref == 'function') {
+              ref(node);
+            } else if (ref) {
+              ref.current = node;
+            }
+            internalRef.current = node;
+          }}
           {...rest}
         />
         {!disabled && isInline ? (
           isOpen.value && menu
         ) : (
           <Popup
-            anchor={selectRef}
+            anchor={internalRef}
             isOpen={isOpen.value}
-            placement={placement}
+            placement={dynamicPlacement}
+            refCallback={positionPlacement}
             fillWidth={popupFillWidth}
             zIndex={popupZIndex}
           >
@@ -190,7 +226,7 @@ DropDown.propTypes = {
   onMenuItemClick: PropTypes.func,
   placeholder: PropTypes.string,
   placement: PropTypes.oneOf(Object.values(PLACEMENT)),
-  popupFillWidth: PropTypes.bool,
+  popupFillWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   popupZIndex: PropTypes.number,
   isInline: PropTypes.bool,
   renderItem: PropTypes.object,

@@ -195,11 +195,11 @@ jobs:
           fetch-depth: 0 # 0 indicates all history for all branches and tags.
 
       - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        run: echo "::set-output name=NVMRC::$(cat .nvmrc)"
         id: nvm
 
       - name: Setup Node
-        uses: actions/setup-node@v2.2.0
+        uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
           cache: npm
@@ -284,11 +284,11 @@ jobs:
         continue-on-error: true
 
       - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        run: echo "::set-output name=NVMRC::$(cat .nvmrc)"
         id: nvm
 
       - name: Setup Node
-        uses: actions/setup-node@v2.2.0
+        uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
           cache: npm
@@ -296,30 +296,21 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           coverage: none
           tools: composer
-
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Setup Composer cache
-        uses: pat-s/always-upload-cache@v2.1.5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-            ${{ runner.os }}-
 
       - name: Install dependencies
         run: |
           npm ci
-          composer install --prefer-dist --no-progress --no-interaction
         env:
           CI: true
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+
+      - name: Install PHP dependencies
+        uses: 'ramsey/composer-install@v1'
+        with:
+          composer-options: '--prefer-dist --no-progress --no-interaction'
 
       - name: Create release branch
         id: release_branch
@@ -362,17 +353,32 @@ jobs:
       - name: Update plugin version
         run: npm run workflow:version $PLUGIN_VERSION
 
+      # Commit the plugin version bump if it was successful.
+      # It's also possible that there were no changes, for example if the
+      # workflow was run a second time and the commit has already happened,
+      # but the process later failed.
+      # This allows re-running the workflow again without aborting in this case.
       - name: Commit plugin version bump
+        id: plugin_version_bump
         run: |
           git add web-stories.php
           git status
-          git diff --staged --quiet && echo 'No changes to commit; exiting!' && exit 1
-          git commit -m "Prepare release $PLUGIN_VERSION"
-          git push -u origin HEAD
+
+          if ! git diff --cached --exit-code > /dev/null; then
+            echo 'No changes to commit; exiting!'
+            echo "::set-output name=changes::no"
+          else
+            git commit -m "Prepare release $PLUGIN_VERSION"
+            git push -u origin HEAD
+            echo "::set-output name=changes::yes"
+          fi
 
       # Only non-patch release version bumps should be cherry picked to main
       # This will cherry-pick the last commit from the release branch, as
       # we only want the plugin version bump, not the assets version bump.
+      #
+      # Cherry-picking is only done if there actually was
+      # a version bump in the previous step.
       - name: Cherry-pick to main
         run: |
           git checkout main
@@ -380,7 +386,7 @@ jobs:
           git pull --rebase
           git push
           git checkout $BRANCH
-        if: ${{ ! startsWith(github.ref, 'refs/heads/release/') }}
+        if: ${{ ! startsWith(github.ref, 'refs/heads/release/') && steps.plugin_version_bump.outputs.changes == 'yes' }}
         env:
           BRANCH: ${{ steps.release_branch.outputs.release_branch }}
 
@@ -494,11 +500,11 @@ jobs:
           token: ${{ secrets.PLUGIN_RELEASE_ACCESS_TOKEN }}
 
       - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        run: echo "::set-output name=NVMRC::$(cat .nvmrc)"
         id: nvm
 
       - name: Setup Node
-        uses: actions/setup-node@v2.2.0
+        uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
           cache: npm
@@ -574,20 +580,28 @@ jobs:
           STABLE_TAG: ${{ steps.get_previous_stable_tag.outputs.stable_tag }}
 
       # Note: Creating the tag trigger an email confirmation that needs to be confirmed by someone with commit access.
-      # Making changes to trunk and creating the tag is done in the same commit.
-      # See https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/#create-tags-from-trunk
-      - name: Commit changes  and create tag
+      - name: Commit changes to trunk
         run: |
           svn st | grep '^?' | awk '{print $2}' | xargs -r svn add
           svn st | grep '^!' | awk '{print $2}' | xargs -r svn rm
-          svn cp trunk "tags/$PLUGIN_VERSION"
           svn commit -m "Committing version $PLUGIN_VERSION" \
+           --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+        working-directory: ./svn
+
+      # Copy trunk to the new tag directly on the server.
+      # Not done in the same commit as the changes to trunk in order to reduce number of file operations
+      # and to prevent potential timeouts.
+      # See https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/#create-tags-from-trunk
+      - name: Create the SVN tag
+        run: |
+          svn cp "$PLUGIN_REPO_URL/trunk" "$PLUGIN_REPO_URL/tags/$PLUGIN_VERSION" \
+           -m "Tagging version $PLUGIN_VERSION" \
            --no-auth-cache --non-interactive  --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
         working-directory: ./svn
 
       # It's recommended to run this only after the tag was successfully created.
       # Otherwise, if there were any errors, we risk changing this to a tag that doesn't exist.
-      # TODO: Move to separate workflow that can be manually triggered after email confirmation?
+      # The actual release still needs to be confirmed via email.
       - name: Update stable tag
         working-directory: ./svn
         run: |

@@ -2,7 +2,7 @@
   "name": "@web-stories-wp/stories-lightbox",
   "private": true,
   "engines": {
-    "node": ">= 15",
+    "node": ">= 16",
     "npm": "~7"
   },
   "exports": {
@@ -11,7 +11,7 @@
   "main": "./src/index.js",
   "type": "module",
   "dependencies": {
-    "@wordpress/dom-ready": "^3.1.1"
+    "@wordpress/dom-ready": "^3.2.1"
   },
   "devDependencies": {}
 }

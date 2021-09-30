@@ -30,11 +30,11 @@ use Google\Web_Stories\Decoder;
 use Google\Web_Stories\Experiments;
 use Google\Web_Stories\Locale;
 use Google\Web_Stories\Assets;
+use Google\Web_Stories\Model\Story;
 use Google\Web_Stories\Service_Base;
 use Google\Web_Stories\Story_Post_Type;
 use Google\Web_Stories\Page_Template_Post_Type;
 use Google\Web_Stories\Tracking;
-use Google\Web_Stories\Traits\Publisher;
 use Google\Web_Stories\Traits\Screen;
 use Google\Web_Stories\Traits\Types;
 use Google\Web_Stories\Traits\Post_Type;
@@ -46,14 +46,21 @@ use WP_Post;
  * @package Google\Web_Stories\Admin
  */
 class Editor extends Service_Base {
-	use Publisher, Types, Screen, Post_Type;
+	use Types, Screen, Post_Type;
 
 	/**
 	 * Web Stories editor script handle.
 	 *
 	 * @var string
 	 */
-	const SCRIPT_HANDLE = 'edit-story';
+	const SCRIPT_HANDLE = 'wp-story-editor';
+
+	/**
+	 * AMP validator script handle.
+	 *
+	 * @var string
+	 */
+	const AMP_VALIDATOR_SCRIPT_HANDLE = 'amp-validator';
 
 	/**
 	 * Experiments instance.
@@ -138,12 +145,12 @@ class Editor extends Service_Base {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool    $replace Bool if to replace editor or not.
-	 * @param WP_Post $post    Current post object.
+	 * @param bool|mixed $replace Bool if to replace editor or not.
+	 * @param WP_Post    $post    Current post object.
 	 *
-	 * @return bool Whether the editor has been replaced.
+	 * @return bool|mixed Whether the editor has been replaced.
 	 */
-	public function replace_editor( $replace, $post ): bool {
+	public function replace_editor( $replace, $post ) {
 		if ( Story_Post_Type::POST_TYPE_SLUG === get_post_type( $post ) ) {
 
 			// Since the 'replace_editor' filter can be run multiple times, only load the
@@ -167,12 +174,12 @@ class Editor extends Service_Base {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param bool   $use_block_editor  Whether the post type can be edited or not. Default true.
-	 * @param string $post_type         The post type being checked.
+	 * @param bool|mixed $use_block_editor  Whether the post type can be edited or not. Default true.
+	 * @param string     $post_type         The post type being checked.
 	 *
-	 * @return bool Whether to use the block editor.
+	 * @return false|mixed Whether to use the block editor.
 	 */
-	public function filter_use_block_editor_for_post_type( $use_block_editor, $post_type ): bool {
+	public function filter_use_block_editor_for_post_type( $use_block_editor, $post_type ) {
 		if ( Story_Post_Type::POST_TYPE_SLUG === $post_type ) {
 			return false;
 		}
@@ -202,14 +209,19 @@ class Editor extends Service_Base {
 
 		// Force media model to load.
 		wp_enqueue_media();
-		$script_dependencies = [
-			Tracking::SCRIPT_HANDLE,
-			'postbox',
-		];
+
+		wp_enqueue_script(
+			self::AMP_VALIDATOR_SCRIPT_HANDLE,
+			'https://cdn.ampproject.org/v0/validator_wasm.js',
+			[],
+			WEBSTORIES_VERSION,
+			true
+		);
+
+		$script_dependencies = [ Tracking::SCRIPT_HANDLE, 'postbox', self::AMP_VALIDATOR_SCRIPT_HANDLE ];
 
 		$this->assets->enqueue_script_asset( self::SCRIPT_HANDLE, $script_dependencies );
-		$font_handle = $this->google_fonts->get_handle();
-		$this->assets->enqueue_style_asset( self::SCRIPT_HANDLE, [ $font_handle ] );
+		$this->assets->enqueue_style_asset( self::SCRIPT_HANDLE, [ $this->google_fonts::SCRIPT_HANDLE ] );
 
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
@@ -231,12 +243,10 @@ class Editor extends Service_Base {
 	 * @return array
 	 */
 	public function get_editor_settings(): array {
-		$post                     = get_post();
-		$story_id                 = ( $post ) ? $post->ID : null;
-		$rest_base                = $this->get_post_type_rest_base( Story_Post_Type::POST_TYPE_SLUG );
-		$has_publish_action       = $this->get_post_type_cap( Story_Post_Type::POST_TYPE_SLUG, 'publish_posts' );
-		$has_assign_author_action = $this->get_post_type_cap( Story_Post_Type::POST_TYPE_SLUG, 'edit_others_posts' );
-		$has_upload_media_action  = current_user_can( 'upload_files' );
+		$post                 = get_post();
+		$story_id             = $post->ID ?? null;
+		$rest_base            = $this->get_post_type_rest_base( Story_Post_Type::POST_TYPE_SLUG );
+		$general_settings_url = admin_url( 'options-general.php' );
 
 		if ( $story_id ) {
 			$this->setup_lock( $story_id );
@@ -273,8 +283,12 @@ class Editor extends Service_Base {
 		$show_locked_dialog       = apply_filters( 'show_post_locked_dialog', true, $post, $user );
 		$nonce                    = wp_create_nonce( 'wp_rest' );
 		$mime_types               = $this->get_allowed_mime_types();
-		$mime_image_types         = $this->get_allowed_image_mime_types();
+		$image_mime_types         = $this->get_allowed_image_mime_types();
+		$audio_mime_types         = $this->get_allowed_audio_mime_types();
 		$page_templates_rest_base = $this->get_post_type_rest_base( Page_Template_Post_Type::POST_TYPE_SLUG );
+
+		$story = new Story();
+		$story->load_from_post( $post );
 
 		$settings = [
 			'id'         => 'web-stories-editor',
@@ -284,21 +298,22 @@ class Editor extends Service_Base {
 				'locale'                       => $this->locale->get_locale_settings(),
 				'allowedFileTypes'             => $this->get_allowed_file_types(),
 				'allowedTranscodableMimeTypes' => $this->get_allowed_transcodable_mime_types(),
-				'allowedImageFileTypes'        => $this->get_file_type_exts( $mime_image_types ),
-				'allowedImageMimeTypes'        => $mime_image_types,
+				'allowedImageFileTypes'        => $this->get_file_type_exts( $image_mime_types ),
+				'allowedImageMimeTypes'        => $image_mime_types,
+				'allowedAudioFileTypes'        => $this->get_file_type_exts( $audio_mime_types ),
+				'allowedAudioMimeTypes'        => $audio_mime_types,
 				'allowedMimeTypes'             => $mime_types,
 				'postType'                     => Story_Post_Type::POST_TYPE_SLUG,
 				'storyId'                      => $story_id,
 				'dashboardLink'                => $dashboard_url,
 				'dashboardSettingsLink'        => $dashboard_settings_url,
-				'assetsURL'                    => trailingslashit( WEBSTORIES_ASSETS_URL ),
+				'generalSettingsLink'          => $general_settings_url,
 				'cdnURL'                       => trailingslashit( WEBSTORIES_CDN_URL ),
 				'maxUpload'                    => $max_upload_size,
 				'isDemo'                       => $is_demo,
 				'capabilities'                 => [
-					'hasPublishAction'      => $has_publish_action,
-					'hasAssignAuthorAction' => $has_assign_author_action,
-					'hasUploadMediaAction'  => $has_upload_media_action,
+					'hasUploadMediaAction' => current_user_can( 'upload_files' ),
+					'canManageSettings'    => current_user_can( 'manage_options' ),
 				],
 				'api'                          => [
 					'users'         => '/web-stories/v1/users/',
@@ -306,13 +321,15 @@ class Editor extends Service_Base {
 					'stories'       => sprintf( '/web-stories/v1/%s/', $rest_base ),
 					'pageTemplates' => sprintf( '/web-stories/v1/%s/', $page_templates_rest_base ),
 					'media'         => '/web-stories/v1/media/',
+					'hotlink'       => '/web-stories/v1/hotlink/',
 					'link'          => '/web-stories/v1/link/',
 					'statusCheck'   => '/web-stories/v1/status-check/',
+					'taxonomies'    => '/web-stories/v1/taxonomies/',
 					'metaBoxes'     => $this->meta_boxes->get_meta_box_url( (int) $story_id ),
 					'storyLocking'  => rest_url( sprintf( '/web-stories/v1/%s/%s/lock', $rest_base, $story_id ) ),
 				],
 				'metadata'                     => [
-					'publisher' => $this->get_publisher_data(),
+					'publisher' => $story->get_publisher_name(),
 				],
 				'postLock'                     => [
 					'interval'         => $time_window,
@@ -320,6 +337,7 @@ class Editor extends Service_Base {
 				],
 				'version'                      => WEBSTORIES_VERSION,
 				'nonce'                        => $nonce,
+				'showMedia3p'                  => true,
 				'encodeMarkup'                 => $this->decoder->supports_decoding(),
 				'metaBoxes'                    => $this->meta_boxes->get_meta_boxes_per_location(),
 				'ffmpegCoreUrl'                => trailingslashit( WEBSTORIES_CDN_URL ) . 'js/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',

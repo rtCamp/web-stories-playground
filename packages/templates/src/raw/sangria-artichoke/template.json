@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -8,7 +8,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -61,10 +60,10 @@
             "width": 330,
             "height": 586,
             "id": 0,
-            "title": "page01_bg",
             "alt": "page01_bg",
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": -5,
@@ -290,7 +289,7 @@
           "textAlign": "left",
           "padding": { "vertical": 0, "horizontal": 0, "locked": true },
           "type": "text",
-          "content": "<span style=\"font-weight: 500; color: #9f240f; letter-spacing: 0.04em\">BILLY ROGERS</span>",
+          "content": "<span style=\"font-weight: 500; color: #9f240f; letter-spacing: 0.04em; text-transform: uppercase\">Billy Rogers</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -358,7 +357,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -397,11 +395,12 @@
             "id": 0,
             "length": 21,
             "lengthFormatted": "0:21",
-            "title": "page02_bg_video",
             "alt": "page02_bg_video",
             "local": false,
+            "isMuted": true,
             "isOptimized": true,
-            "baseColor": [181, 178, 179]
+            "baseColor": [181, 178, 179],
+            "isExternal": true
           },
           "tracks": [],
           "overlay": null,
@@ -487,7 +486,7 @@
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
           "type": "text",
-          "content": "<span style=\"font-weight: 700; color: #f9fcf4\">One of the biggest winter veggie trend this year has been the Sangria artichoke. Let’s see why...</span>",
+          "content": "<span style=\"font-weight: 700; color: #f9fcf4\">One of the biggest winter veggie trends this year has been the Sangria artichoke. Let’s see why...</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -634,11 +633,11 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "page03_bg",
             "alt": "page03_bg",
             "local": false,
             "isOptimized": false,
-            "baseColor": [228, 224, 218]
+            "baseColor": [228, 224, 218],
+            "isExternal": true
           }
         },
         {
@@ -821,7 +820,7 @@
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
           "type": "text",
-          "content": "<span style=\"color: #fff\">Sangria artichokes have deep purple meaty leaves. It has a nutty flavor and are perfect when steamed!</span>",
+          "content": "<span style=\"color: #fff\">Sangria artichokes have deep purple meaty leaves. It has a nutty flavor and is perfect when steamed!</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -877,7 +876,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -903,10 +901,10 @@
             "width": 330,
             "height": 586,
             "id": 0,
-            "title": "page04_bg",
             "alt": "page04_bg",
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": -15,
@@ -1198,7 +1196,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1561,7 +1558,7 @@
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
           "type": "text",
-          "content": "<span style=\"font-weight: 700; color: #0e662a; letter-spacing: 0.01em\">03</span>\n\n<span style=\"color: #0e662a; letter-spacing: 0.01em\">Chock full of iron</span>",
+          "content": "<span style=\"font-weight: 700; color: #0e662a; letter-spacing: 0.01em\">03</span>\n\n<span style=\"color: #0e662a; letter-spacing: 0.01em\">Loaded with B12</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -1649,11 +1646,11 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "page06_07_bg",
             "alt": "page06_07_bg",
             "local": false,
             "isOptimized": false,
-            "baseColor": [55, 58, 49]
+            "baseColor": [55, 58, 49],
+            "isExternal": true
           }
         },
         {
@@ -1929,11 +1926,11 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "page06_07_bg",
             "alt": "page06_07_bg",
             "local": false,
             "isOptimized": false,
-            "baseColor": [55, 58, 49]
+            "baseColor": [55, 58, 49],
+            "isExternal": true
           }
         },
         {
@@ -2034,7 +2031,7 @@
           "lineHeight": 1.2,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.1em\">PREP TIME: </span><span style=\"font-weight: 800; color: #fff; letter-spacing: 0.1em\">20 MIN</span>",
+          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.1em; text-transform: uppercase\">Prep Time: </span><span style=\"font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase\">20 Min</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -2190,7 +2187,7 @@
           "lineHeight": 1.2,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.1em\">COOK TIME: </span><span style=\"font-weight: 800; color: #fff; letter-spacing: 0.1em\">20 MIN</span>",
+          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.1em; text-transform: uppercase\">Cook Time: </span><span style=\"font-weight: 800; color: #fff; letter-spacing: 0.1em; text-transform: uppercase\">20 Min</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -2266,7 +2263,7 @@
           "lineHeight": 1.2,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.28em\">INGREDIENTS</span>",
+          "content": "<span style=\"font-weight: 700; color: #fff; letter-spacing: 0.28em; text-transform: uppercase\">Ingredients</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -2347,7 +2344,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 11,
           "width": 1,
@@ -2375,11 +2371,11 @@
             "height": 220,
             "posterId": 0,
             "id": 0,
-            "title": "page08_image01",
             "alt": "page08_image01",
             "local": false,
             "isOptimized": false,
-            "baseColor": [180, 158, 129]
+            "baseColor": [180, 158, 129],
+            "isExternal": true
           },
           "type": "image",
           "x": -147,
@@ -2598,7 +2594,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2778,11 +2773,11 @@
             "height": 220,
             "posterId": 0,
             "id": 0,
-            "title": "page09_image01",
             "alt": "page09_image01",
             "local": false,
             "isOptimized": false,
-            "baseColor": [76, 83, 56]
+            "baseColor": [76, 83, 56],
+            "isExternal": true
           },
           "type": "image",
           "x": -60,
@@ -2849,7 +2844,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3027,10 +3021,10 @@
             "width": 330,
             "height": 220,
             "id": 0,
-            "title": "page10_image01",
             "alt": "page10_image01",
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": -65,
@@ -3097,7 +3091,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3277,11 +3270,11 @@
             "height": 220,
             "posterId": 0,
             "id": 0,
-            "title": "apage11_image01",
             "alt": "apage11_image01",
             "local": false,
             "isOptimized": false,
-            "baseColor": [201, 196, 182]
+            "baseColor": [201, 196, 182],
+            "isExternal": true
           },
           "type": "image",
           "x": -128,
@@ -3348,7 +3341,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3712,11 +3704,11 @@
             "height": 173,
             "posterId": 0,
             "id": 0,
-            "title": "page12_image01",
             "alt": "page12_image01",
             "local": false,
             "isOptimized": false,
-            "baseColor": [70, 64, 55]
+            "baseColor": [70, 64, 55],
+            "isExternal": true
           }
         },
         {
@@ -3752,11 +3744,11 @@
             "height": 173,
             "posterId": 0,
             "id": 0,
-            "title": "page12_image02",
             "alt": "page12_image02",
             "local": false,
             "isOptimized": false,
-            "baseColor": [213, 207, 195]
+            "baseColor": [213, 207, 195],
+            "isExternal": true
           }
         },
         {
@@ -3792,11 +3784,11 @@
             "height": 173,
             "posterId": 0,
             "id": 0,
-            "title": "page12_image03",
             "alt": "page12_image03",
             "local": false,
             "isOptimized": false,
-            "baseColor": [195, 204, 175]
+            "baseColor": [195, 204, 175],
+            "isExternal": true
           }
         }
       ],

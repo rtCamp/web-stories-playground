@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -8,7 +8,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -124,7 +123,7 @@
           "lineHeight": 1.4,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"font-weight: 700; color: #235524\">Home gardening guide.</span>\n<span style=\"color: #235524\">Maria Contelo</span>",
+          "content": "<span style=\"font-weight: 700; color: #235524\">Home gardening guide</span>\n<span style=\"color: #235524\">Maria Contelo</span>",
           "fontWeight": 700,
           "borderRadius": {
             "locked": true,
@@ -190,12 +189,12 @@
             "width": 330,
             "height": 444,
             "id": 0,
-            "title": "Green Indoor Plants",
             "alt": "Green Indoor Plants",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [37, 35, 19]
+            "baseColor": [37, 35, 19],
+            "isExternal": true
           }
         }
       ],
@@ -229,7 +228,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -447,12 +445,12 @@
             "width": 330,
             "height": 494,
             "id": 0,
-            "title": "Green Plants on Brown Clay Pot",
             "alt": "Green Plants on Brown Clay Pot",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [218, 218, 217]
+            "baseColor": [218, 218, 217],
+            "isExternal": true
           }
         },
         {
@@ -810,12 +808,12 @@
             "width": 330,
             "height": 494,
             "id": 0,
-            "title": "Top View Photo of Gardening Tools",
             "alt": "Top View Photo of Gardening Tools",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [61, 54, 44]
+            "baseColor": [61, 54, 44],
+            "isExternal": true
           }
         },
         {
@@ -1086,12 +1084,12 @@
             "width": 1707,
             "height": 2560,
             "id": 0,
-            "title": "Person Arranging Pot Plant",
             "alt": "Person Arranging Pot Plant",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [186, 177, 159]
+            "baseColor": [186, 177, 159],
+            "isExternal": true
           }
         },
         {
@@ -1357,7 +1355,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1393,12 +1390,12 @@
             "height": 257,
             "posterId": 0,
             "id": 0,
-            "title": "Photo of Plants On White Pot",
             "alt": "Photo of Plants On White Pot",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [221, 222, 227]
+            "baseColor": [221, 222, 227],
+            "isExternal": true
           }
         },
         {
@@ -1953,7 +1950,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1987,12 +1983,12 @@
             "width": 330,
             "height": 247,
             "id": 0,
-            "title": "black pruning shears beside green gloves",
             "alt": "black pruning shears beside green gloves",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [212, 212, 199]
+            "baseColor": [212, 212, 199],
+            "isExternal": true
           }
         },
         {
@@ -2523,7 +2519,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2557,12 +2552,12 @@
             "width": 330,
             "height": 461,
             "id": 0,
-            "title": "Photo of Green Leafed Plant in Bottle With Water",
             "alt": "Photo of Green Leafed Plant in Bottle With Water",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [226, 232, 245]
+            "baseColor": [226, 232, 245],
+            "isExternal": true
           }
         },
         {
@@ -3093,7 +3088,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3136,12 +3130,12 @@
             "height": 439,
             "posterId": 0,
             "id": 0,
-            "title": "Photo of Plants On White Pot",
             "alt": "Photo of Plants On White Pot",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [222, 222, 228]
+            "baseColor": [222, 222, 228],
+            "isExternal": true
           }
         },
         {
@@ -3167,12 +3161,12 @@
             "width": 320,
             "height": 213,
             "id": 0,
-            "title": "shallow focus photography of potted plants",
             "alt": "shallow focus photography of potted plants",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [190, 177, 164]
+            "baseColor": [190, 177, 164],
+            "isExternal": true
           }
         },
         {
@@ -3365,7 +3359,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3469,12 +3462,12 @@
             "width": 320,
             "height": 213,
             "id": 0,
-            "title": "green vegetable",
             "alt": "green vegetable",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [27, 68, 63]
+            "baseColor": [27, 68, 63],
+            "isExternal": true
           }
         },
         {
@@ -3588,12 +3581,12 @@
             "width": 320,
             "height": 480,
             "id": 0,
-            "title": "Person Holding Green Plant in Brown Pot",
             "alt": "Person Holding Green Plant in Brown Pot",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [94, 72, 51]
+            "baseColor": [94, 72, 51],
+            "isExternal": true
           }
         },
         {
@@ -3708,12 +3701,12 @@
             "width": 320,
             "height": 213,
             "id": 0,
-            "title": "plant in gray pot",
             "alt": "plant in gray pot",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [231, 230, 232]
+            "baseColor": [231, 230, 232],
+            "isExternal": true
           }
         },
         {

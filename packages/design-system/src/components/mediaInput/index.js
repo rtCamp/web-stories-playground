@@ -19,7 +19,7 @@
  */
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import { useState, forwardRef, useMemo, useRef } from 'react';
+import { useState, forwardRef, useMemo, useRef } from '@web-stories-wp/react';
 import { v4 as uuidv4 } from 'uuid';
 import { __ } from '@web-stories-wp/i18n';
 
@@ -163,7 +163,9 @@ export const MediaInput = forwardRef(function Media(
     menuOptions = [],
     onMenuOption,
     openMediaPicker,
+    canUpload = true,
     menuProps = {},
+    imgProps = {},
     ...rest
   },
   ref
@@ -174,8 +176,7 @@ export const MediaInput = forwardRef(function Media(
   const listId = useMemo(() => `list-${uuidv4()}`, []);
   const buttonId = useMemo(() => `button-${uuidv4()}`, []);
 
-  const defaultRef = useRef(null);
-  const buttonRef = ref ?? defaultRef;
+  const internalRef = useRef(null);
 
   const StyledMedia = MediaOptions[variant];
   // Media input only allows simplified dropdown with one group.
@@ -185,7 +186,13 @@ export const MediaInput = forwardRef(function Media(
     <StyledMedia className={className} {...rest}>
       <ImageWrapper variant={variant}>
         {value ? (
-          <Img src={value} alt={alt} crossOrigin="anonymous" />
+          <Img
+            src={value}
+            alt={alt}
+            crossOrigin="anonymous"
+            width={imgProps?.width || null}
+            height={imgProps?.height || null}
+          />
         ) : (
           <DefaultImageWrapper>
             <DefaultImage />
@@ -193,26 +200,38 @@ export const MediaInput = forwardRef(function Media(
         )}
         {isLoading && <LoadingDots />}
       </ImageWrapper>
-      <Tooltip title={hasMenu ? null : __('Open media picker', 'web-stories')}>
-        <Button
-          ref={buttonRef}
-          id={buttonId}
-          variant={BUTTON_VARIANTS.SQUARE}
-          type={BUTTON_TYPES.TERTIARY}
-          size={BUTTON_SIZES.SMALL}
-          aria-label={ariaLabel}
-          onClick={hasMenu ? () => setIsMenuOpen(true) : openMediaPicker}
-          aria-owns={hasMenu ? listId : null}
-          aria-pressed={isMenuOpen}
-          aria-expanded={isMenuOpen}
-          {...rest}
+      {canUpload && (
+        <Tooltip
+          title={hasMenu ? null : __('Open media picker', 'web-stories')}
         >
-          <Pencil />
-        </Button>
-      </Tooltip>
+          <Button
+            ref={(node) => {
+              // `ref` can either be a callback ref or a normal ref.
+              if (typeof ref == 'function') {
+                ref(node);
+              } else if (ref) {
+                ref.current = node;
+              }
+              internalRef.current = node;
+            }}
+            id={buttonId}
+            variant={BUTTON_VARIANTS.SQUARE}
+            type={BUTTON_TYPES.TERTIARY}
+            size={BUTTON_SIZES.SMALL}
+            aria-label={ariaLabel}
+            onClick={hasMenu ? () => setIsMenuOpen(true) : openMediaPicker}
+            aria-owns={hasMenu ? listId : null}
+            aria-pressed={isMenuOpen}
+            aria-expanded={isMenuOpen}
+            {...rest}
+          >
+            <Pencil />
+          </Button>
+        </Tooltip>
+      )}
       <Popup
         placement={PLACEMENT.BOTTOM_END}
-        anchor={buttonRef}
+        anchor={internalRef}
         isOpen={isMenuOpen}
       >
         <Menu
@@ -240,9 +259,11 @@ MediaInput.propTypes = {
   ariaLabel: PropTypes.string,
   alt: PropTypes.string,
   isLoading: PropTypes.bool,
+  canUpload: PropTypes.bool,
   variant: PropTypes.string,
   menuOptions: PropTypes.array,
   onMenuOption: PropTypes.func,
   openMediaPicker: PropTypes.func.isRequired,
   menuProps: PropTypes.object,
+  imgProps: PropTypes.object,
 };

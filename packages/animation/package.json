@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">= 15",
+    "node": ">= 16",
     "npm": "~7"
   },
   "exports": {
@@ -11,19 +11,18 @@
   },
   "main": "./src/index.js",
   "dependencies": {
-    "@web-stories-wp/design-system": "*",
     "@web-stories-wp/i18n": "*",
     "@web-stories-wp/media": "*",
+    "@web-stories-wp/react": "*",
     "@web-stories-wp/units": "*",
     "flagged": "^2.0.1",
-    "uuid": "^8.3.2",
-    "styled-components": "^5.2.1",
-    "react": "^17.0.2",
     "prop-types": "^15.7.2",
+    "styled-components": "^5.3.1",
+    "uuid": "^8.3.2",
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^11.2.3",
-    "@testing-library/react-hooks": "^3.7.0"
+    "@testing-library/react": "^12.1.1",
+    "@testing-library/react-hooks": "^7.0.2"
   }
 }

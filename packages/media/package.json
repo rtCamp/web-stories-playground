@@ -2,7 +2,7 @@
   "name": "@web-stories-wp/media",
   "private": true,
   "engines": {
-    "node": ">= 15",
+    "node": ">= 16",
     "npm": "~7"
   },
   "exports": {
@@ -12,11 +12,11 @@
   "type": "module",
   "sideEffects": false,
   "dependencies": {
-    "@web-stories-wp/units": "*",
+    "@web-stories-wp/react": "*",
     "@web-stories-wp/tracking": "*",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2"
+    "@web-stories-wp/units": "*",
+    "mime": "^2.5.2",
+    "prop-types": "^15.7.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

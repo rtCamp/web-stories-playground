@@ -35,6 +35,36 @@ import * as streetStyleOnTheGoStickers from './street-style-on-the-go';
 import * as plantBasedDyesStickers from './plant-based-dyes';
 import * as indoorGardenOasisStickers from './indoor-garden-oasis';
 import * as killBellyFatStickers from './belly-fat-workout';
+import * as crownSeasonsRecappedStickers from './tv-show-recap';
+import * as honeymooningInItalyStickers from './honeymooning-in-italy';
+import * as stayAtAceHotelKyotoStickers from './ace-hotel-kyoto-review';
+import * as videoCallsSavedTheDayStickers from './how-video-calls-saved-the-day';
+import * as pickTheRightLaptopStickers from './laptop-buying-guide';
+import * as quizForYourBestSkinStickers from './beauty-quiz';
+import * as atHomeOfficeStickers from './diy-home-office';
+import * as rockMusicFestivalStickers from './rock-music-festival';
+import * as losAngelesCityGuideStickers from './los-angeles-city-guide';
+import * as hawaiiTravelPackingListStickers from './hawaii-travel-packing-list';
+import * as howContactTracingWorksStickers from './how-contact-tracing-works';
+import * as summerFashionCollectionStickers from './summer-fashion-collection';
+import * as artOnTheInternetStickers from './buying-art-on-the-internet';
+import * as newYorkPartyRoundUpStickers from './new-york-party-round-up';
+import * as aDayInTheLifeStickers from './a-day-in-the-life';
+import * as elegantTravelItineraryStickers from './elegant-travel-itinerary';
+import * as modernistTravelGuideStickers from './modernist-travel-guide';
+import * as magazineArticleStickers from './magazine-article';
+import * as fashionInspirationStickers from './fashion-inspiration';
+import * as skinCareAtHomeStickers from './skin-care-at-home';
+import * as artBooksGiftGuideStickers from './art-books-gift-guide';
+import * as vintageChairsWhatToLookForStickers from './vintage-chairs-what-to-look-for';
+import * as celebrityLifeStoryStickers from './celebrity-life-story';
+import * as summerAdventureGuideStickers from './summer-adventure-guide';
+import * as oneDayCityItineraryStickers from './one-day-city-itinerary';
+import * as technologyAdviceStickers from './technology-advice';
+import * as allAboutCarsStickers from './all-about-cars';
+import * as sustainabilityTipsStickers from './sustainability-tips';
+import * as anArtistsLegacyStickers from './an-artists-legacy';
+import * as tipsForThrowingAnOutdoorLuauStickers from './tips-for-throwing-an-outdoor-luau';
 
 export default {
   ...beautyStickers,
@@ -56,4 +86,34 @@ export default {
   ...plantBasedDyesStickers,
   ...indoorGardenOasisStickers,
   ...killBellyFatStickers,
+  ...crownSeasonsRecappedStickers,
+  ...honeymooningInItalyStickers,
+  ...stayAtAceHotelKyotoStickers,
+  ...videoCallsSavedTheDayStickers,
+  ...pickTheRightLaptopStickers,
+  ...quizForYourBestSkinStickers,
+  ...atHomeOfficeStickers,
+  ...rockMusicFestivalStickers,
+  ...losAngelesCityGuideStickers,
+  ...hawaiiTravelPackingListStickers,
+  ...howContactTracingWorksStickers,
+  ...summerFashionCollectionStickers,
+  ...artOnTheInternetStickers,
+  ...newYorkPartyRoundUpStickers,
+  ...aDayInTheLifeStickers,
+  ...elegantTravelItineraryStickers,
+  ...modernistTravelGuideStickers,
+  ...magazineArticleStickers,
+  ...fashionInspirationStickers,
+  ...skinCareAtHomeStickers,
+  ...artBooksGiftGuideStickers,
+  ...vintageChairsWhatToLookForStickers,
+  ...celebrityLifeStoryStickers,
+  ...summerAdventureGuideStickers,
+  ...oneDayCityItineraryStickers,
+  ...technologyAdviceStickers,
+  ...allAboutCarsStickers,
+  ...sustainabilityTipsStickers,
+  ...anArtistsLegacyStickers,
+  ...tipsForThrowingAnOutdoorLuauStickers,
 };

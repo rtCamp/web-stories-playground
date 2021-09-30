@@ -18,7 +18,6 @@
  * External dependencies
  */
 const path = require('path');
-const fs = require('fs');
 const glob = require('glob');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -28,7 +27,6 @@ const RtlCssPlugin = require('rtlcss-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CopyPlugin = require('copy-webpack-plugin');
 
 /**
  * WordPress dependencies
@@ -53,7 +51,6 @@ function requestToExternal(request) {
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
-const isPlayground = 'true' === process.env.NODE_IS_PLAYGROUND;
 
 const sharedConfig = {
   mode,
@@ -153,6 +150,17 @@ const sharedConfig = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
         sideEffects: true,
       },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: '../images',
+            },
+          },
+        ],
+      },
     ].filter(Boolean),
   },
   plugins: [
@@ -161,18 +169,18 @@ const sharedConfig = {
         analyzerPort: 'auto',
       }),
     new MiniCssExtractPlugin({
-      filename: isPlayground ? 'assets/css/[name].css' : '../css/[name].css',
+      filename: '../css/[name].css',
     }),
     new RtlCssPlugin({
-      filename: isPlayground
-        ? `assets/css/[name]-rtl.css`
-        : `../css/[name]-rtl.css`,
+      filename: `../css/[name]-rtl.css`,
     }),
     new webpack.EnvironmentPlugin({
       DISABLE_PREVENT: false,
+      DISABLE_OPTIMIZED_RENDERING: false,
       DISABLE_ERROR_BOUNDARIES: false,
       DISABLE_QUICK_TIPS: false,
     }),
+    new DependencyExtractionWebpackPlugin(),
   ].filter(Boolean),
   optimization: {
     sideEffects: true,
@@ -200,15 +208,18 @@ const sharedConfig = {
   },
 };
 
+const EDITOR_CHUNK = 'wp-story-editor';
+const DASHBOARD_CHUNK = 'wp-dashboard';
+
 // Template for html-webpack-plugin to generate JS/CSS chunk manifests in PHP.
-const templateContent = ({ htmlWebpackPlugin }) => {
+const templateContent = ({ htmlWebpackPlugin, chunkNames }) => {
   // Extract filename without extension from arrays of JS and CSS chunks.
   // E.g. "../css/some-chunk.css" -> "some-chunk"
   const filenameOf = (pathname) =>
     pathname.substr(pathname.lastIndexOf('/') + 1);
 
   const chunkName = htmlWebpackPlugin.options.chunks[0];
-  const omitPrimaryChunk = (f) => f != chunkName;
+  const omitPrimaryChunk = (f) => f !== chunkName;
 
   const js = htmlWebpackPlugin.files.js
     .map((pathname) => {
@@ -224,19 +235,44 @@ const templateContent = ({ htmlWebpackPlugin }) => {
     })
     .filter(omitPrimaryChunk);
 
-  return `<?php return array(
-    'css' => ${JSON.stringify(css)},
-    'js' => ${JSON.stringify(js)});`;
+  // We're only interested in chunks from dynamic imports;
+  // ones that are not already in `js` and not primaries.
+  const chunks = chunkNames.filter(
+    (chunk) =>
+      !js.includes(chunk) && ![DASHBOARD_CHUNK, EDITOR_CHUNK].includes(chunk)
+  );
+
+  return `<?php
+  return [
+    'css'    => ${JSON.stringify(css)},
+    'js'     => ${JSON.stringify(js)},
+    'chunks' => ${JSON.stringify(chunks)},
+  ];`;
 };
+
+const templateParameters = (compilation, assets, assetTags, options) => ({
+  compilation,
+  webpackConfig: compilation.options,
+  htmlWebpackPlugin: {
+    tags: assetTags,
+    files: assets,
+    options,
+  },
+  chunkNames: compilation.chunks.map(({ files }) =>
+    files[0].substring(0, files[0].length - '.js'.length)
+  ),
+});
 
 const editorAndDashboard = {
   ...sharedConfig,
   entry: {
-    'edit-story': './assets/src/edit-story/index.js',
-    'stories-dashboard': './assets/src/dashboard/index.js',
+    [EDITOR_CHUNK]: './packages/wp-story-editor/src/index.js',
+    [DASHBOARD_CHUNK]: './packages/wp-dashboard/src/index.js',
   },
   plugins: [
-    ...sharedConfig.plugins,
+    ...sharedConfig.plugins.filter(
+      (plugin) => !(plugin instanceof DependencyExtractionWebpackPlugin)
+    ),
     new DependencyExtractionWebpackPlugin({
       requestToExternal,
     }),
@@ -244,18 +280,20 @@ const editorAndDashboard = {
       name: 'Editor & Dashboard',
     }),
     new HtmlWebpackPlugin({
-      filename: 'edit-story.chunks.php',
+      filename: `${EDITOR_CHUNK}.chunks.php`,
       inject: false, // Don't inject default <script> tags, etc.
       minify: false, // PHP not HTML so don't attempt to minify.
+      chunks: [EDITOR_CHUNK],
       templateContent,
-      chunks: ['edit-story'],
+      templateParameters,
     }),
     new HtmlWebpackPlugin({
-      filename: 'stories-dashboard.chunks.php',
+      filename: `${DASHBOARD_CHUNK}.chunks.php`,
       inject: false, // Don't inject default <script> tags, etc.
       minify: false, // PHP not HTML so don't attempt to minify.
+      chunks: [DASHBOARD_CHUNK],
       templateContent,
-      chunks: ['stories-dashboard'],
+      templateParameters,
     }),
   ],
   optimization: {
@@ -275,9 +313,6 @@ const webStoriesScripts = {
   },
   plugins: [
     ...sharedConfig.plugins,
-    new DependencyExtractionWebpackPlugin({
-      injectPolyfill: true,
-    }),
     new WebpackBar({
       name: 'WP Frontend Scripts',
       color: '#EEE070',
@@ -287,7 +322,7 @@ const webStoriesScripts = {
 
 // Collect all core themes style sheet paths.
 const coreThemesBlockStylesPaths = glob.sync(
-  './assets/src/web-stories-block/css/core-themes/*.css'
+  './packages/stories-block/src/css/core-themes/*.css'
 );
 
 // Build entry object for the Core Themes Styles.
@@ -304,18 +339,16 @@ const webStoriesBlock = {
   ...sharedConfig,
   entry: {
     'web-stories-block': [
-      './assets/src/web-stories-block/index.js',
-      './assets/src/web-stories-block/block/edit.css',
+      './packages/stories-block/src/index.js',
+      './packages/stories-block/src/block/edit.css',
     ],
-    'web-stories-list-styles': './assets/src/web-stories-block/css/style.css',
-    'web-stories-embed': './assets/src/web-stories-block/css/embed.css',
+    'web-stories-list-styles': './packages/stories-block/src/css/style.css',
+    'web-stories-embed': './packages/stories-block/src/css/embed.css',
     ...coreThemeBlockStyles,
   },
   plugins: [
     ...sharedConfig.plugins,
-    new DependencyExtractionWebpackPlugin({
-      injectPolyfill: true,
-    }),
+
     new WebpackBar({
       name: 'Web Stories Block',
       color: '#357BB5',
@@ -331,9 +364,6 @@ const activationNotice = {
   },
   plugins: [
     ...sharedConfig.plugins,
-    new DependencyExtractionWebpackPlugin({
-      requestToExternal,
-    }),
     new WebpackBar({
       name: 'Activation Notice',
       color: '#fcd8ba',
@@ -348,7 +378,6 @@ const widgetScript = {
   },
   plugins: [
     ...sharedConfig.plugins,
-    new DependencyExtractionWebpackPlugin({}),
     new WebpackBar({
       name: 'WP Widget Script',
       color: '#F757A5',
@@ -363,7 +392,6 @@ const storiesMCEButton = {
   },
   plugins: [
     ...sharedConfig.plugins,
-    new DependencyExtractionWebpackPlugin({}),
     new WebpackBar({
       name: 'WP TinyMCE Button',
       color: '#4deaa2',
@@ -371,63 +399,26 @@ const storiesMCEButton = {
   ].filter(Boolean),
 };
 
-const playgroundFilePath = (file) =>
-  path.resolve(process.cwd(), 'packages', `playground/src/${file}`);
-const previewMarkup = fs.readFileSync(
-  playgroundFilePath('preview/index.html'),
-  'utf8'
-);
-const outputPath = isProduction ? 'dist' : '';
-
-// Configuration for playground.
-const playground = {
-  ...editorAndDashboard,
+const storiesImgareaselect = {
+  ...sharedConfig,
   entry: {
-    ...editorAndDashboard.entry,
-    'web-stories-playground': playgroundFilePath('style.css'),
-  },
-  output: {
-    ...editorAndDashboard.output,
-    path: path.resolve(process.cwd(), outputPath),
-    filename: 'assets/js/[name].js',
-    chunkFilename: 'assets/js/[name]-[chunkhash].js',
+    imgareaselect: './packages/imgareaselect/src/index.js',
   },
   plugins: [
     ...sharedConfig.plugins,
     new WebpackBar({
-      name: 'Web Stories Playground',
-      color: '#00FFFF',
+      name: 'WP ImgAreaSelect Patch',
+      color: '#7D02F1',
     }),
-    new HtmlWebpackPlugin({
-      inject: true, // Don't inject default <script> tags, etc.
-      minify: false, // PHP not HTML so don't attempt to minify.
-      template: playgroundFilePath('index.html'),
-      chunks: ['edit-story', 'web-stories-playground'],
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: 'packages/playground/src/preview', to: 'preview' },
-        { from: 'favicon.ico', to: '' },
-        { from: 'assets/images/editor', to: 'assets/images/editor' },
-      ],
-    }),
-  ],
-  devServer: {
-    before: function (app) {
-      app.get('/preview', function (req, res) {
-        res.send(previewMarkup);
-      });
-    },
-  },
+  ].filter(Boolean),
 };
 
-module.exports = isPlayground
-  ? [playground]
-  : [
-      editorAndDashboard,
-      activationNotice,
-      webStoriesBlock,
-      webStoriesScripts,
-      widgetScript,
-      storiesMCEButton,
-    ];
+module.exports = [
+  editorAndDashboard,
+  activationNotice,
+  webStoriesBlock,
+  webStoriesScripts,
+  widgetScript,
+  storiesMCEButton,
+  storiesImgareaselect,
+];

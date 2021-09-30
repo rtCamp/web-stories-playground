@@ -114,11 +114,11 @@ class Site_Kit extends Service_Base {
 	 *
 	 * @since 1.2.0
 	 *
-	 * @param array $gtag_opt Array of gtag configuration options.
+	 * @param array|mixed $gtag_opt Array of gtag configuration options.
 	 *
-	 * @return array Modified configuration options.
+	 * @return array|mixed Modified configuration options.
 	 */
-	public function filter_site_kit_gtag_opt( $gtag_opt ): array {
+	public function filter_site_kit_gtag_opt( $gtag_opt ) {
 		if ( ! is_singular( Story_Post_Type::POST_TYPE_SLUG ) ) {
 			return $gtag_opt;
 		}
@@ -216,7 +216,7 @@ class Site_Kit extends Service_Base {
 			$analytics_link = admin_url(
 				add_query_arg(
 					[
-						's'   => urlencode( __( 'Site Kit by Google', 'web-stories' ) ),
+						's'   => rawurlencode( __( 'Site Kit by Google', 'web-stories' ) ),
 						'tab' => 'search',
 					],
 					'plugin-install.php'

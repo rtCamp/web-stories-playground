@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -29,12 +29,12 @@
             "height": 476,
             "posterId": 0,
             "id": 0,
-            "title": "Person surfing with high-rise building in background",
             "alt": "Person surfing with high-rise building in background",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [160, 161, 171]
+            "baseColor": [160, 161, 171],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -371,12 +371,12 @@
             "width": 330,
             "height": 186,
             "id": 0,
-            "title": "Man in black formal suit wearing eyeglasses",
             "alt": "Man in black formal suit wearing eyeglasses",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [77, 77, 71]
+            "baseColor": [77, 77, 71],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 48,
@@ -560,11 +560,11 @@
             "width": 330,
             "height": 205,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "x": 0,
           "y": 265,
@@ -736,7 +736,7 @@
           "focalY": 50,
           "basedOn": "fcdd28f8-c61a-4b5a-85b7-bdc561a453e3",
           "id": "502d7135-c336-4d93-af50-88e37be12ae5",
-          "x": 97,
+          "x": 89,
           "y": 515,
           "type": "text"
         },
@@ -899,12 +899,12 @@
             "width": 330,
             "height": 412,
             "id": 0,
-            "title": "Aerial view of city",
             "alt": "Aerial view of city",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [197, 204, 215]
+            "baseColor": [197, 204, 215],
+            "isExternal": true
           }
         },
         {
@@ -1248,11 +1248,11 @@
             "width": 330,
             "height": 167,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0.5,
@@ -1407,7 +1407,7 @@
           "lineHeight": 1.3,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"color: #160236\">A special walk through medieval streets and alleyways of the Gothic, and Barceloneta neighborhoods.</span>",
+          "content": "<span style=\"color: #160236\">A special walk through medieval streets and alleyways of the Gothic and Barceloneta neighborhoods.</span>",
           "fontWeight": 700,
           "borderRadius": {
             "locked": true,
@@ -1522,12 +1522,12 @@
             "width": 330,
             "height": 412,
             "id": 0,
-            "title": "Two gray and brown concrete bricks",
             "alt": "Two gray and brown concrete bricks",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [131, 90, 52]
+            "baseColor": [131, 90, 52],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 48,
@@ -1694,11 +1694,11 @@
             "width": 330,
             "height": 32,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "x": 0,
           "y": 285,
@@ -1955,12 +1955,12 @@
             "width": 330,
             "height": 494,
             "id": 0,
-            "title": "Brown concrete statue under blue sky during daytime",
             "alt": "Brown concrete statue under blue sky during daytime",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [134, 177, 214]
+            "baseColor": [134, 177, 214],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -2120,12 +2120,12 @@
             "height": 216,
             "posterId": 0,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [255, 255, 255]
+            "baseColor": [255, 255, 255],
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -2374,12 +2374,12 @@
             "width": 330,
             "height": 494,
             "id": 0,
-            "title": "Brown concrete building during daytime",
             "alt": "Brown concrete building during daytime",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [40, 33, 29]
+            "baseColor": [40, 33, 29],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -2542,12 +2542,12 @@
             "height": 168,
             "posterId": 0,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [255, 255, 255]
+            "baseColor": [255, 255, 255],
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -2804,12 +2804,12 @@
             "width": 330,
             "height": 544,
             "id": 0,
-            "title": "Brwon and black cathedrla",
             "alt": "Brwon and black cathedrla",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [39, 36, 34]
+            "baseColor": [39, 36, 34],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -2904,11 +2904,11 @@
             "width": 330,
             "height": 110,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -3212,12 +3212,12 @@
             "width": 330,
             "height": 494,
             "id": 0,
-            "title": "Interior of a railway staion like building",
             "alt": "Interior of a railway staion like building",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [31, 31, 27]
+            "baseColor": [31, 31, 27],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 48,
@@ -3384,11 +3384,11 @@
             "width": 330,
             "height": 103,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "x": 0,
           "y": 256,
@@ -3646,12 +3646,12 @@
             "width": 330,
             "height": 439,
             "id": 0,
-            "title": "Fried food with sauce",
             "alt": "Fried food with sauce",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [139, 95, 73]
+            "baseColor": [139, 95, 73],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -3812,11 +3812,11 @@
             "width": 330,
             "height": 46,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -3973,7 +3973,7 @@
           "lineHeight": 1.3,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"color: #160236\">Ready for some bites now right? Grab pre-dinner snacks at this local's bar and restaurant.</span>",
+          "content": "<span style=\"color: #160236\">Ready for some bites now, right? Grab pre-dinner snacks at this local's bar and restaurant.</span>",
           "fontWeight": 700,
           "borderRadius": {
             "locked": true,
@@ -4066,12 +4066,12 @@
             "width": 330,
             "height": 247,
             "id": 0,
-            "title": "People on beach during daytime",
             "alt": "People on beach during daytime",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [203, 208, 222]
+            "baseColor": [203, 208, 222],
+            "isExternal": true
           }
         },
         {
@@ -4089,11 +4089,11 @@
             "width": 330,
             "height": 211,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -4324,7 +4324,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -4358,12 +4357,12 @@
             "width": 330,
             "height": 581,
             "id": 0,
-            "title": "Dashed border line",
             "alt": "Dashed border line",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [255, 255, 255]
+            "baseColor": [255, 255, 255],
+            "isExternal": true
           },
           "overlay": null
         },
@@ -4514,11 +4513,11 @@
             "width": 121,
             "height": 160,
             "id": 0,
-            "title": "Polaroids photo frames",
             "alt": "Polaroids photo frames",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 56,
@@ -4559,12 +4558,12 @@
             "width": 320,
             "height": 427,
             "id": 0,
-            "title": "low-angle photography of Berlin Cathedral, Berlin, Germany during daytime",
             "alt": "low-angle photography of Berlin Cathedral, Berlin, Germany during daytime",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [205, 217, 211]
+            "baseColor": [205, 217, 211],
+            "isExternal": true
           }
         },
         {
@@ -4685,7 +4684,7 @@
           "lineHeight": 1,
           "textAlign": "initial",
           "padding": { "locked": true, "hasHiddenPadding": false },
-          "content": "<span style=\"font-weight: 500; color: #fff\">days in</span>\n<span style=\"font-weight: 500; color: #fff\">east Berlin</span>",
+          "content": "<span style=\"font-weight: 500; color: #fff\">days in</span>\n<span style=\"font-weight: 500; color: #fff\">East Berlin</span>",
           "fontWeight": 700,
           "borderRadius": {
             "locked": true,
@@ -4858,11 +4857,11 @@
             "width": 121,
             "height": 160,
             "id": 0,
-            "title": "Polaroids photo frames",
             "alt": "Polaroids photo frames",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "width": 116,
@@ -4903,12 +4902,12 @@
             "width": 320,
             "height": 213,
             "id": 0,
-            "title": "Boat docked near building",
             "alt": "Boat docked near building",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [186, 186, 182]
+            "baseColor": [186, 186, 182],
+            "isExternal": true
           }
         }
       ],

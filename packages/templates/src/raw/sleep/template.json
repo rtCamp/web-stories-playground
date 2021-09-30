@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -12,7 +12,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 31, "g": 42, "b": 46 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -59,10 +58,10 @@
             "height": 147,
             "posterId": 0,
             "id": 0,
-            "title": "page1_image1",
             "alt": "page1_image1",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "basedOn": "41a5dd8e-e12b-46fb-aef1-63b71a2475bf",
           "id": "8dbfe563-a930-4de7-90d7-e9681be1e98e"
@@ -116,10 +115,10 @@
             "width": 38,
             "height": 12,
             "id": 0,
-            "title": "icon_logo",
             "alt": "icon_logo",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "type": "image",
           "x": 170.5,
@@ -205,7 +204,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -344,7 +342,7 @@
           "focalY": 50,
           "type": "text",
           "id": "643dd508-0499-4c8e-adab-b48039c98296",
-          "content": "<span style=\"color: rgba(43, 57, 62, 1)\">-\nDALAI LAMA</span>",
+          "content": "<span style=\"color: rgba(43, 57, 62, 1); text-transform: uppercase\">-</span>\n<span style=\"color: rgba(43, 57, 62, 1); text-transform: uppercase\">Dalai Lama</span>",
           "fontSize": 15,
           "padding": { "horizontal": 0, "vertical": 0 }
         },
@@ -425,7 +423,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 75, "g": 92, "b": 84 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -456,10 +453,10 @@
             "height": 147,
             "posterId": 0,
             "id": 0,
-            "title": "page3_bg",
             "alt": "page3_bg",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           }
         },
         {
@@ -611,7 +608,7 @@
           "type": "text",
           "basedOn": "16874f25-165a-4633-90b6-61c465d9b868",
           "id": "a05c550f-a6fd-453c-a498-7c0840c74e80",
-          "content": "<span style=\"color: rgba(255, 255, 255, 1)\">LEARN MORE</span>",
+          "content": "<span style=\"color: rgba(255, 255, 255, 1); text-transform: uppercase\">Learn More</span>",
           "fontSize": 13,
           "padding": { "horizontal": 0, "vertical": 0 }
         },
@@ -711,10 +708,10 @@
             "height": 391,
             "posterId": 0,
             "id": 0,
-            "title": "page4_bg",
             "alt": "page4_bg",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "mask": {
             "type": "rectangle",
@@ -903,7 +900,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -952,10 +948,10 @@
             "height": 330,
             "posterId": 0,
             "id": 0,
-            "title": "page5_image1",
             "alt": "page5_image1",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "basedOn": "8dbfe563-a930-4de7-90d7-e9681be1e98e",
           "id": "e5936b3b-e398-4cdd-a2f5-91128b4c10b9"
@@ -1108,7 +1104,7 @@
           "type": "text",
           "basedOn": "a05c550f-a6fd-453c-a498-7c0840c74e80",
           "id": "4a6f10ee-b868-4ec8-80c3-7968bede7d8d",
-          "content": "<span style=\"color: rgba(31, 42, 46, 1)\">LEARN MORE</span>",
+          "content": "<span style=\"color: rgba(31, 42, 46, 1); text-transform: uppercase\">Learn More</span>",
           "fontSize": 13,
           "padding": { "horizontal": 0, "vertical": 0 }
         },
@@ -1174,10 +1170,10 @@
             "height": 330,
             "posterId": 0,
             "id": 0,
-            "title": "page6_bg",
             "alt": "page6_bg",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "mask": {
             "type": "rectangle",
@@ -1386,10 +1382,10 @@
             "height": 293,
             "posterId": 0,
             "id": 0,
-            "title": "page7_bg",
             "alt": "page7_bg",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "mask": {
             "type": "rectangle",
@@ -1553,7 +1549,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 31, "g": 42, "b": 46 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -1600,10 +1595,10 @@
             "height": 220,
             "posterId": 0,
             "id": 0,
-            "title": "page8_image1",
             "alt": "page8_image1",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "basedOn": "e5936b3b-e398-4cdd-a2f5-91128b4c10b9",
           "id": "a406280f-9a0b-4140-83fb-e9cac472886f"
@@ -1708,7 +1703,7 @@
           "type": "text",
           "basedOn": "a05c550f-a6fd-453c-a498-7c0840c74e80",
           "id": "91d4d005-9a56-49d2-8e72-053ef3fa83c3",
-          "content": "<span style=\"color: rgba(255, 255, 255, 1)\">LEARN MORE</span>",
+          "content": "<span style=\"color: rgba(255, 255, 255, 1); text-transform: uppercase\">Learn More</span>",
           "fontSize": 13,
           "padding": { "horizontal": 0, "vertical": 0 }
         },
@@ -1883,7 +1878,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -2350,7 +2344,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "mask": { "type": "rectangle" },
           "isBackground": true,
           "type": "shape",
@@ -2398,10 +2391,10 @@
             "height": 330,
             "posterId": 0,
             "id": 0,
-            "title": "page10_image1",
             "alt": "page10_image1",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           }
         },
         {
@@ -2428,10 +2421,10 @@
             "height": 494,
             "posterId": 0,
             "id": 0,
-            "title": "page10_image2",
             "alt": "page10_image2",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "basedOn": "20ab13c0-b782-40f7-8700-a99d9b56008c",
           "id": "70006d51-6f37-47b4-9074-b193a473caab"
@@ -2459,10 +2452,10 @@
             "height": 275,
             "posterId": 0,
             "id": 0,
-            "title": "page10_image3",
             "alt": "page10_image3",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           },
           "basedOn": "70006d51-6f37-47b4-9074-b193a473caab",
           "id": "46172f61-dfd3-4105-a3b3-9e6b95e32a4c"
@@ -2492,10 +2485,10 @@
             "height": 55,
             "posterId": 0,
             "id": 0,
-            "title": "page10_image4",
             "alt": "page10_image4",
             "local": false,
-            "sizes": []
+            "sizes": [],
+            "isExternal": true
           }
         },
         {

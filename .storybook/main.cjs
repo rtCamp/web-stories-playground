@@ -17,8 +17,9 @@
 module.exports = {
   stories: [
     './stories/**/*.js',
-    '../assets/src/dashboard/**/stories/*.@(js|mdx)',
-    '../assets/src/edit-story/**/stories/*.@(js|mdx)',
+    '../packages/dashboard/src/**/stories/*.@(js|mdx)',
+    '../packages/story-editor/src/**/stories/*.@(js|mdx)',
+    '../packages/wp-story-editor/src/**/stories/*.@(js|mdx)',
     '../packages/activation-notice/src/**/stories/*.@(js|mdx)',
     '../packages/design-system/src/**/stories/*.@(js|mdx)',
   ],
@@ -102,6 +103,17 @@ module.exports = {
           'url-loader',
         ],
         include: [/images\/.*\.svg$/],
+      },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'images',
+            },
+          },
+        ],
       }
     );
 

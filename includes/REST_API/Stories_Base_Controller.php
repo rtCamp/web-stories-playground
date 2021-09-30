@@ -126,7 +126,7 @@ class Stories_Base_Controller extends WP_REST_Posts_Controller {
 		$data     = $response->get_data();
 		$schema   = $this->get_item_schema();
 
-		if ( in_array( 'story_data', $fields, true ) ) {
+		if ( rest_is_field_included( 'story_data', $fields ) ) {
 			$post_story_data    = json_decode( $post->post_content_filtered, true );
 			$data['story_data'] = rest_sanitize_value_from_schema( $post_story_data, $schema['properties']['story_data'] );
 		}
@@ -148,13 +148,65 @@ class Stories_Base_Controller extends WP_REST_Posts_Controller {
 	}
 
 	/**
+	 * Creates a single story.
+	 *
+	 * Override the existing method so we can set parent id.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response|WP_Error Response object on success, WP_Error object on failure.
+	 */
+	public function create_item( $request ) {
+		$original_id = ! empty( $request['original_id'] ) ? (int) $request['original_id'] : null;
+		if ( ! $original_id ) {
+			return parent::create_item( $request );
+		}
+
+		$original_post = $this->get_post( (int) $original_id );
+		if ( is_wp_error( $original_post ) ) {
+			return $original_post;
+		}
+
+		if ( ! $this->check_read_permission( $original_post ) ) {
+			return new WP_Error(
+				'rest_cannot_create',
+				__( 'Sorry, you are not allowed to duplicate this story.', 'web-stories' ),
+				[ 'status' => rest_authorization_required_code() ]
+			);
+		}
+
+		$request->set_param( 'content', $original_post->post_content );
+		$request->set_param( 'excerpt', $original_post->post_excerpt );
+
+		$title = sprintf(
+			/* translators: %s: story title. */
+			__( '%s (Copy)', 'web-stories' ),
+			$original_post->post_title
+		);
+		$request->set_param( 'title', $title );
+
+		$story_data = json_decode( $original_post->post_content_filtered, true );
+		if ( $story_data ) {
+			$request->set_param( 'story_data', $story_data );
+		}
+
+		$thumbnail_id = get_post_thumbnail_id( $original_post );
+		if ( $thumbnail_id ) {
+			$request->set_param( 'featured_media', $thumbnail_id );
+		}
+
+		return parent::create_item( $request );
+	}
+
+	/**
 	 * Retrieves the story's schema, conforming to JSON Schema.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array Item schema as an array.
 	 */
-	public function get_item_schema() {
+	public function get_item_schema(): array {
 		if ( $this->schema ) {
 			return $this->add_additional_fields_schema( $this->schema );
 		}
@@ -168,8 +220,143 @@ class Stories_Base_Controller extends WP_REST_Posts_Controller {
 			'default'     => [],
 		];
 
+		$schema['properties']['original_id'] = [
+			'description' => __( 'Unique identifier for original story id.', 'web-stories' ),
+			'type'        => 'integer',
+			'context'     => [ 'view', 'edit', 'embed' ],
+		];
+
 		$this->schema = $schema;
 
 		return $this->add_additional_fields_schema( $this->schema );
+	}
+
+	/**
+	 * Prepares links for the request.
+	 *
+	 * Ensures that {@see Stories_Users_Controller} is used for author embeds.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return array Links for the given post.
+	 */
+	protected function prepare_links( $post ): array {
+		$links = parent::prepare_links( $post );
+
+		if ( ! empty( $post->post_author ) && post_type_supports( $post->post_type, 'author' ) ) {
+			$links['author'] = [
+				'href'       => rest_url( sprintf( '%s/%s/%s', $this->namespace, 'users', $post->post_author ) ),
+				'embeddable' => true,
+			];
+		}
+
+		// If we have a featured media, add that.
+		$featured_media = get_post_thumbnail_id( $post->ID );
+		if ( $featured_media ) {
+			$image_url = rest_url( sprintf( '%s/%s/%s', $this->namespace, 'media', $featured_media ) );
+
+			$links['https://api.w.org/featuredmedia'] = [
+				'href'       => $image_url,
+				'embeddable' => true,
+			];
+		}
+
+		if ( ! in_array( $post->post_type, [ 'attachment', 'nav_menu_item', 'revision' ], true ) ) {
+			$attachments_url = rest_url( sprintf( '%s/%s', $this->namespace, 'media' ) );
+			$attachments_url = add_query_arg( 'parent', $post->ID, $attachments_url );
+
+			$links['https://api.w.org/attachment'] = [
+				'href' => $attachments_url,
+			];
+		}
+
+		$links = $this->add_taxonomy_links( $links, $post );
+
+		return $links;
+	}
+
+	/**
+	 * Adds a REST API links for the taxonomies.
+	 *
+	 * @since 1.12.0
+	 *
+	 * @param array   $links Links for the given post.
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return array Modified list of links.
+	 */
+	private function add_taxonomy_links( array $links, WP_Post $post ): array {
+		$taxonomies = get_object_taxonomies( $post->post_type, 'objects' );
+
+		if ( empty( $taxonomies ) ) {
+			return $links;
+		}
+		$links['https://api.w.org/term'] = [];
+
+		foreach ( $taxonomies as $taxonomy_obj ) {
+			// Skip taxonomies that are not public.
+			if ( empty( $taxonomy_obj->show_in_rest ) ) {
+				continue;
+			}
+
+			$controller = $taxonomy_obj->get_rest_controller();
+
+			if ( ! $controller ) {
+				continue;
+			}
+
+			$namespace = method_exists( $controller, 'get_namespace' ) ? $controller->get_namespace() : 'wp/v2';
+			$tax       = $taxonomy_obj->name;
+			$tax_base  = ! empty( $taxonomy_obj->rest_base ) ? $taxonomy_obj->rest_base : $tax;
+
+			$terms_url = add_query_arg(
+				'post',
+				$post->ID,
+				rest_url( sprintf( '%s/%s', $namespace, $tax_base ) )
+			);
+
+			$links['https://api.w.org/term'][] = [
+				'href'       => $terms_url,
+				'taxonomy'   => $tax,
+				'embeddable' => true,
+			];
+		}
+		return $links;
+	}
+
+	/**
+	 * Get the link relations available for the post and current user.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @param WP_Post         $post    Post object.
+	 * @param WP_REST_Request $request Request object.
+	 * @return array List of link relations.
+	 */
+	protected function get_available_actions( $post, $request ): array {
+		$rels = parent::get_available_actions( $post, $request );
+
+		if ( $this->check_delete_permission( $post ) ) {
+			$rels[] = 'https://api.w.org/action-delete';
+		}
+
+		if ( $this->check_update_permission( $post ) ) {
+			$rels[] = 'https://api.w.org/action-edit';
+		}
+
+		return $rels;
+	}
+
+	/**
+	 * Return namespace.
+	 *
+	 * @since 1.12.0
+	 *
+	 * @return string
+	 */
+	public function get_namespace() : string {
+		return $this->namespace;
 	}
 }

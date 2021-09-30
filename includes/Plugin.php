@@ -28,6 +28,7 @@
 
 namespace Google\Web_Stories;
 
+use Google\Web_Stories\AMP\Output_Buffer;
 use Google\Web_Stories\Infrastructure\ServiceBasedPlugin;
 use Google\Web_Stories\Infrastructure\Injector;
 
@@ -69,6 +70,7 @@ class Plugin extends ServiceBasedPlugin {
 		'activation_flag'              => Admin\Activation_Flag::class,
 		'activation_notice'            => Admin\Activation_Notice::class,
 		'admin.google_fonts'           => Admin\Google_Fonts::class,
+		'amp_output_buffer'            => Output_Buffer::class,
 		'amp_story_player_assets'      => AMP_Story_Player_Assets::class,
 		'adsense'                      => AdSense::class,
 		'ad_manager'                   => Ad_Manager::class,
@@ -87,11 +89,18 @@ class Plugin extends ServiceBasedPlugin {
 		'integrations.nextgen_gallery' => Integrations\NextGen_Gallery::class,
 		'integrations.sitekit'         => Integrations\Site_Kit::class,
 		'integrations.themes_support'  => Integrations\Core_Themes_Support::class,
+		'imgareaselect_patch'          => Admin\ImgAreaSelect_Patch::class,
 		'kses'                         => KSES::class,
-		'media'                        => Media\Media::class,
 		'page_template_post_type'      => Page_Template_Post_Type::class,
 		'plugin_row_meta'              => Admin\PluginRowMeta::class,
 		'plugin_action_links'          => Admin\PluginActionLinks::class,
+		'media.image_sizes'            => Media\Image_Sizes::class,
+		'media.media_source'           => Media\Media_Source_Taxonomy::class,
+		'media.video.captions'         => Media\Video\Captions::class,
+		'media.video.muting'           => Media\Video\Muting::class,
+		'media.video.optimization'     => Media\Video\Optimization::class,
+		'media.video.poster'           => Media\Video\Poster::class,
+		'media.video.trimming'         => Media\Video\Trimming::class,
 		'meta_boxes'                   => Admin\Meta_Boxes::class,
 		'settings'                     => Settings::class,
 		'site_health'                  => Admin\Site_Health::class,
@@ -109,17 +118,21 @@ class Plugin extends ServiceBasedPlugin {
 		'user.capabilities'            => User\Capabilities::class,
 		'rest.embed_controller'        => REST_API\Embed_Controller::class,
 		'rest.link_controller'         => REST_API\Link_Controller::class,
+		'rest.hotlinking_controller'   => REST_API\Hotlinking_Controller::class,
+		'rest.publisher_logos'         => REST_API\Publisher_Logos_Controller::class,
 		'rest.status_check_controller' => REST_API\Status_Check_Controller::class,
 		'rest.stories_autosave'        => REST_API\Stories_Autosaves_Controller::class,
 		'rest.stories_lock'            => REST_API\Stories_Lock_Controller::class,
 		'rest.media'                   => REST_API\Stories_Media_Controller::class,
 		'rest.settings'                => REST_API\Stories_Settings_Controller::class,
 		'rest.users'                   => REST_API\Stories_Users_Controller::class,
+		'rest.taxonomies'              => REST_API\Stories_Taxonomies_Controller::class,
 		'rest.template_autosave'       => REST_API\Template_Autosaves_Controller::class,
 		'rest.template_lock'           => REST_API\Template_Lock_Controller::class,
+		'taxonomy.category'            => Taxonomy\Category_Taxonomy::class,
+		'taxonomy.tag'                 => Taxonomy\Tag_Taxonomy::class,
 		'user_preferences'             => User\Preferences::class,
 		'web_stories_block'            => Block\Web_Stories_Block::class,
-		'video_captions'               => Media\Video_Captions::class,
 	];
 
 	/**
@@ -135,26 +148,6 @@ class Plugin extends ServiceBasedPlugin {
 	 */
 	protected function get_service_classes(): array {
 		return self::SERVICES;
-	}
-
-	/**
-	 * Get the bindings for the dependency injector.
-	 *
-	 * The bindings array contains a map of <interface> => <implementation>
-	 * mappings, both of which should be fully qualified class names (FQCNs).
-	 *
-	 * The <interface> does not need to be the actual PHP `interface` language
-	 * construct, it can be a `class` as well.
-	 *
-	 * Whenever you ask the injector to "make()" an <interface>, it will resolve
-	 * these mappings and return an instance of the final <class> it found.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @return array<string> Associative array of fully qualified class names.
-	 */
-	protected function get_bindings(): array {
-		return [];
 	}
 
 	/**
@@ -181,7 +174,6 @@ class Plugin extends ServiceBasedPlugin {
 			Integrations\Site_Kit::class,
 			Analytics::class,
 			Decoder::class,
-			AMP_Story_Player_Assets::class,
 			Admin\Google_Fonts::class,
 		];
 	}
@@ -205,34 +197,5 @@ class Plugin extends ServiceBasedPlugin {
 				return Services::get( 'injector' );
 			},
 		];
-	}
-
-	/**
-	 * Backward compatibility, old style class stored all classes instances as class properties.
-	 * Use a magic getting to populate these class properties.
-	 *
-	 * @since 1.6.0
-	 *
-	 * @param string $name property name.
-	 *
-	 * @return mixed
-	 */
-	public function __get( $name ) {
-		$services = $this->get_service_classes();
-		if ( isset( $services[ $name ] ) ) {
-			return $this->instantiate_service( $services[ $name ] );
-		}
-
-		if ( 'integrations' === $name ) {
-			return [
-				'webstories_core_themes_support' => $this->instantiate_service( $services['integrations.themes_support'] ),
-				'site-kit'                       => $this->instantiate_service( $services['integrations.sitekit'] ),
-				'nextgen_gallery'                => $this->instantiate_service( $services['integrations.nextgen_gallery'] ),
-				'jetpack'                        => $this->instantiate_service( $services['integrations.jetpack'] ),
-				'amp'                            => $this->instantiate_service( $services['integrations.amp'] ),
-			];
-		}
-
-		return $this->$name;
 	}
 }

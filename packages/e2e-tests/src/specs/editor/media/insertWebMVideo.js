@@ -26,28 +26,50 @@ import {
 } from '@web-stories-wp/e2e-test-utils';
 
 describe('Inserting WebM Video', () => {
-  it('should insert an video by clicking on media dialog it', async () => {
+  let uploadedFiles = [];
+
+  beforeEach(() => (uploadedFiles = []));
+
+  afterEach(async () => {
+    for (const file of uploadedFiles) {
+      // eslint-disable-next-line no-await-in-loop
+      await deleteMedia(file);
+    }
+  });
+
+  async function openA11yPanel() {
+    // Open the Accessibility panel.
+    const a11yPanel = await page.$('button[aria-label="Accessibility"]');
+    const isCollapsed = await page.evaluate(
+      (button) => button.getAttribute('aria-expanded') == 'false',
+      a11yPanel
+    );
+    if (isCollapsed) {
+      a11yPanel.click();
+    }
+  }
+
+  it('should insert a video via media modal', async () => {
     await createNewStory();
 
-    await expect(page).not.toMatchElement('[data-testid="FrameElement"]');
-    const filename = await uploadMedia('small-video.webm', false);
+    const fileName = await uploadMedia('small-video.webm', false);
+    uploadedFiles.push(fileName);
 
     await expect(page).toClick('button', { text: 'Insert into page' });
 
     await expect(page).toMatchElement('[data-testid="videoElement"]');
 
-    // Wait for poster image to appear.
+    // Wait for poster image (inside Accessibility panel) to appear.
+    await openA11yPanel();
     await page.waitForSelector('[alt="Preview poster image"]');
     await expect(page).toMatchElement('[alt="Preview poster image"]');
-
-    await deleteMedia(filename);
   });
 
-  it('should insert an video by clicking on media library', async () => {
+  it('should insert a video via media library', async () => {
     await createNewStory();
 
-    await expect(page).not.toMatchElement('[data-testid="FrameElement"]');
-    const filename = await uploadMedia('small-video.webm');
+    const fileName = await uploadMedia('small-video.webm');
+    uploadedFiles.push(fileName);
 
     await page.waitForSelector('[data-testid="mediaElement-video"]');
     // Clicking will only act on the first element.
@@ -56,20 +78,19 @@ describe('Inserting WebM Video', () => {
     await page.waitForSelector('[data-testid="videoElement"]');
     await expect(page).toMatchElement('[data-testid="videoElement"]');
 
-    // Wait for poster image to appear.
+    // Wait for poster image (inside Accessibility panel) to appear.
+    await openA11yPanel();
     await page.waitForSelector('[alt="Preview poster image"]');
     await expect(page).toMatchElement('[alt="Preview poster image"]');
-
-    await deleteMedia(filename);
   });
 
-  it('should insert an video by clicking on media library and preview on FE', async () => {
+  it('should insert a video via media library and preview on FE', async () => {
     await createNewStory();
 
     await insertStoryTitle('Publishing with video');
 
-    await expect(page).not.toMatchElement('[data-testid="FrameElement"]');
-    const filename = await uploadMedia('small-video.webm');
+    const fileName = await uploadMedia('small-video.webm');
+    uploadedFiles.push(fileName);
 
     await page.waitForSelector('[data-testid="mediaElement-video"]');
     // Clicking will only act on the first element.
@@ -78,7 +99,8 @@ describe('Inserting WebM Video', () => {
     await page.waitForSelector('[data-testid="videoElement"]');
     await expect(page).toMatchElement('[data-testid="videoElement"]');
 
-    // Wait for poster image to be generated.
+    // Wait for poster image (inside Accessibility panel) to appear.
+    await openA11yPanel();
     await page.waitForSelector('[alt="Preview poster image"]');
     await expect(page).toMatchElement('[alt="Preview poster image"]');
 
@@ -96,7 +118,5 @@ describe('Inserting WebM Video', () => {
 
     await editorPage.bringToFront();
     await previewPage.close();
-
-    await deleteMedia(filename);
   });
 });

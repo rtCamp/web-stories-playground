@@ -27,10 +27,8 @@
 namespace Google\Web_Stories\REST_API;
 
 use Google\Web_Stories\Demo_Content;
-use Google\Web_Stories\Media\Media;
-use Google\Web_Stories\Settings;
 use Google\Web_Stories\Story_Post_Type;
-use Google\Web_Stories\Traits\Publisher;
+use Google\Web_Stories\Traits\Post_Type;
 use WP_Query;
 use WP_Error;
 use WP_Post;
@@ -43,7 +41,8 @@ use WP_REST_Response;
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Stories_Controller extends Stories_Base_Controller {
-	use Publisher;
+	use Post_Type;
+
 	/**
 	 * Default style presets to pass if not set.
 	 */
@@ -67,9 +66,8 @@ class Stories_Controller extends Stories_Base_Controller {
 	 */
 	public function prepare_item_for_response( $post, $request ) {
 		$context = ! empty( $request['context'] ) ? $request['context'] : 'view';
-		$schema  = $this->get_item_schema();
 
-		if ( wp_validate_boolean( $request['web_stories_demo'] ) && 'auto-draft' === $post->post_status ) {
+		if ( 'auto-draft' === $post->post_status && wp_validate_boolean( $request['web_stories_demo'] ) ) {
 			$demo         = new Demo_Content();
 			$demo_content = $demo->get_content();
 			if ( ! empty( $demo_content ) ) {
@@ -82,50 +80,39 @@ class Stories_Controller extends Stories_Base_Controller {
 		$fields   = $this->get_fields_for_response( $request );
 		$data     = $response->get_data();
 
-		if ( in_array( 'publisher_logo_url', $fields, true ) ) {
-			$data['publisher_logo_url'] = $this->get_publisher_logo();
-		}
-
-		if ( in_array( 'style_presets', $fields, true ) ) {
+		if ( rest_is_field_included( 'style_presets', $fields ) ) {
 			$style_presets         = get_option( Story_Post_Type::STYLE_PRESETS_OPTION, self::EMPTY_STYLE_PRESETS );
 			$data['style_presets'] = is_array( $style_presets ) ? $style_presets : self::EMPTY_STYLE_PRESETS;
 		}
 
-		if ( in_array( 'featured_media_url', $fields, true ) ) {
-			$image                      = get_the_post_thumbnail_url( $post, Media::POSTER_PORTRAIT_IMAGE_SIZE );
-			$data['featured_media_url'] = ! empty( $image ) ? $image : $schema['properties']['featured_media_url']['default'];
-		}
-
-		if ( in_array( 'preview_link', $fields, true ) ) {
+		if ( rest_is_field_included( 'preview_link', $fields ) ) {
 			// Based on https://github.com/WordPress/wordpress-develop/blob/8153c8ba020c4aec0b9d94243cd39c689a0730f7/src/wp-admin/includes/post.php#L1445-L1457.
 			if ( 'draft' === $post->post_status || empty( $post->post_name ) ) {
 				$view_link = get_preview_post_link( $post );
+			} elseif ( 'publish' === $post->post_status ) {
+				$view_link = get_permalink( $post );
 			} else {
-				if ( 'publish' === $post->post_status ) {
-					$view_link = get_permalink( $post );
-				} else {
-					if ( ! function_exists( 'get_sample_permalink' ) ) {
-						require_once ABSPATH . 'wp-admin/includes/post.php';
-					}
-
-					list ( $permalink ) = get_sample_permalink( $post->ID, $post->post_title, '' );
-
-					// Allow non-published (private, future) to be viewed at a pretty permalink, in case $post->post_name is set.
-					$view_link = str_replace( [ '%pagename%', '%postname%' ], $post->post_name, $permalink );
+				if ( ! function_exists( 'get_sample_permalink' ) ) {
+					require_once ABSPATH . 'wp-admin/includes/post.php';
 				}
+
+				list ( $permalink ) = get_sample_permalink( $post->ID, $post->post_title, '' );
+
+				// Allow non-published (private, future) to be viewed at a pretty permalink, in case $post->post_name is set.
+				$view_link = str_replace( [ '%pagename%', '%postname%' ], $post->post_name, $permalink );
 			}
 
 			$data['preview_link'] = $view_link;
 		}
 
-		if ( in_array( 'edit_link', $fields, true ) ) {
+		if ( rest_is_field_included( 'edit_link', $fields ) ) {
 			$edit_link = get_edit_post_link( $post, 'rest-api' );
 			if ( $edit_link ) {
 				$data['edit_link'] = $edit_link;
 			}
 		}
 
-		if ( in_array( 'embed_post_link', $fields, true ) && current_user_can( 'edit_posts' ) ) {
+		if ( rest_is_field_included( 'embed_post_link', $fields ) && current_user_can( 'edit_posts' ) ) {
 			$data['embed_post_link'] = add_query_arg( [ 'from-web-story' => $post->ID ], admin_url( 'post-new.php' ) );
 		}
 
@@ -169,16 +156,6 @@ class Stories_Controller extends Stories_Base_Controller {
 			return rest_ensure_response( $response );
 		}
 
-		// If publisher logo is set, let's assign that.
-		$publisher_logo_id = $request->get_param( 'publisher_logo' );
-		if ( $publisher_logo_id ) {
-			$all_publisher_logos   = get_option( Settings::SETTING_NAME_PUBLISHER_LOGOS );
-			$all_publisher_logos[] = $publisher_logo_id;
-
-			update_option( Settings::SETTING_NAME_PUBLISHER_LOGOS, array_unique( $all_publisher_logos ) );
-			update_option( Settings::SETTING_NAME_ACTIVE_PUBLISHER_LOGO, $publisher_logo_id );
-		}
-
 		// If style presets are set.
 		$style_presets = $request->get_param( 'style_presets' );
 		if ( is_array( $style_presets ) ) {
@@ -195,20 +172,12 @@ class Stories_Controller extends Stories_Base_Controller {
 	 *
 	 * @return array Item schema as an array.
 	 */
-	public function get_item_schema() {
+	public function get_item_schema(): array {
 		if ( $this->schema ) {
 			return $this->add_additional_fields_schema( $this->schema );
 		}
 
 		$schema = parent::get_item_schema();
-
-		$schema['properties']['publisher_logo_url'] = [
-			'description' => __( 'Publisher logo URL.', 'web-stories' ),
-			'type'        => 'string',
-			'context'     => [ 'views', 'edit' ],
-			'format'      => 'uri',
-			'default'     => '',
-		];
 
 		$schema['properties']['style_presets'] = [
 			'description' => __( 'Style presets used by all stories', 'web-stories' ),
@@ -237,15 +206,6 @@ class Stories_Controller extends Stories_Base_Controller {
 			'type'        => 'string',
 			'context'     => [ 'edit' ],
 			'format'      => 'uri',
-			'default'     => '',
-		];
-
-		$schema['properties']['featured_media_url'] = [
-			'description' => __( 'URL for the story\'s poster image (portrait)', 'web-stories' ),
-			'type'        => 'string',
-			'format'      => 'uri',
-			'context'     => [ 'view', 'edit', 'embed' ],
-			'readonly'    => true,
 			'default'     => '',
 		];
 
@@ -323,7 +283,7 @@ class Stories_Controller extends Stories_Base_Controller {
 		$parameter_mappings = [
 			'author'         => 'author__in',
 			'author_exclude' => 'author__not_in',
-			'exclude'        => 'post__not_in', // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
+			'exclude'        => 'post__not_in', // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn, WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 			'include'        => 'post__in',
 			'menu_order'     => 'menu_order',
 			'offset'         => 'offset',
@@ -415,12 +375,21 @@ class Stories_Controller extends Stories_Base_Controller {
 
 		// Add counts for other statuses.
 		$statuses = [
-			'all'     => [ 'publish', 'draft', 'future', 'private' ],
+			'all'     => [ 'publish' ],
 			'publish' => 'publish',
-			'future'  => 'future',
-			'draft'   => 'draft',
-			'private' => 'private',
 		];
+
+		if ( $this->get_post_type_cap( $this->post_type, 'edit_posts' ) ) {
+			$statuses['all'][]  = 'draft';
+			$statuses['all'][]  = 'future';
+			$statuses['draft']  = 'draft';
+			$statuses['future'] = 'future';
+		}
+
+		if ( $this->get_post_type_cap( $this->post_type, 'read_private_posts' ) ) {
+			$statuses['all'][]   = 'private';
+			$statuses['private'] = 'private';
+		}
 
 		$statuses_count = [];
 
@@ -444,9 +413,10 @@ class Stories_Controller extends Stories_Base_Controller {
 		}
 
 		if ( $request['_web_stories_envelope'] ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$response = rest_get_server()->envelope_response( $response, isset( $request['_embed'] ) ? $request['_embed'] : false );
+			$embed    = isset( $request['_embed'] ) ? rest_parse_embed_param( $request['_embed'] ) : false;
+			$response = rest_get_server()->envelope_response( $response, $embed );
 		}
+
 		return $response;
 	}
 
@@ -457,9 +427,60 @@ class Stories_Controller extends Stories_Base_Controller {
 	 *
 	 * @return array Links for the given post.
 	 */
-	protected function prepare_links( $post ) {
+	protected function prepare_links( $post ): array {
+		// Workaround so that WP_REST_Posts_Controller::prepare_links() does not call wp_get_post_revisions(),
+		// avoiding a currently unneeded database query.
+		// TODO(#85): Remove if proper revisions support is ever needed.
+		remove_post_type_support( Story_Post_Type::POST_TYPE_SLUG, 'revisions' );
 		$links = parent::prepare_links( $post );
+		add_post_type_support( Story_Post_Type::POST_TYPE_SLUG, 'revisions' );
 
+		$links = $this->add_post_locking_link( $links, $post );
+		$links = $this->add_publisher_logo_link( $links, $post );
+
+		return $links;
+	}
+
+	/**
+	 * Retrieves the query params for the posts collection.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array Collection parameters.
+	 */
+	public function get_collection_params(): array {
+		$query_params = parent::get_collection_params();
+
+		$query_params['_web_stories_envelope'] = [
+			'description' => __( 'Envelope request for preloading.', 'web-stories' ),
+			'type'        => 'boolean',
+			'default'     => false,
+		];
+
+		$query_params['web_stories_demo'] = [
+			'description' => __( 'Load demo data.', 'web-stories' ),
+			'type'        => 'boolean',
+			'default'     => false,
+		];
+
+		if ( ! empty( $query_params['orderby'] ) ) {
+			$query_params['orderby']['enum'][] = 'story_author';
+		}
+
+		return $query_params;
+	}
+
+	/**
+	 * Adds a REST API link if the story is locked.
+	 *
+	 * @since 1.12.0
+	 *
+	 * @param array   $links Links for the given post.
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return array Modified list of links.
+	 */
+	private function add_post_locking_link( array $links, WP_Post $post ): array {
 		$base     = sprintf( '%s/%s', $this->namespace, $this->rest_base );
 		$lock_url = rest_url( trailingslashit( $base ) . $post->ID . '/lock' );
 
@@ -471,8 +492,7 @@ class Stories_Controller extends Stories_Base_Controller {
 		$lock = get_post_meta( $post->ID, '_edit_lock', true );
 
 		if ( $lock ) {
-			$lock                 = explode( ':', $lock );
-			list ( $time, $user ) = $lock;
+			list ( $time, $user ) = explode( ':', $lock );
 
 			/** This filter is documented in wp-admin/includes/ajax-actions.php */
 			$time_window = apply_filters( 'wp_check_post_lock_window', 150 );
@@ -489,27 +509,25 @@ class Stories_Controller extends Stories_Base_Controller {
 	}
 
 	/**
-	 * Retrieves the query params for the posts collection.
+	 * Adds a REST API link for the story's publisher logo.
 	 *
-	 * @since 1.0.0
+	 * @since 1.12.0
 	 *
-	 * @return array Collection parameters.
+	 * @param array   $links Links for the given post.
+	 * @param WP_Post $post Post object.
+	 *
+	 * @return array Modified list of links.
 	 */
-	public function get_collection_params() {
-		$query_params = parent::get_collection_params();
+	private function add_publisher_logo_link( array $links, WP_Post $post ): array {
+		$publisher_logo_id = get_post_meta( $post->ID, Story_Post_Type::PUBLISHER_LOGO_META_KEY, true );
 
-		$query_params['_web_stories_envelope'] = [
-			'description' => __( 'Envelope request for preloading.', 'web-stories' ),
-			'type'        => 'boolean',
-			'default'     => false,
-		];
+		if ( $publisher_logo_id ) {
+			$links['https://api.w.org/publisherlogo'] = [
+				'href'       => rest_url( sprintf( '%s/%s/%s', $this->namespace, 'media', $publisher_logo_id ) ),
+				'embeddable' => true,
+			];
+		}
 
-		$query_params['web_stories_demo'] = [
-			'description' => __( 'Load demo data.', 'web-stories' ),
-			'type'        => 'boolean',
-			'default'     => false,
-		];
-
-		return $query_params;
+		return $links;
 	}
 }

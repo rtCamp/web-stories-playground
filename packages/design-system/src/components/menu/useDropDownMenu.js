@@ -16,13 +16,18 @@
 /**
  * External dependencies
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useFocusOut,
+} from '@web-stories-wp/react';
 
 /**
  * Internal dependencies
  */
-import useFocusOut from '../../utils/useFocusOut';
-import isNullOrUndefinedOrEmptyString from '../../utils/isNullOrUndefinedOrEmptyString';
+import { isNullOrUndefinedOrEmptyString } from '../../utils';
 import { useKeyDownEffect } from '../keyboard';
 import {
   KEYS,

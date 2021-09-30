@@ -17,7 +17,12 @@
 /**
  * External dependencies
  */
-import { useCallback, useMemo, useRef } from 'react';
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useFocusOut,
+} from '@web-stories-wp/react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { __, sprintf } from '@web-stories-wp/i18n';
@@ -26,7 +31,6 @@ import { __, sprintf } from '@web-stories-wp/i18n';
  * Internal dependencies
  */
 import { THEME_CONSTANTS } from '../../theme';
-import useFocusOut from '../../utils/useFocusOut';
 import { Menu, MENU_OPTIONS } from '../menu';
 import { Popup, PLACEMENT } from '../popup';
 import { DropDownContainer, Hint, Label } from './components';
@@ -320,7 +324,7 @@ Search.propTypes = {
   options: MENU_OPTIONS,
   placeholder: PropTypes.string,
   placement: PropTypes.oneOf(Object.values(PLACEMENT)),
-  popupFillWidth: PropTypes.number,
+  popupFillWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   popupZIndex: PropTypes.number,
   renderItem: PropTypes.object,
   selectedValue: PropTypes.shape({

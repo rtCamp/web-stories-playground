@@ -26,7 +26,16 @@
 
 namespace Google\Web_Stories;
 
+use Google\Web_Stories\Taxonomy\Category_Taxonomy;
+use Google\Web_Stories\Taxonomy\Tag_Taxonomy;
 use Google\Web_Stories\User\Preferences;
+use Google\Web_Stories\Media\Media_Source_Taxonomy;
+use Google\Web_Stories\Media\Video\Optimization;
+use Google\Web_Stories\Media\Video\Muting;
+use Google\Web_Stories\Media\Video\Poster;
+use Google\Web_Stories\Media\Video\Trimming;
+use WP_Term;
+use WP_Term_Query;
 
 /**
  * Deletes options and transients.
@@ -115,8 +124,12 @@ function delete_site_options() {
  * @return void
  */
 function delete_stories_post_meta() {
-	delete_post_meta_by_key( 'web_stories_is_poster' );
-	delete_post_meta_by_key( 'web_stories_poster_id' );
+	delete_post_meta_by_key( Poster::POSTER_POST_META_KEY );
+	delete_post_meta_by_key( Poster::POSTER_ID_POST_META_KEY );
+	delete_post_meta_by_key( Optimization::OPTIMIZED_ID_POST_META_KEY );
+	delete_post_meta_by_key( Muting::MUTED_ID_POST_META_KEY );
+	delete_post_meta_by_key( Muting::IS_MUTED_POST_META_KEY );
+	delete_post_meta_by_key( Trimming::TRIM_POST_META_KEY );
 }
 
 /**
@@ -129,6 +142,7 @@ function delete_stories_post_meta() {
 function delete_stories_user_meta() {
 	delete_metadata( 'user', 0, Preferences::OPTIN_META_KEY, '', true );
 	delete_metadata( 'user', 0, Preferences::ONBOARDING_META_KEY, '', true );
+	delete_metadata( 'user', 0, Preferences::MEDIA_OPTIMIZATION_META_KEY, '', true );
 }
 
 /**
@@ -139,6 +153,7 @@ function delete_stories_user_meta() {
  * @return void
  */
 function delete_posts() {
+	// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.get_posts_get_posts -- False positive.
 	$cpt_posts = get_posts(
 		[
 			'fields'           => 'ids',
@@ -156,6 +171,40 @@ function delete_posts() {
 		wp_delete_post( (int) $post_id, true );
 	}
 }
+
+/**
+ * Deletes all media source terms.
+ *
+ * @since 1.10.0
+ *
+ * @return void
+ */
+function delete_terms() {
+	$taxonomies = [];
+
+	$taxonomies[] = ( new Media_Source_Taxonomy() )->get_taxonomy_slug();
+	$taxonomies[] = ( new Category_Taxonomy() )->get_taxonomy_slug();
+	$taxonomies[] = ( new Tag_Taxonomy() )->get_taxonomy_slug();
+
+	$term_query = new WP_Term_Query();
+	$terms      = $term_query->query(
+		[
+			'taxonomy'   => $taxonomies,
+			'hide_empty' => false,
+		]
+	);
+
+	if ( empty( $terms ) || ! is_array( $terms ) ) {
+		return;
+	}
+
+	foreach ( $terms as $term ) {
+		if ( $term instanceof WP_Term ) {
+			wp_delete_term( $term->term_id, $term->taxonomy );
+		}
+	}
+}
+
 /**
  * Remove user capabilities.
  *
@@ -178,6 +227,7 @@ function remove_caps() {
 function delete_site() {
 	delete_options();
 	delete_posts();
+	delete_terms();
 	delete_stories_post_meta();
 	remove_caps();
 }

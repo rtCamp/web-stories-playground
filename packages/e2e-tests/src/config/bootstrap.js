@@ -24,6 +24,8 @@ import {
   setBrowserViewport,
   setCurrentUser,
   trashAllPosts,
+  deleteAllMedia,
+  trashAllTerms,
 } from '@web-stories-wp/e2e-test-utils';
 
 // Extend Jest matchers.
@@ -165,6 +167,17 @@ function observeConsoleLogging() {
       return;
     }
 
+    // Special case: ignore 403 errors on logout page.
+    // See https://github.com/google/web-stories-wp/pull/7889
+    if (
+      text.includes(
+        'Failed to load resource: the server responded with a status of 403 (Forbidden)'
+      ) &&
+      message.stackTrace()?.[0]?.url?.endsWith('wp-login.php?action=logout')
+    ) {
+      return;
+    }
+
     //eslint-disable-next-line security/detect-object-injection
     const logFunction = OBSERVED_CONSOLE_MESSAGE_TYPES[type];
 
@@ -241,6 +254,9 @@ beforeAll(async () => {
   await setCurrentUser('admin', 'password');
   await trashAllPosts();
   await trashAllPosts('web-story');
+  await trashAllTerms('web_story_category');
+  await trashAllTerms('web_story_tag');
+  await deleteAllMedia();
 });
 
 // eslint-disable-next-line jest/require-top-level-describe

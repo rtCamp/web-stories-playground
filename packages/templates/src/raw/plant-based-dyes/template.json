@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -8,7 +8,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -181,12 +180,12 @@
             "height": 374,
             "posterId": 0,
             "id": 0,
-            "title": "sliced avocado on brown wooden chopping board",
             "alt": "sliced avocado on brown wooden chopping board",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [37, 32, 25]
+            "baseColor": [37, 32, 25],
+            "isExternal": true
           },
           "type": "image",
           "x": -47,
@@ -294,12 +293,12 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "woman holding leafed plant",
             "alt": "woman holding leafed plant",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [154, 118, 90]
+            "baseColor": [154, 118, 90],
+            "isExternal": true
           }
         },
         {
@@ -619,7 +618,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -894,12 +892,12 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "sliced avocado on plate",
             "alt": "sliced avocado on plate",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [177, 175, 167]
+            "baseColor": [177, 175, 167],
+            "isExternal": true
           }
         },
         {
@@ -1148,7 +1146,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1176,12 +1173,12 @@
             "height": 494,
             "posterId": 0,
             "id": 0,
-            "title": "Person in Brown Long Sleeve Shirt Holding White Paper",
             "alt": "Person in Brown Long Sleeve Shirt Holding White Paper",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [184, 181, 173]
+            "baseColor": [184, 181, 173],
+            "isExternal": true
           },
           "type": "image",
           "x": -14.5,
@@ -1467,7 +1464,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1495,12 +1491,12 @@
             "height": 494,
             "posterId": 0,
             "id": 0,
-            "title": "Top view of halved tasty avocado with seed placed on white marble table",
             "alt": "Top view of halved tasty avocado with seed placed on white marble table",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [217, 211, 200]
+            "baseColor": [217, 211, 200],
+            "isExternal": true
           },
           "type": "image",
           "x": -7,
@@ -1787,7 +1783,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1815,12 +1810,12 @@
             "height": 494,
             "posterId": 0,
             "id": 0,
-            "title": "Woman in White and Red Floral Shirt Holding Stainless Steel Bowl and Whisk",
             "alt": "Woman in White and Red Floral Shirt Holding Stainless Steel Bowl and Whisk",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [177, 148, 118]
+            "baseColor": [177, 148, 118],
+            "isExternal": true
           },
           "type": "image",
           "x": -2,
@@ -2107,7 +2102,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2135,12 +2129,12 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "vegetable grind in mortar and pestle",
             "alt": "vegetable grind in mortar and pestle",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [87, 96, 92]
+            "baseColor": [87, 96, 92],
+            "isExternal": true
           },
           "type": "image",
           "x": -0.5,
@@ -2448,7 +2442,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2476,12 +2469,12 @@
             "height": 494,
             "posterId": 0,
             "id": 0,
-            "title": "Stainless Steel Cookware on Stove",
             "alt": "Stainless Steel Cookware on Stove",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [207, 177, 158]
+            "baseColor": [207, 177, 158],
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -2768,7 +2761,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2796,12 +2788,12 @@
             "height": 220,
             "posterId": 0,
             "id": 0,
-            "title": "Gray Textile Closeup Photo",
             "alt": "Gray Textile Closeup Photo",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [231, 204, 196]
+            "baseColor": [231, 204, 196],
+            "isExternal": true
           },
           "type": "image",
           "x": -58,
@@ -3088,7 +3080,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3116,12 +3107,12 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "White and Pink Striped Textile",
             "alt": "White and Pink Striped Textile",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [159, 155, 152]
+            "baseColor": [159, 155, 152],
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -3358,7 +3349,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3386,12 +3376,12 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "Photo of Woman Wearing Pink Dress",
             "alt": "Photo of Woman Wearing Pink Dress",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [235, 197, 180]
+            "baseColor": [235, 197, 180],
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -3719,7 +3709,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3821,12 +3810,12 @@
             "height": 164,
             "posterId": 0,
             "id": 0,
-            "title": "Photography of a Woman Holding Green Leaves",
             "alt": "Photography of a Woman Holding Green Leaves",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [214, 201, 189]
+            "baseColor": [214, 201, 189],
+            "isExternal": true
           },
           "type": "image",
           "x": 72,
@@ -3860,12 +3849,12 @@
             "height": 246,
             "posterId": 0,
             "id": 0,
-            "title": "cookware set on floating shelves",
             "alt": "cookware set on floating shelves",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [51, 86, 104]
+            "baseColor": [51, 86, 104],
+            "isExternal": true
           },
           "type": "image",
           "x": 172,

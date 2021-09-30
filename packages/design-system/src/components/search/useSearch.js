@@ -16,8 +16,13 @@
 /**
  * External dependencies
  */
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useDebouncedCallback,
+} from '@web-stories-wp/react';
 import { sprintf, _n, __ } from '@web-stories-wp/i18n';
 /**
  * Internal dependencies
@@ -73,7 +78,7 @@ export default function useSearch({
    */
 
   const normalizedOptions = useMemo(() => {
-    if (!options || options.length == 0) {
+    if (!options || options.length === 0) {
       return [];
     }
     return getOptions(options);
@@ -117,7 +122,7 @@ export default function useSearch({
   );
 
   useEffect(() => {
-    if (inputState?.value === undefined && selectedValue) {
+    if (inputState?.value === undefined && selectedValue?.value !== undefined) {
       inputState.set(selectedValue?.label || '');
     }
   }, [inputState, selectedValue]);

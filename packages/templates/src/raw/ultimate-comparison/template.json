@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -29,11 +29,11 @@
             "height": 1281,
             "posterId": 0,
             "id": 0,
-            "title": "man in white dress shirt holding smartphone",
             "alt": "man in white dress shirt holding smartphone",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -354,11 +354,11 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "man in black hoodie wearing black headphones",
             "alt": "man in black hoodie wearing black headphones",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "overlay": { "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } }
         },
@@ -471,7 +471,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -515,12 +514,12 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "black wireless headset",
             "alt": "black wireless headset",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [211, 219, 219]
+            "baseColor": [211, 219, 219],
+            "isExternal": true
           }
         },
         {
@@ -805,7 +804,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -981,12 +979,12 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "Man in Black Sweater Wearing Black Headphones",
             "alt": "Man in Black Sweater Wearing Black Headphones",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [43, 45, 51]
+            "baseColor": [43, 45, 51],
+            "isExternal": true
           }
         },
         {
@@ -1015,12 +1013,12 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "Man Wearing Black Headphones",
             "alt": "Man Wearing Black Headphones",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [202, 198, 194]
+            "baseColor": [202, 198, 194],
+            "isExternal": true
           }
         },
         {
@@ -1746,7 +1744,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1790,12 +1787,12 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "black and silver headphones on white surface",
             "alt": "black and silver headphones on white surface",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [211, 219, 219]
+            "baseColor": [211, 219, 219],
+            "isExternal": true
           }
         },
         {
@@ -2080,7 +2077,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2256,11 +2252,11 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "Woman Looking Up While Wearing Headphones",
             "alt": "Woman Looking Up While Wearing Headphones",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           }
         },
         {
@@ -2289,12 +2285,12 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "Man in Black Shirt Wearing Black Headphones",
             "alt": "Man in Black Shirt Wearing Black Headphones",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [69, 69, 51]
+            "baseColor": [69, 69, 51],
+            "isExternal": true
           }
         },
         {
@@ -3020,7 +3016,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3065,12 +3060,12 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "gray and black wireless headphones on desk",
             "alt": "gray and black wireless headphones on desk",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [45, 47, 50]
+            "baseColor": [45, 47, 50],
+            "isExternal": true
           }
         },
         {
@@ -3355,7 +3350,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3523,11 +3517,11 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "Man in Blue Crew Neck T-shirt Wearing Headphones",
             "alt": "Man in Blue Crew Neck T-shirt Wearing Headphones",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": -1,
@@ -3555,11 +3549,11 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "man in black jacket wearing black headphones",
             "alt": "man in black jacket wearing black headphones",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": 267,
@@ -4311,7 +4305,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -4355,12 +4348,12 @@
             "height": 721,
             "posterId": 0,
             "id": 0,
-            "title": "White Cordless Headphone",
             "alt": "White Cordless Headphone",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [235, 234, 234]
+            "baseColor": [235, 234, 234],
+            "isExternal": true
           }
         },
         {
@@ -4645,7 +4638,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -4813,11 +4805,11 @@
             "height": 720,
             "posterId": 0,
             "id": 0,
-            "title": "Man Wearing White Headphones",
             "alt": "Man Wearing White Headphones",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": -1,
@@ -4845,11 +4837,11 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "Woman in Gray Sweatshirt Wearing Headphone",
             "alt": "Woman in Gray Sweatshirt Wearing Headphone",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": 266,
@@ -5401,7 +5393,7 @@
           "y": 549,
           "id": "e94ac728-94a4-43f1-abe8-ca34eeab6e6a",
           "basedOn": "dab89972-4f2d-415b-93ea-f7ff4fa71519",
-          "content": "<span style=\"color: #fff8f2\">Fffective noise cancelling</span>",
+          "content": "<span style=\"color: #fff8f2\">Effective noise cancelling</span>",
           "fontWeight": 400,
           "borderRadius": {
             "locked": true,
@@ -5584,7 +5576,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -5620,13 +5611,13 @@
             "height": 185,
             "posterId": 0,
             "id": 0,
-            "title": "black wireless headset",
             "alt": "black wireless headset",
             "sizes": [],
             "local": false,
             "isOptimized": false,
             "provider": "local",
-            "baseColor": [23, 23, 23]
+            "baseColor": [23, 23, 23],
+            "isExternal": true
           }
         },
         {
@@ -5654,11 +5645,11 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "Man Holding Smartphone",
             "alt": "Man Holding Smartphone",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           }
         },
         {
@@ -5946,7 +5937,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -5982,13 +5972,13 @@
             "height": 185,
             "posterId": 0,
             "id": 0,
-            "title": "black and silver headphones on white surface",
             "alt": "black and silver headphones on white surface",
             "sizes": [],
             "local": false,
             "isOptimized": false,
             "provider": "local",
-            "baseColor": [205, 150, 104]
+            "baseColor": [205, 150, 104],
+            "isExternal": true
           }
         },
         {
@@ -6008,12 +5998,12 @@
             "height": 640,
             "posterId": 0,
             "id": 0,
-            "title": "Woman Wearing Black Headphones",
             "alt": "Woman Wearing Black Headphones",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [220, 213, 208]
+            "baseColor": [220, 213, 208],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": 295,
@@ -6309,7 +6299,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -6414,13 +6403,13 @@
             "height": 185,
             "posterId": 0,
             "id": 0,
-            "title": "black wireless headset",
             "alt": "black wireless headset",
             "sizes": [],
             "local": false,
             "isOptimized": false,
             "provider": "local",
-            "baseColor": [23, 23, 23]
+            "baseColor": [23, 23, 23],
+            "isExternal": true
           }
         },
         {
@@ -6449,13 +6438,13 @@
             "height": 185,
             "posterId": 0,
             "id": 0,
-            "title": "black and silver headphones on white surface",
             "alt": "black and silver headphones on white surface",
             "sizes": [],
             "local": false,
             "isOptimized": false,
             "provider": "local",
-            "baseColor": [205, 150, 104]
+            "baseColor": [205, 150, 104],
+            "isExternal": true
           }
         },
         {
@@ -8035,7 +8024,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -8141,11 +8129,11 @@
             "height": 480,
             "posterId": 0,
             "id": 0,
-            "title": "Joyful millennial woman in headphones listening to music in park",
             "alt": "Joyful millennial woman in headphones listening to music in park",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           }
         },
         {
@@ -8281,12 +8269,12 @@
             "height": 480,
             "posterId": 0,
             "id": 0,
-            "title": "Macbook Pro",
             "alt": "Macbook Pro",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [23, 23, 23]
+            "baseColor": [23, 23, 23],
+            "isExternal": true
           }
         },
         {
@@ -8422,12 +8410,12 @@
             "height": 480,
             "posterId": 0,
             "id": 0,
-            "title": "Person Wearing White Silicone Strap Black Smart Watch",
             "alt": "Person Wearing White Silicone Strap Black Smart Watch",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [107, 101, 90]
+            "baseColor": [107, 101, 90],
+            "isExternal": true
           }
         },
         {

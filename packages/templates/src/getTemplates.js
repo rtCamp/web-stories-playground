@@ -20,6 +20,11 @@
 import { getTimeTracker } from '@web-stories-wp/tracking';
 import { DATA_VERSION, migrate } from '@web-stories-wp/migration';
 
+/**
+ * Internal dependencies
+ */
+import { TEMPLATE_NAMES } from './constants';
+
 async function loadTemplate(title, imageBaseUrl) {
   const data = await import(
     /* webpackChunkName: "chunk-web-stories-template-[index]" */ `./raw/${title}`
@@ -63,35 +68,10 @@ async function loadTemplate(title, imageBaseUrl) {
 }
 
 async function getTemplates(imageBaseUrl) {
-  const templateNames = [
-    'fresh-and-bright',
-    'food-and-stuff',
-    'doers-get-more-done',
-    'weekly-entertainment',
-    'fashion-on-the-go',
-    'no-days-off',
-    'experience-thailand',
-    'sleep',
-    'baking-bread-guide',
-    'sangria-artichoke',
-    'ways-to-eat-avocado',
-    'kitchen-stories',
-    'album-releases',
-    'almodos-films',
-    'pizzas-in-nyc',
-    '12-hours-in-barcelona',
-    'ultimate-comparison',
-    'fitness-apps-ranked',
-    'street-style-on-the-go',
-    'plant-based-dyes',
-    'indoor-garden-oasis',
-    'belly-fat-workout',
-  ];
-
   const trackTiming = getTimeTracker('load_templates');
 
   const templates = await Promise.all(
-    templateNames.map((title) => {
+    TEMPLATE_NAMES.map((title) => {
       return loadTemplate(title, imageBaseUrl);
     })
   );

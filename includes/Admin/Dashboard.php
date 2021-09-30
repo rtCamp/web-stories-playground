@@ -52,7 +52,7 @@ class Dashboard extends Service_Base {
 	 *
 	 * @var string
 	 */
-	const SCRIPT_HANDLE = 'stories-dashboard';
+	const SCRIPT_HANDLE = 'wp-dashboard';
 
 	/**
 	 * Admin page hook suffixes.
@@ -149,11 +149,7 @@ class Dashboard extends Service_Base {
 	 * @return string|false|null The dashboard page's hook_suffix, or false if the user does not have the capability required.
 	 */
 	public function get_hook_suffix( $key ) {
-		if ( ! isset( $this->hook_suffix[ $key ] ) ) {
-			return false;
-		}
-
-		return $this->hook_suffix[ $key ];
+		return $this->hook_suffix[ $key ] ?? false;
 	}
 
 	/**
@@ -169,7 +165,7 @@ class Dashboard extends Service_Base {
 		$this->hook_suffix['stories-dashboard'] = add_submenu_page(
 			$parent,
 			__( 'Dashboard', 'web-stories' ),
-			__( 'My Stories', 'web-stories' ),
+			__( 'Dashboard', 'web-stories' ),
 			'edit_web-stories',
 			'stories-dashboard',
 			[ $this, 'render' ],
@@ -230,19 +226,54 @@ class Dashboard extends Service_Base {
 	}
 
 	/**
-	 * Preload api requests in the dashboard.
+	 * Preload API requests in the dashboard.
+	 *
+	 * Important: keep in sync with usage & definition in React app.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public function load_stories_dashboard() {
-		// Preload common data.
-		// TODO Preload templates.
+		$rest_base = $this->get_post_type_rest_base( Story_Post_Type::POST_TYPE_SLUG );
+
 		$preload_paths = [
 			'/web-stories/v1/settings/',
+			'/web-stories/v1/publisher-logos/',
 			'/web-stories/v1/users/me/',
-			sprintf( '/web-stories/v1/web-story/?_embed=%s&context=edit&order=desc&orderby=modified&page=1&per_page=%d&status=%s&_web_stories_envelope=true', urlencode( 'wp:lock,wp:lockuser,author' ), 24, urlencode( 'publish,draft,future,private' ) ),
+			"/web-stories/v1/$rest_base/?" . build_query(
+				[
+					'_embed'                => rawurlencode( 'wp:lock,wp:lockuser,author,wp:featuredmedia' ),
+					'context'               => 'edit',
+					'order'                 => 'desc',
+					'orderby'               => 'modified',
+					'page'                  => 1,
+					'per_page'              => 24,
+					'status'                => rawurlencode( 'publish,draft,future,private' ),
+					'_web_stories_envelope' => 'true',
+					'_fields'               => rawurlencode(
+						implode(
+							',',
+							[
+								'id',
+								'title',
+								'status',
+								'date',
+								'date_gmt',
+								'modified',
+								'modified_gmt',
+								'link',
+								'preview_link',
+								'edit_link',
+								// _web_stories_envelope will add these fields, we need them too.
+								'body',
+								'status',
+								'headers',
+							]
+						)
+					),
+				]
+			),
 		];
 
 		/**
@@ -296,8 +327,7 @@ class Dashboard extends Service_Base {
 
 		$this->assets->enqueue_script_asset( self::SCRIPT_HANDLE, [ Tracking::SCRIPT_HANDLE ] );
 
-		$font_handle = $this->google_fonts->get_handle();
-		$this->assets->enqueue_style_asset( self::SCRIPT_HANDLE, [ $font_handle ] );
+		$this->assets->enqueue_style_asset( self::SCRIPT_HANDLE, [ $this->google_fonts::SCRIPT_HANDLE ] );
 
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
@@ -342,8 +372,7 @@ class Dashboard extends Service_Base {
 			$max_upload_size = 0;
 		}
 
-		$can_read_private_posts = $this->get_post_type_cap( Story_Post_Type::POST_TYPE_SLUG, 'read_private_posts' );
-		$templates_rest_base    = $this->get_post_type_rest_base( Template_Post_Type::POST_TYPE_SLUG );
+		$templates_rest_base = $this->get_post_type_rest_base( Template_Post_Type::POST_TYPE_SLUG );
 
 		$settings = [
 			'id'         => 'web-stories-dashboard',
@@ -353,25 +382,26 @@ class Dashboard extends Service_Base {
 				'locale'                => $this->locale->get_locale_settings(),
 				'newStoryURL'           => $new_story_url,
 				'wpListURL'             => $classic_wp_list_url,
-				'assetsURL'             => trailingslashit( WEBSTORIES_ASSETS_URL ),
+				'archiveURL'            => $this->get_post_type_archive_link( Story_Post_Type::POST_TYPE_SLUG ),
 				'cdnURL'                => trailingslashit( WEBSTORIES_CDN_URL ),
 				'allowedImageMimeTypes' => $this->get_allowed_image_mime_types(),
 				'version'               => WEBSTORIES_VERSION,
 				'encodeMarkup'          => $this->decoder->supports_decoding(),
 				'api'                   => [
-					'stories'     => sprintf( '/web-stories/v1/%s/', $rest_base ),
-					'media'       => '/web-stories/v1/media/',
-					'currentUser' => '/web-stories/v1/users/me/',
-					'users'       => '/web-stories/v1/users/',
-					'templates'   => sprintf( '/web-stories/v1/%s/', $templates_rest_base ),
-					'settings'    => '/web-stories/v1/settings/',
+					'stories'        => sprintf( '/web-stories/v1/%s/', $rest_base ),
+					'media'          => '/web-stories/v1/media/',
+					'currentUser'    => '/web-stories/v1/users/me/',
+					'users'          => '/web-stories/v1/users/',
+					'templates'      => sprintf( '/web-stories/v1/%s/', $templates_rest_base ),
+					'settings'       => '/web-stories/v1/settings/',
+					'pages'          => '/wp/v2/pages/',
+					'publisherLogos' => '/web-stories/v1/publisher-logos/',
 				],
 				'maxUpload'             => $max_upload_size,
 				'maxUploadFormatted'    => size_format( $max_upload_size ),
 				'capabilities'          => [
-					'canManageSettings'   => current_user_can( 'manage_options' ),
-					'canUploadFiles'      => current_user_can( 'upload_files' ),
-					'canReadPrivatePosts' => $can_read_private_posts,
+					'canManageSettings' => current_user_can( 'manage_options' ),
+					'canUploadFiles'    => current_user_can( 'upload_files' ),
 				],
 				'siteKitStatus'         => $this->site_kit->get_plugin_status(),
 			],

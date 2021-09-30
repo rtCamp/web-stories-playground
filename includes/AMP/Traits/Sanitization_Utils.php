@@ -104,10 +104,9 @@ trait Sanitization_Utils {
 	 *
 	 * @param Document|AMP_Document $document       Document instance.
 	 * @param string                $publisher_logo Publisher logo.
-	 * @param string                $placeholder    Placeholder publisher logo.
 	 * @return void
 	 */
-	private function add_publisher_logo( &$document, $publisher_logo, $placeholder ) {
+	private function add_publisher_logo( &$document, $publisher_logo ) {
 		/**
 		 * The <amp-story> element.
 		 *
@@ -122,7 +121,8 @@ trait Sanitization_Utils {
 		// Add a publisher logo if missing or just a placeholder.
 		$existing_publisher_logo = $story_element->getAttribute( 'publisher-logo-src' );
 
-		if ( ! $existing_publisher_logo || $existing_publisher_logo === $placeholder ) {
+		// Backward compatibility for when fallback-wordpress-publisher-logo.png was provided by the plugin.
+		if ( ! $existing_publisher_logo || false !== strpos( $existing_publisher_logo, 'fallback-wordpress-publisher-logo.png' ) ) {
 			$story_element->setAttribute( 'publisher-logo-src', $publisher_logo );
 		}
 
@@ -288,7 +288,7 @@ trait Sanitization_Utils {
 	 * @param string $url URL.
 	 * @return bool Whether it's a blob URL.
 	 */
-	private function is_blob_url( string $url ) {
+	private function is_blob_url( string $url ): bool {
 		return 0 === strpos( $url, 'blob:' );
 	}
 
@@ -334,7 +334,7 @@ trait Sanitization_Utils {
 		/**
 		 * List of <amp-img> elements.
 		 *
-		 * @var DOMElement[] $videos Image elements.
+		 * @var DOMElement[] $images Image elements.
 		 */
 		$images = $document->body->getElementsByTagName( 'amp-img' );
 
@@ -342,6 +342,43 @@ trait Sanitization_Utils {
 			if ( $this->is_blob_url( $image->getAttribute( 'src' ) ) ) {
 				$image->setAttribute( 'src', '' );
 			}
+		}
+	}
+
+	/**
+	 * Sanitize amp-img[srcset] attributes to remove duplicates.
+	 *
+	 * @since 1.10.0
+	 *
+	 * @param Document|AMP_Document $document Document instance.
+	 * @return void
+	 */
+	private function sanitize_srcset( &$document ) {
+		/**
+		 * List of <amp-img> elements.
+		 *
+		 * @var DOMElement[] $images Image elements.
+		 */
+		$images = $document->body->getElementsByTagName( 'amp-img' );
+
+		foreach ( $images as $image ) {
+			$srcset = $image->getAttribute( 'srcset' );
+			if ( ! $srcset ) {
+				continue;
+			}
+
+			$entries_by_widths = [];
+
+			$entries = explode( ',', $srcset );
+
+			foreach ( $entries as $entry ) {
+				$entry_data = explode( ' ', $entry );
+				if ( ! isset( $entries_by_widths[ $entry_data[1] ] ) ) {
+					$entries_by_widths[ $entry_data[1] ] = $entry;
+				}
+			}
+
+			$image->setAttribute( 'srcset', implode( ', ', $entries_by_widths ) );
 		}
 	}
 }

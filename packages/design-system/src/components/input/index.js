@@ -18,7 +18,7 @@
  * External dependencies
  */
 import PropTypes from 'prop-types';
-import { forwardRef, useMemo, useRef } from 'react';
+import { forwardRef, useMemo, useState } from '@web-stories-wp/react';
 import styled, { css } from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 /**
@@ -27,22 +27,22 @@ import { v4 as uuidv4 } from 'uuid';
 import { Text } from '../typography';
 import { themeHelpers, THEME_CONSTANTS } from '../../theme';
 import { focusCSS } from '../../theme/helpers';
-import {
-  useInputEventHandlers,
-  labelAccessibilityValidator,
-} from '../../utils';
+import { labelAccessibilityValidator } from '../../utils';
 
 const Container = styled.div`
   position: relative;
+  display: inline-block;
   width: 100%;
   min-width: 40px;
 `;
 
 const Label = styled(Text)`
   margin-bottom: 12px;
+  display: inline-block;
 `;
 
 const Hint = styled(Text)`
+  display: inline-block;
   margin-top: 12px;
   color: ${({ hasError, theme }) =>
     theme.colors.fg[hasError ? 'negative' : 'tertiary']};
@@ -94,7 +94,7 @@ const InputContainer = styled.div(
   `
 );
 
-const StyledInput = styled.input(
+export const BaseInput = styled.input(
   ({ hasSuffix, theme }) => css`
     height: 100%;
     width: 100%;
@@ -147,6 +147,7 @@ export const Input = forwardRef(
       label,
       onBlur,
       onFocus,
+      hasFocus = false,
       suffix,
       unit = '',
       value,
@@ -157,14 +158,9 @@ export const Input = forwardRef(
     ref
   ) => {
     const inputId = useMemo(() => id || uuidv4(), [id]);
-    const inputRef = useRef(null);
 
-    const { handleBlur, handleFocus, isFocused } = useInputEventHandlers({
-      forwardedRef: ref,
-      inputRef,
-      onBlur,
-      onFocus,
-    });
+    const [isFocused, setIsFocused] = useState(hasFocus);
+    const [hasBeenSelected, setHasBeenSelected] = useState(false);
 
     let displayedValue = value;
     if (unit && value.length) {
@@ -188,12 +184,30 @@ export const Input = forwardRef(
           hasError={hasError}
           styleOverride={containerStyleOverride}
         >
-          <StyledInput
+          <BaseInput
             id={inputId}
             disabled={disabled}
-            ref={ref || inputRef}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
+            ref={(input) => {
+              // `ref` can either be a callback ref or a normal ref.
+              if (typeof ref == 'function') {
+                ref(input);
+              } else if (ref) {
+                ref.current = input;
+              }
+              if (input && isFocused && !hasBeenSelected) {
+                input.select();
+                setHasBeenSelected(true);
+              }
+            }}
+            onFocus={(e) => {
+              onFocus?.(e);
+              setIsFocused(true);
+              setHasBeenSelected(false);
+            }}
+            onBlur={(e) => {
+              onBlur?.(e);
+              setIsFocused(false);
+            }}
             value={displayedValue}
             hasSuffix={hasSuffix}
             {...props}
@@ -203,7 +217,7 @@ export const Input = forwardRef(
               hasLabel={Boolean(label)}
               forwardedAs="span"
               size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.SMALL}
-              onClick={handleFocus}
+              onClick={() => setIsFocused(true)}
             >
               {suffix}
             </Suffix>

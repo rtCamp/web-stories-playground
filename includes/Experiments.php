@@ -221,40 +221,6 @@ class Experiments extends Service_Base {
 		return [
 			/**
 			 * Author: @littlemilkstudio
-			 * Issue: 7965
-			 * Creation date: 2021-06-18
-			 */
-			[
-				'name'        => 'enableChecklistCompanion',
-				'label'       => __( 'Checklist companion', 'web-stories' ),
-				'description' => __( 'Enable the new version of the pre-publish checklist as a popup in the editor', 'web-stories' ),
-				'group'       => 'editor',
-				'default'     => true,
-			],
-			/**
-			 * Author: @samwhale
-			 * Issue: 6153
-			 * Creation date: 2021-06-07
-			 */
-			[
-				'name'        => 'enableRightClickMenus',
-				'label'       => __( 'Right click menus', 'web-stories' ),
-				'description' => __( 'Enable a contextual shortcut menu when right clicking in the editor', 'web-stories' ),
-				'group'       => 'editor',
-			],
-			/**
-			 * Author: @littlemilkstudio
-			 * Issue: 6708
-			 * Creation date: 2021-03-23
-			 */
-			[
-				'name'        => 'enableStickers',
-				'label'       => __( 'Stickers', 'web-stories' ),
-				'description' => __( 'Append sticker buttons to the bottom of the shapes panel in library', 'web-stories' ),
-				'group'       => 'editor',
-			],
-			/**
-			 * Author: @littlemilkstudio
 			 * Issue: 6379
 			 * Creation date: 2021-03-09
 			 */
@@ -265,28 +231,6 @@ class Experiments extends Service_Base {
 				'group'       => 'editor',
 			],
 			/**
-			 * Author: @carlos-kelly
-			 * Issue: 2081
-			 * Creation date: 2020-05-28
-			 */
-			[
-				'name'        => 'enableInProgressViews',
-				'label'       => __( 'Views', 'web-stories' ),
-				'description' => __( 'Enable in-progress views to be accessed', 'web-stories' ),
-				'group'       => 'dashboard',
-			],
-			/**
-			 * Author: @brittanyirl
-			 * Issue: 2344
-			 * Creation date: 2020-06-10
-			 */
-			[
-				'name'        => 'enableInProgressStoryActions',
-				'label'       => __( 'Actions', 'web-stories' ),
-				'description' => __( 'Enable in-progress story actions', 'web-stories' ),
-				'group'       => 'dashboard',
-			],
-			/**
 			 * Author: @brittanyirl
 			 * Issue: 2381
 			 * Creation date: 2020-06-11
@@ -295,17 +239,6 @@ class Experiments extends Service_Base {
 				'name'        => 'enableInProgressTemplateActions',
 				'label'       => __( 'Template actions', 'web-stories' ),
 				'description' => __( 'Enable in-progress template actions', 'web-stories' ),
-				'group'       => 'dashboard',
-			],
-			/**
-			 * Author: @brittanyirl
-			 * Issue: 2292
-			 * Creation date: 2020-06-11
-			 */
-			[
-				'name'        => 'enableBookmarkActions',
-				'label'       => __( 'Bookmarks', 'web-stories' ),
-				'description' => __( 'Enable bookmark actions', 'web-stories' ),
 				'group'       => 'dashboard',
 			],
 			/**
@@ -354,18 +287,6 @@ class Experiments extends Service_Base {
 			],
 			/**
 			 * Author: @spacedmonkey
-			 * Issue: #7232
-			 * Creation date: 2021-07-14
-			 */
-			[
-				'name'        => 'enableGifOptimization',
-				'label'       => __( 'GIF optimization', 'web-stories' ),
-				'description' => __( 'Enable the conversion of animated GIFs to videos', 'web-stories' ),
-				'group'       => 'editor',
-				'default'     => true,
-			],
-			/**
-			 * Author: @spacedmonkey
 			 * Issue: #3126
 			 * Creation date: 2021-02-02
 			 */
@@ -374,17 +295,6 @@ class Experiments extends Service_Base {
 				'label'       => __( 'Story locking', 'web-stories' ),
 				'description' => __( 'Lock in-progress stories from being edited by other authors', 'web-stories' ),
 				'group'       => 'general',
-			],
-			/**
-			 * Author: @miina
-			 * Issue #7986
-			 * Creation date: 2021-08-08
-			 */
-			[
-				'name'        => 'enableSmartTextColor',
-				'label'       => __( 'Smart text color', 'web-stories' ),
-				'description' => __( 'Enable text insertion with smart color ensuring good contrast with the background', 'web-stories' ),
-				'group'       => 'editor',
 			],
 			/**
 			 * Author: @merapi
@@ -396,17 +306,77 @@ class Experiments extends Service_Base {
 				'label'       => __( 'Eyedropper', 'web-stories' ),
 				'description' => __( 'Enable choosing color using an eyedropper', 'web-stories' ),
 				'group'       => 'editor',
+				'default'     => true,
 			],
 			/**
-			 * Author: @swissspidy
-			 * Issue: #8310
-			 * Creation date: 2021-07-13
+			 * Author: @spacedmonkey
+			 * Issue: #8811
+			 * Creation date: 2021-09-06
 			 */
 			[
-				'name'        => 'videoCache',
-				'label'       => __( 'Video Cache', 'web-stories' ),
-				'description' => __( 'Reduce hosting costs and improve user experience by serving videos from the Google cache.', 'web-stories' ),
+				'name'        => 'archivePageCustomization',
+				'label'       => __( 'Archive Page', 'web-stories' ),
+				'description' => __( 'Allow Web Stories archive page customization', 'web-stories' ),
 				'group'       => 'general',
+			],
+			/**
+			 * Author: @miina
+			 * Issue #471
+			 * Creation date: 2021-08-10
+			 */
+			[
+				'name'        => 'enableHotlinking',
+				'label'       => __( 'Insert media from link', 'web-stories' ),
+				'description' => __( 'Enable inserting media element from external link', 'web-stories' ),
+				'group'       => 'editor',
+			],
+
+			/**
+			 * Author: @brookegraham
+			 * Issue: #8832
+			 * Creation date: 2021-08-30
+			 */
+			[
+				'name'        => 'enableTaxonomiesSupport',
+				'label'       => __( 'Taxonomies', 'web-stories' ),
+				'description' => __( 'Enable support of tags and categories for stories', 'web-stories' ),
+				'group'       => 'editor',
+			],
+
+			/**
+			 * Author: @barklund
+			 * Issue: #8877
+			 * Creation date: 2021-09-01
+			 */
+			[
+				'name'        => 'enableVideoTrim',
+				'label'       => __( 'Video trimming', 'web-stories' ),
+				'description' => __( 'Enable video trimming', 'web-stories' ),
+				'group'       => 'editor',
+			],
+
+			/**
+			 * Author: @barklund
+			 * Issue: #8973
+			 * Creation date: 2021-09-07
+			 */
+			[
+				'name'        => 'enableThumbnailCaching',
+				'label'       => __( 'Thumbnail Caching', 'web-stories' ),
+				'description' => __( 'Enable thumbnail caching', 'web-stories' ),
+				'group'       => 'editor',
+			],
+
+			/**
+			 * Author: @swissspidy
+			 * Issue: #7739
+			 * Creation date: 2021-09-17
+			 */
+			[
+				'name'        => 'enableAutoAnalyticsMigration',
+				'label'       => __( 'Auto Analytics', 'web-stories' ),
+				'description' => __( 'Enable migration option to story auto analytics', 'web-stories' ),
+				'group'       => 'dashboard',
 			],
 		];
 	}

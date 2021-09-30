@@ -18,6 +18,7 @@
  * Internal dependencies
  */
 import getTypeFromMime from './getTypeFromMime';
+import normalizeResourceSizes from './normalizeResourceSizes';
 
 /**
  * Author object
@@ -38,6 +39,15 @@ import getTypeFromMime from './getTypeFromMime';
  */
 
 /**
+ * TrimData object
+ *
+ * @typedef {TrimData} TrimData data object linking a trimmed video to its original
+ * @property {number} original The ID of the original video.
+ * @property {string} start Time stamp of start time of new video. Example '00:01:02.345'.
+ * @property {string} end Time stamp of end time of new video. Example '00:02:00'.
+ */
+
+/**
  * Attachment object.
  *
  * @typedef {Attachment} Attachment
@@ -51,17 +61,16 @@ import getTypeFromMime from './getTypeFromMime';
  * @property {number|null} posterId The system poster ID.
  * @property {number|null} id The system ID.
  * @property {number|null} length The length for the "video" type.
- * @property {string|null} lengthFormatted The formatted length for the "video"
- * type.
- * @property {string|null} title The user-readable title for the resource.
- * @property {string|null} alt The user-readable accessibility label for the
- * resource.
- * @property {boolean} local Whether the resource has been already uploaded to
- * the server.
+ * @property {string|null} lengthFormatted The formatted length for the "video" type.
+ * @property {string|null} alt The user-readable accessibility label for the resource.
+ * @property {boolean} local Whether the resource has been already uploaded to the server.
  * @property {boolean} isOptimized Whether the resource has already been optimized.
- * @property {boolean} isMuted Whether the resource has already been muted.
+ * @property {boolean|null} isMuted Whether the resource has already been muted.
+ * @property {boolean|null} isExternal Whether the resource is externally hosted.
+ * @property {boolean|null} isPlaceholder Whether the resource is a placeholder.
  * @property {Object} sizes Object of image sizes.
- * @property {?Object} output An optional object of video sizes for rendering gifs as videos
+ * @property {?Object} output An optional object of video sizes for rendering gifs as videos.
+ * @property {?TrimData} trimData An optional object of video trim data.
  */
 
 /**
@@ -77,12 +86,9 @@ import getTypeFromMime from './getTypeFromMime';
 /**
  * Resource object.
  *
- * TODO: Try to remove posterId (poster should be enough?)
- *
  * @typedef {Resource} Resource
- * @property {string|null} type Resource type. Currently only "image" and
- * "video" values are allowed. If not specified, will be calculated from the
- * mime-type.
+ * @property {?Array.<number>} baseColor An optional attribution to detect the base color of a resource (an image or video). Value looks like [115, 71, 39].
+ * @property {string|null} type Resource type. Currently only "image" and "video" values are allowed. If not specified, will be calculated from the mime-type.
  * @property {string} mimeType The MIME type.
  * @property {string|null} creationDate When resource was created.
  * @property {string} src The source URL.
@@ -92,17 +98,17 @@ import getTypeFromMime from './getTypeFromMime';
  * @property {number|null} posterId The system poster ID.
  * @property {number|null} id The system ID.
  * @property {number|null} length The length for the "video" type.
- * @property {string|null} lengthFormatted The formatted length for the "video"
- * type.
- * @property {string|null} title The user-readable title for the resource.
- * @property {string|null} alt The user-readable accessibility label for the
- * resource.
- * @property {boolean} local Whether the resource has been already uploaded to
- * the server.
+ * @property {string|null} lengthFormatted The formatted length for the "video" type.
+ * @property {string|null} alt The user-readable accessibility label for the resource.
+ * @property {boolean} local Whether the resource has been already uploaded to the server.
+ * @property {boolean} isOptimized Whether the resource has already been optimized.
+ * @property {boolean} isMuted Whether the resource has already been muted.
+ * @property {boolean} isExternal Whether the resource is externally hosted.
+ * @property {boolean} isPlaceholder Whether the resource is a placeholder.
  * @property {Object.<string, ResourceSize>} sizes Object of image sizes.
- * @property {Attribution|null} attribution An optional attribution for the
- * resource.
+ * @property {Attribution|null} attribution An optional attribution for the resource.
  * @property {?Object} output An optional object of video sizes for rendering gifs as videos
+ * @property {?TrimData} trimData An optional object of video trim data.
  */
 
 /**
@@ -112,6 +118,7 @@ import getTypeFromMime from './getTypeFromMime';
  * @return {Resource} Resource object.
  */
 function createResource({
+  baseColor,
   type,
   mimeType,
   creationDate,
@@ -123,7 +130,6 @@ function createResource({
   id,
   length,
   lengthFormatted,
-  title,
   alt,
   sizes,
   attribution,
@@ -132,28 +138,32 @@ function createResource({
   isPlaceholder = false,
   isOptimized = false,
   isMuted = false,
+  isExternal = false,
+  trimData,
 }) {
   return {
+    baseColor,
     type: type || getTypeFromMime(mimeType),
     mimeType,
     creationDate,
     src,
-    width,
-    height,
+    width: Number(width),
+    height: Number(height),
     poster,
     posterId,
     id,
     length,
     lengthFormatted,
-    title,
     alt,
-    sizes,
+    sizes: normalizeResourceSizes(sizes),
     attribution,
     output,
     local,
     isPlaceholder,
     isOptimized,
     isMuted,
+    isExternal,
+    trimData,
   };
 }
 

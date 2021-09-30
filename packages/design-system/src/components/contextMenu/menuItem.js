@@ -17,9 +17,8 @@
  * External dependencies
  */
 import PropTypes from 'prop-types';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from '@web-stories-wp/react';
 import styled from 'styled-components';
-import { sprintf, __ } from '@web-stories-wp/i18n';
 
 /**
  * Internal dependencies
@@ -31,14 +30,20 @@ import { THEME_CONSTANTS } from '../../theme';
 import { noop } from '../../utils';
 import { Tooltip, TOOLTIP_PLACEMENT } from '../tooltip';
 import { PLACEMENT } from '../popup';
+import { VisuallyHidden } from '../visuallyHidden';
 
 const ItemText = styled(Text)`
   width: 200px;
   text-align: left;
+  font-weight: 500;
 `;
 const Shortcut = styled(Text)`
-  color: ${({ theme }) => theme.colors.border.disable};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.fg.disable : theme.colors.fg.secondary};
 `;
+Shortcut.propTypes = {
+  disabled: PropTypes.bool,
+};
 
 const IconWrapper = styled.span`
   width: 32px;
@@ -71,14 +76,9 @@ export const MenuItem = ({
     [onClick, onDismiss]
   );
 
-  const itemLabel = shortcut?.title
-    ? sprintf(
-        /* translators: 1: Menu Item Text Label. 2: Keyboard shortcut value. */
-        __('%1$s, or use %2$s on a keyboard', 'web-stories'),
-        ariaLabel || label,
-        shortcut.title
-      )
-    : ariaLabel || label;
+  // Assign aria label to top level link/button if it's an icon button
+  // (no text content)
+  const itemLabel = Icon ? ariaLabel || label : undefined;
 
   const textContent = useMemo(() => {
     if (Icon) {
@@ -90,25 +90,35 @@ export const MenuItem = ({
         </Tooltip>
       );
     }
+
+    /* Shortcut title to be read by screen reader. */
+    const visuallyHiddenContent = shortcut?.title ? (
+      <VisuallyHidden>{shortcut.title}</VisuallyHidden>
+    ) : null;
+
     return (
       <>
         <ItemText
-          size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.SMALL}
+          size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.X_SMALL}
           forwardedAs="span"
+          aria-label={ariaLabel}
         >
           {label}
+          {visuallyHiddenContent}
         </ItemText>
         {shortcut?.display && (
           <Shortcut
-            size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.SMALL}
+            disabled={disabled}
+            size={THEME_CONSTANTS.TYPOGRAPHY.PRESET_SIZES.X_SMALL}
             forwardedAs="kbd"
+            aria-hidden
           >
-            {shortcut?.display}
+            {shortcut.display}
           </Shortcut>
         )}
       </>
     );
-  }, [Icon, label, shortcut, tooltipPlacement]);
+  }, [ariaLabel, Icon, disabled, label, shortcut, tooltipPlacement]);
 
   if (href) {
     const newTabProps = newTab
@@ -203,10 +213,10 @@ export const MenuItemProps = {
   onDismiss: PropTypes.func,
   onFocus: PropTypes.func,
   shortcut: PropTypes.shape({
-    display: PropTypes.string,
+    display: PropTypes.node,
     title: PropTypes.string,
   }),
-  Icon: PropTypes.func,
+  Icon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   tooltipPlacement: PropTypes.oneOf(Object.values(PLACEMENT)),
 };
 

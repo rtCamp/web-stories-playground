@@ -61,6 +61,13 @@ class Settings extends Service_Base {
 	const SETTING_NAME_TRACKING_ID = 'web_stories_ga_tracking_id';
 
 	/**
+	 * Legacy analytics usage flag.
+	 *
+	 * @var string
+	 */
+	const SETTING_NAME_USING_LEGACY_ANALYTICS = 'web_stories_using_legacy_analytics';
+
+	/**
 	 * Type of adloader.
 	 *
 	 * @var string
@@ -110,15 +117,18 @@ class Settings extends Service_Base {
 	const SETTING_NAME_VIDEO_CACHE = 'web_stories_video_cache';
 
 	/**
-	 * Initializes the Settings logic.
+	 * Web Stories archive setting name.
 	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
+	 * @var string
 	 */
-	public function register() {
-		add_action( 'init', [ $this, 'register_settings' ] );
-	}
+	const SETTING_NAME_ARCHIVE = 'web_stories_archive';
+
+	/**
+	 * Web Stories archive page ID setting name.
+	 *
+	 * @var string
+	 */
+	const SETTING_NAME_ARCHIVE_PAGE_ID = 'web_stories_archive_page_id';
 
 	/**
 	 * Get the action priority to use for registering the service.
@@ -140,7 +150,7 @@ class Settings extends Service_Base {
 	 *
 	 * @return void
 	 */
-	public function register_settings() {
+	public function register() {
 		register_setting(
 			self::SETTING_GROUP,
 			self::SETTING_NAME_TRACKING_ID,
@@ -149,6 +159,18 @@ class Settings extends Service_Base {
 				'type'         => 'string',
 				'default'      => '',
 				'show_in_rest' => true,
+			]
+		);
+
+		register_setting(
+			self::SETTING_GROUP,
+			self::SETTING_NAME_USING_LEGACY_ANALYTICS,
+			[
+				'description'       => __( 'Using legacy analytics configuration', 'web-stories' ),
+				'type'              => 'boolean',
+				'default'           => false,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'rest_sanitize_boolean',
 			]
 		);
 
@@ -232,6 +254,33 @@ class Settings extends Service_Base {
 				'description'  => __( 'Video Cache', 'web-stories' ),
 				'type'         => 'boolean',
 				'default'      => false,
+				'show_in_rest' => true,
+			]
+		);
+
+		register_setting(
+			self::SETTING_GROUP,
+			self::SETTING_NAME_ARCHIVE,
+			[
+				'description'  => __( 'Web Stories Archive', 'web-stories' ),
+				'type'         => 'string',
+				'default'      => 'default',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'string',
+						'enum' => [ 'default', 'disabled', 'custom' ],
+					],
+				],
+			]
+		);
+
+		register_setting(
+			self::SETTING_GROUP,
+			self::SETTING_NAME_ARCHIVE_PAGE_ID,
+			[
+				'description'  => __( 'Web Stories Archive Page ID', 'web-stories' ),
+				'type'         => 'integer',
+				'default'      => 0,
 				'show_in_rest' => true,
 			]
 		);

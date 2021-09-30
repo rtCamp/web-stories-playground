@@ -25,8 +25,6 @@ import {
   toggleVideoOptimization,
 } from '@web-stories-wp/e2e-test-utils';
 
-const MODAL = '.media-modal';
-
 describe('Handling .mov files', () => {
   let uploadedFiles = [];
 
@@ -43,16 +41,20 @@ describe('Handling .mov files', () => {
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should insert .mov', async () => {
     await createNewStory();
-    await expect(page).not.toMatchElement('[data-testid="FrameElement"]');
 
     await expect(page).toClick('button', { text: 'Upload' });
 
-    await page.waitForSelector(MODAL, {
+    await page.waitForSelector('.media-modal', {
       visible: true,
     });
+
+    await expect(page).toClick('.media-modal #menu-item-upload', {
+      text: 'Upload files',
+      visible: true,
+    });
+
     const fileName = await uploadFile('small-video.mov', false);
-    const fileNameNoExt = fileName.replace(/\.[^/.]+$/, '');
-    uploadedFiles.push(fileNameNoExt);
+    uploadedFiles.push(fileName);
 
     await expect(page).toClick('button', { text: 'Insert into page' });
 
@@ -72,19 +74,23 @@ describe('Handling .mov files', () => {
     afterEach(async () => {
       await toggleVideoOptimization();
     });
+
     // Uses the existence of the element's frame element as an indicator for successful insertion.
     it('should not list the .mov', async () => {
       await createNewStory();
-      await expect(page).not.toMatchElement('[data-testid="FrameElement"]');
-
       await expect(page).toClick('button', { text: 'Upload' });
 
-      await page.waitForSelector(MODAL, {
+      await page.waitForSelector('.media-modal', {
         visible: true,
       });
+
+      await expect(page).toClick('.media-modal #menu-item-upload', {
+        text: 'Upload files',
+        visible: true,
+      });
+
       const fileName = await uploadFile('small-video.mov', false);
-      const fileNameNoExt = fileName.replace(/\.[^/.]+$/, '');
-      uploadedFiles.push(fileNameNoExt);
+      uploadedFiles.push(fileName);
 
       await clickButton(
         '.attachments-browser .attachments .attachment:first-of-type'
@@ -94,7 +100,7 @@ describe('Handling .mov files', () => {
 
       await page.keyboard.press('Escape');
 
-      await page.waitForSelector(MODAL, {
+      await page.waitForSelector('.media-modal', {
         visible: false,
       });
     });

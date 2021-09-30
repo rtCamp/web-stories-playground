@@ -2,7 +2,7 @@
   "name": "@web-stories-wp/commander",
   "private": true,
   "engines": {
-    "node": ">= 15",
+    "node": ">= 16",
     "npm": "~7"
   },
   "type": "module",
@@ -10,7 +10,7 @@
     "commander": "./src/index.js"
   },
   "dependencies": {
-    "commander": "^8.0.0",
+    "commander": "^8.2.0",
     "semver": "^7.3.5"
   }
 }

@@ -109,186 +109,45 @@ Web Stories are powered by [AMP](https://amp.dev/), which adds some restrictions
 
 For the plugin's full changelog, please see [the Releases page on GitHub](https://github.com/google/web-stories-wp/releases).
 
-= 1.9.0 =
+= 1.11.0 =
 
-**Release Date:** July 13, 2021.
+**Release Date:** September 7, 2021.
 
-* New feature: freshly redesigned checklist (now located next to the help center).
-* New feature: optimize existing videos in the WordPress media library.
-* New feature: crop publisher logo and poster images directly in the editor.
-* New feature: animated GIFs are now automatically optimized as videos.
-* New feature: 9 new templates for creators to choose from.
-* Minimum requirements are now PHP 7.0+ and WordPress 5.5+.
-* Compatibility with WordPress 5.8.
-
-= 1.8.1 =
-
-**Release Date:** June 30, 2021.
-
-* New feature: 5 beautifully designed templates for creators to choose from.
-* Fixes an issue with elements disappearing when using certain animations.
-
-= 1.8.0 =
-
-**Release Date:** June 16, 2021.
-
-* New feature: a "quick actions" menu next to the canvas for convenient access to common tools.
-* Image filters can now be applied to non-background images.
-* Improved animation curves in the story templates.
-* Fixes an issue with links and AMP validation.
-
-= 1.7.2 =
-
-**Release Date:** May 20, 2021.
-
-* New feature: optimize videos directly from the pre-publish checklist.
-* New feature: get notified about missing video posters in the pre-publish checklist.
-* Fixes an issue with the preview mode not working anymore.
-* Improves compatibility with Jetpack VideoPress.
-
-= 1.7.1 =
-
-**Release Date:** May 13, 2021.
-
-* Fixes an incompatibility with the AMP plugin.
-
-= 1.7.0 =
-
-**Release Date:** May 11, 2021.
-
-* New feature: save a single page as a template for reuse across all your stories.
-* Improvements to thresholds in the pre-publish checklist to reduce noise.
-* Improvements to the built-in templates and their animations.
+* New feature: 8 new templates for creators to choose from.
+* New feature: right-click menu in the editing canvas.
+* New feature: background audio support.
+* New color swatches in color picker.
 * Bug fixes and performance improvements.
 
-= 1.6.0 =
+= 1.10.1 =
 
-**Release Date:** April 13, 2021.
+**Release Date:** August 25, 2021.
 
-* New feature: automated video optimization during upload, enabling support for MOV files.
-* New feature: canvas zoom for pixel-perfect designs.
-* New feature: toggle images in page templates.
-* Refreshed UI in the editor and dashboard.
+* Fixes an issue with potential fatal errors on the frontend.
+* Fixes an issue with page attachments being removed on the frontend.
+* Fixes an issue with memory not being freed up after optimizing videos.
+
+= 1.10.0 =
+
+**Release Date:** August 10, 2021.
+
+* New feature: 29 new templates for creators to choose from.
+* New feature: color eyedropper.
+* New feature: extended list of stickers.
+* New feature: ability to serve videos from the Google cache.
+* New feature: remove audio tracks to mute videos.
 * Bug fixes and performance improvements.
-
-= 1.5.0 =
-
-**Release Date:** March 18, 2021.
-
-* New feature: new ways to showcase your stories with an enhanced Gutenberg block, widget, and theme integrations.
-* New feature: new preview mode to see how your stories look on different devices.
-* Refreshed UI in the editor and dashboard.
-* Bug fixes and performance improvements.
-
-= 1.4.0 =
-
-**Release Date:** February 17, 2021.
-
-* New feature: a new help center in the editor to get started.
-* New feature: support for custom meta boxes.
-* Improvements to the pre-publish checklist.
-* UI improvements in the editor and dashboard.
-* Bug fixes and performance improvements.
-
-= 1.3.0 =
-
-**Release Date:** January 19, 2021.
-
-* New feature: support for monetization through Google AdSense and Google Ad Manager.
-* New feature: page templates.
-* UI improvements in the editor
-* Bug fixes and performance improvements.
-
-= 1.2.1 =
-
-**Release Date:** December 17, 2020.
-
-* New feature: automated site environment compatibility checks.
-* Improved UI for border and corner radius panels.
-* Bug fixes and performance improvements.
-
-= 1.2.0 =
-
-**Release Date:** December 11, 2020.
-
-* New features: animations, pre-publish checklist.
-* Improved captions language selector.
-* Improved compatibility with Cloudflare WAF.
-
-= 1.1.1 =
-
-**Release Date:** November 11, 2020.
-
-* Bug fixes and performance improvements.
-
-= 1.1.0 =
-
-**Release Date:** October 28, 2020.
-
-* New features: text sets, Tenor GIFs, video captions.
-* Responsive design in Gutenberg block & shortcode support.
-* Improved compatibility with other WordPress plugins.
-
-= 1.0.0 =
-
-**Release Date:** September 22nd, 2020.
-
-* Initial stable release.
 
 == Upgrade Notice ==
 
-= 1.9.0 =
+= 1.11.0 =
 
-New templates, redesigned checklist, logo & poster image cropping, broader media optimization, bug fixes and performance improvements.
+New templates, right-click menu, improved color picker, and background audio support.
 
-= 1.8.1 =
+= 1.10.1 =
 
-5 new templates for inspiring story creation, plus some bug fixes related to animations.
+Several bug fixes to address potential fatal errors and missing page attachments, as well as high memory consumption.
 
-= 1.8.0 =
+= 1.10.0 =
 
-Quick actions menu, filters on non-background images, and bug fixes and performance improvements.
-
-= 1.7.2 =
-
-Restored preview mode, video optimization in the pre-publish checklist, and improved VideoPress support.
-
-= 1.7.1 =
-
-Custom page templates, improved pre-publish checklist, bug fixes and performance improvements.
-
-= 1.7.0 =
-
-Custom page templates, improved pre-publish checklist, bug fixes and performance improvements.
-
-= 1.6.0 =
-
-Automated video optimization, canvas zoom, updated UI, bug fixes and performance improvements.
-
-= 1.5.0 =
-
-Enhanced Gutenberg block, new story preview mode, updated UI, bug fixes and performance improvements.
-
-= 1.4.0 =
-
-New help center, custom meta boxes support, bug fixes and performance improvements.
-
-= 1.3.0 =
-
-New monetization capabilities, bug fixes and performance improvements.
-
-= 1.2.1 =
-
-Bug fixes and performance improvements.
-
-= 1.2.0 =
-
-Added basic animations and a pre-publish checklist.
-
-= 1.1.1 =
-
-Bug fixes and performance improvements.
-
-= 1.0.0 =
-
-Initial stable release.
+New templates, eyedropper, stickers, ability to mute videos, bug fixes and performance improvements.

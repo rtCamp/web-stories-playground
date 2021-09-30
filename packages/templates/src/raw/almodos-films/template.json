@@ -1,5 +1,5 @@
 {
-  "version": 30,
+  "version": 35,
   "pages": [
     {
       "elements": [
@@ -29,12 +29,12 @@
             "height": 510,
             "posterId": 0,
             "id": 0,
-            "title": "Elderly man sketching on white cardboard",
             "alt": "Elderly man sketching on white cardboard",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [174, 164, 157]
+            "baseColor": [174, 164, 157],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -246,13 +246,13 @@
             "height": 586,
             "posterId": 0,
             "id": 0,
-            "title": "Three Women in Assorted-Color Tops",
             "alt": "Three Women in Assorted-Color Tops",
             "sizes": [],
             "local": false,
             "isOptimized": false,
             "provider": "local",
-            "baseColor": [161, 162, 171]
+            "baseColor": [161, 162, 171],
+            "isExternal": true
           },
           "overlay": {
             "type": "linear",
@@ -469,7 +469,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -495,11 +494,11 @@
             "width": 824,
             "height": 1464,
             "id": 0,
-            "title": "Woman in White and Brown Floral Dress",
             "alt": "Woman in White and Brown Floral Dress",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -756,7 +755,6 @@
           "type": "sticker"
         }
       ],
-      "overlay": "none",
       "animations": [
         {
           "id": "0c9fa8d2-df15-4571-9a17-f65e7455ba42",
@@ -809,12 +807,12 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "Woman in Gray Sweater Leaning Backward  Near White Window Curtain",
             "alt": "Woman in Gray Sweater Leaning Backward  Near White Window Curtain",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [221, 219, 218]
+            "baseColor": [221, 219, 218],
+            "isExternal": true
           },
           "overlay": { "color": { "r": 1, "g": 1, "b": 1, "a": 0.4 } }
         },
@@ -1025,7 +1023,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1188,12 +1185,12 @@
             "height": 427,
             "posterId": 0,
             "id": 0,
-            "title": "Woman in Under Garment Standing on The Platform",
             "alt": "Woman in Under Garment Standing on The Platform",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [86, 77, 61]
+            "baseColor": [86, 77, 61],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "x": 48,
@@ -1232,12 +1229,12 @@
             "height": 854,
             "posterId": 0,
             "id": 0,
-            "title": "Man in Brown Shirt Kissing Woman in White Tank Top",
             "alt": "Man in Brown Shirt Kissing Woman in White Tank Top",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [38, 30, 22]
+            "baseColor": [38, 30, 22],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "width": 193,
@@ -1296,11 +1293,11 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "Person Face in Close Up PhotoWoman Sitting on a Sofa Chair in a Room",
             "alt": "Person Face in Close Up PhotoWoman Sitting on a Sofa Chair in a Room",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": -334,
@@ -1520,7 +1517,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -1546,11 +1542,11 @@
             "width": 824,
             "height": 1464,
             "id": 0,
-            "title": "Woman Sitting on a Sofa Chair in a Room",
             "alt": "Woman Sitting on a Sofa Chair in a Room",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -1809,7 +1805,6 @@
           "type": "sticker"
         }
       ],
-      "overlay": "none",
       "animations": [
         {
           "id": "b3bab013-578f-4461-9f1b-37515b55f3e4",
@@ -1853,11 +1848,11 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "Man in Brown T-shirt Standing Beside Woman in Brown Brassiere",
             "alt": "Man in Brown T-shirt Standing Beside Woman in Brown Brassiere",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": -334,
@@ -2089,12 +2084,12 @@
             "height": 531,
             "posterId": 0,
             "id": 0,
-            "title": "Woman in Black Tank Top",
             "alt": "Woman in Black Tank Top",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [213, 158, 118]
+            "baseColor": [213, 158, 118],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 48,
@@ -2314,7 +2309,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -2340,11 +2334,11 @@
             "width": 824,
             "height": 1464,
             "id": 0,
-            "title": "Girl in pinstriped shirt kissing the woman's forehead",
             "alt": "Girl in pinstriped shirt kissing the woman's forehead",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "type": "image",
           "x": 0,
@@ -2602,7 +2596,6 @@
           "type": "sticker"
         }
       ],
-      "overlay": "none",
       "animations": [
         {
           "id": "b84282aa-1b7a-4b15-a4fa-5a5fc0a1d827",
@@ -2646,12 +2639,12 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "woman in white shirt with blue eyes",
             "alt": "woman in white shirt with blue eyes",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [34, 44, 42]
+            "baseColor": [34, 44, 42],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 0,
@@ -2890,11 +2883,11 @@
             "height": 1920,
             "posterId": 0,
             "id": 0,
-            "title": "Man Taking Video With Woman Standing Inside Room",
             "alt": "Man Taking Video With Woman Standing Inside Room",
             "sizes": [],
             "local": false,
-            "isOptimized": false
+            "isOptimized": false,
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": -334,
@@ -3121,7 +3114,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3284,12 +3276,12 @@
             "height": 854,
             "posterId": 0,
             "id": 0,
-            "title": "Woman Holding on Railings",
             "alt": "Woman Holding on Railings",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [49, 34, 24]
+            "baseColor": [49, 34, 24],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "width": 193,
@@ -3325,12 +3317,12 @@
             "height": 854,
             "posterId": 0,
             "id": 0,
-            "title": "Woman Holding on Railings",
             "alt": "Woman Holding on Railings",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [48, 34, 24]
+            "baseColor": [48, 34, 24],
+            "isExternal": true
           },
           "backgroundColor": { "color": { "r": 196, "g": 196, "b": 196 } },
           "width": 193,
@@ -3397,7 +3389,6 @@
           "flip": { "vertical": false, "horizontal": false },
           "rotationAngle": 0,
           "lockAspectRatio": true,
-          "backgroundColor": { "color": { "r": 255, "g": 255, "b": 255 } },
           "x": 1,
           "y": 1,
           "width": 1,
@@ -3554,12 +3545,12 @@
             "height": 480,
             "posterId": 0,
             "id": 0,
-            "title": "woman in white off shoulder dress sitting on white floor",
             "alt": "woman in white off shoulder dress sitting on white floor",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [220, 188, 161]
+            "baseColor": [220, 188, 161],
+            "isExternal": true
           }
         },
         {
@@ -3708,12 +3699,12 @@
             "height": 480,
             "posterId": 0,
             "id": 0,
-            "title": "Woman Wearing Brown Cardigan",
             "alt": "Woman Wearing Brown Cardigan",
             "sizes": [],
             "local": false,
             "isOptimized": false,
-            "baseColor": [83, 58, 44]
+            "baseColor": [83, 58, 44],
+            "isExternal": true
           }
         },
         {

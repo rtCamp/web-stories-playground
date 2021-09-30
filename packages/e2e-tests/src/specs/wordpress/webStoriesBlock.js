@@ -82,16 +82,20 @@ describe('Web Stories Block', () => {
     });
     await insertBlock('Web Stories');
 
-    await page.waitForSelector('[data-testid="ws-block-configuration-panel"]');
-    await expect(page).toClick('div.components-card__body', {
-      text: 'Story URL',
-    });
+    await page.waitForSelector('.web-stories-block-configuration-panel');
+
+    await expect(page).toClick('button', { text: 'Single Story' });
+
+    await expect(page).toMatch(
+      'Select an existing story from your site, or add one with a URL.'
+    );
+    await expect(page).toClick('button', { text: 'Insert from URL' });
 
     await page.type(
       'input[aria-label="Story URL"]',
       'https://preview.amp.dev/documentation/examples/introduction/stories_in_amp'
     );
-    await expect(page).toClick('button', { text: 'Embed' });
+    await expect(page).toClick('button[aria-label="Embed"]');
 
     await expect(page).not.toMatch(
       'Sorry, this content could not be embedded.'
@@ -109,18 +113,24 @@ describe('Web Stories Block', () => {
     });
     await insertBlock('Web Stories');
 
-    await page.waitForSelector('[data-testid="ws-block-configuration-panel"]');
-    await expect(page).toClick('div.components-card__body', {
-      text: 'Selected Stories',
-    });
-    await expect(page).toClick('div.components-card__body', {
-      text: 'Box Carousel',
-    });
+    await page.waitForSelector('.web-stories-block-configuration-panel');
+
+    await expect(page).toClick('button', { text: 'Selected Stories' });
+
+    await expect(page).toClick('button', { text: 'Box Carousel' });
+
     await expect(page).toClick('button', { text: 'Select Stories' });
+
     await page.waitForSelector('.components-modal__screen-overlay');
     await expect(page).toMatchElement('.components-modal__screen-overlay');
+
+    await page.waitForFunction(
+      () => !document.querySelector('.components-spinner')
+    );
+
     await percySnapshot(page, 'Story select modal');
   });
+
   // Disable for https://github.com/google/web-stories-wp/issues/6237
   // eslint-disable-next-line jest/no-disabled-tests
   describe.skip('AMP validation', () => {
