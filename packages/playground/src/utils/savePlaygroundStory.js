@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+function savePlaygroundStory(storyPropsToSave) {
+  const { content } = storyPropsToSave;
+  localStorage.setItem('preview_markup', content);
 
-/**
- * External dependencies
- */
-import { appConfig, isPlayground } from '@web-stories-wp/playground';
+  // Delay because, sometimes when the preview button is immediately clicked after adding a heavy media, the
+  // media doesn't appear in preview.
+  return new Promise((resolve) => setTimeout(resolve, 500));
+}
 
-const editorSettings = isPlayground()
-  ? appConfig
-  : global.webStoriesEditorSettings;
-
-__webpack_public_path__ = editorSettings.publicPath;
+export default savePlaygroundStory;

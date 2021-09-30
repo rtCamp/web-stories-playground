@@ -31,6 +31,7 @@ import { render } from 'react-dom';
 import { FlagsProvider } from 'flagged';
 import { updateSettings } from '@web-stories-wp/date';
 import { initializeTracking } from '@web-stories-wp/tracking';
+import { isPlayground, appConfig } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -38,7 +39,11 @@ import { initializeTracking } from '@web-stories-wp/tracking';
 import App from './editorApp';
 import './style.css'; // This way the general editor styles are loaded before all the component styles.
 
-__webpack_public_path__ = window.webStoriesEditorSettings.publicPath;
+const editorSettings = isPlayground()
+  ? appConfig
+  : global.webStoriesEditorSettings;
+
+__webpack_public_path__ = editorSettings.publicPath;
 
 /**
  * Initializes the web stories editor.
@@ -68,7 +73,7 @@ const initialize = (id, config, flags) => {
 };
 
 const initializeWithConfig = () => {
-  const { id, config, flags } = window.webStoriesEditorSettings;
+  const { id, config, flags } = editorSettings;
   initialize(id, config, flags);
 };
 

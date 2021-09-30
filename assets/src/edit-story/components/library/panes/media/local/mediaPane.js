@@ -37,6 +37,7 @@ import {
   THEME_CONSTANTS,
   useSnackbar,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -50,7 +51,7 @@ import { Select } from '../../../../form';
 import { getResourceFromMediaPicker } from '../../../../../app/media/utils';
 import {
   MediaGalleryMessage,
-  PaneHeader,
+  PaneHeader as MediaPaneHeader,
   PaneInner,
   SearchInputContainer,
   StyledPane,
@@ -62,6 +63,7 @@ import { PANE_PADDING } from '../../shared';
 import { LOCAL_MEDIA_TYPE_ALL } from '../../../../../app/media/local/types';
 import { focusStyle } from '../../../../panels/shared';
 import useFFmpeg from '../../../../../app/media/utils/useFFmpeg';
+import Tooltip from '../../../../tooltip';
 import MissingUploadPermissionDialog from './missingUploadPermissionDialog';
 import paneId from './paneId';
 import VideoOptimizationDialog from './videoOptimizationDialog';
@@ -71,6 +73,12 @@ export const ROOT_MARGIN = 300;
 const Button = styled(DefaultButton)`
   ${focusStyle};
 `;
+
+const PlaygroundPaneHeader = styled(MediaPaneHeader)`
+  padding-top: 0;
+`;
+
+const PaneHeader = !isPlayground() ? MediaPaneHeader : PlaygroundPaneHeader;
 
 const FilterArea = styled.div`
   display: flex;
@@ -310,14 +318,16 @@ function MediaPane(props) {
     <StyledPane id={paneId} {...props}>
       <PaneInner>
         <PaneHeader>
-          <SearchInputContainer>
-            <SearchInput
-              initialValue={searchTerm}
-              placeholder={__('Search', 'web-stories')}
-              onSearch={onSearch}
-              incremental={incrementalSearchDebounceMedia}
-            />
-          </SearchInputContainer>
+          {!isPlayground() && (
+            <SearchInputContainer>
+              <SearchInput
+                initialValue={searchTerm}
+                placeholder={__('Search', 'web-stories')}
+                onSearch={onSearch}
+                incremental={incrementalSearchDebounceMedia}
+              />
+            </SearchInputContainer>
+          )}
           <FilterArea>
             <Select
               selectedValue={mediaType?.toString() || FILTER_NONE}
@@ -340,14 +350,26 @@ function MediaPane(props) {
               </SearchCount>
             )}
             {!isSearching && (
-              <Button
-                variant={BUTTON_VARIANTS.RECTANGLE}
-                type={BUTTON_TYPES.SECONDARY}
-                size={BUTTON_SIZES.SMALL}
-                onClick={openMediaPicker}
+              <Tooltip
+                title={
+                  isPlayground()
+                    ? __(
+                        'Uploading is disabled for the playground',
+                        'web-stories'
+                      )
+                    : ''
+                }
               >
-                {__('Upload', 'web-stories')}
-              </Button>
+                <Button
+                  variant={BUTTON_VARIANTS.RECTANGLE}
+                  type={BUTTON_TYPES.SECONDARY}
+                  size={BUTTON_SIZES.SMALL}
+                  onClick={openMediaPicker}
+                  disabled={isPlayground()}
+                >
+                  {__('Upload', 'web-stories')}
+                </Button>
+              </Tooltip>
             )}
           </FilterArea>
         </PaneHeader>

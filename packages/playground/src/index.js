@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * External dependencies
- */
-import { appConfig, isPlayground } from '@web-stories-wp/playground';
-
-const editorSettings = isPlayground()
-  ? appConfig
-  : global.webStoriesEditorSettings;
-
-__webpack_public_path__ = editorSettings.publicPath;
+export { default as isPlayground } from './utils/isPlayground';
+export { default as savePlaygroundStory } from './utils/savePlaygroundStory';
+export { default as getCurrentUrl } from './utils/getCurrentUrl';
+export { default as getDummyMedia } from './utils/getDummyMedia';
+export {
+  getDataFromSessionStorage,
+  saveDataOnSessionStorage,
+  removeSessionStorage,
+} from './utils/sessionStorage';
+export { default as useSessionStorage } from './effects/useSessionStorage';
+export { default as appConfig } from './appConfig';

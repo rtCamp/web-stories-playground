@@ -27,6 +27,7 @@ import {
   BUTTON_VARIANTS,
   Icons,
 } from '@web-stories-wp/design-system';
+import { isPlayground, getCurrentUrl } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -75,6 +76,8 @@ function Preview() {
   const openPreviewLink = useCallback(() => {
     trackEvent('preview_story');
 
+    const playgroundPreviewLink = getCurrentUrl() + 'preview';
+
     // Start a about:blank popup with waiting message until we complete
     // the saving operation. That way we will not bust the popup timeout.
     let popup;
@@ -92,7 +95,9 @@ function Preview() {
         popup.document.write(
           escapeHTML(__('Please wait. Generating the preview…', 'web-stories'))
         );
-        const decoratedPreviewLink = decoratePreviewLink(previewLink);
+        const decoratedPreviewLink = isPlayground()
+          ? playgroundPreviewLink
+          : decoratePreviewLink(previewLink);
         // Force redirect to the preview URL after 5 seconds. The saving tab
         // might get frozen by the browser.
         popup.document.write(
@@ -109,15 +114,15 @@ function Preview() {
     }
 
     // Save story directly if draft, otherwise, use auto-save.
-    const updateFunc = isDraft ? saveStory : autoSave;
+    const updateFunc = isDraft || isPlayground() ? saveStory : autoSave;
     updateFunc()
       .then((update) => {
         if (popup && !popup.closed) {
           if (popup.location.href) {
             // Auto-save sends an updated preview link, use that instead if available.
-            const updatedPreviewLink = decoratePreviewLink(
-              update?.preview_link ?? previewLink
-            );
+            const updatedPreviewLink = isPlayground()
+              ? playgroundPreviewLink
+              : decoratePreviewLink(update?.preview_link ?? previewLink);
             popup.location.replace(updatedPreviewLink);
           }
         }
@@ -145,6 +150,7 @@ function Preview() {
   );
 
   const label = __('Preview', 'web-stories');
+  const isDisabled = !isPlayground() && (isSaving || isUploading);
   return (
     <>
       <Tooltip title={label} hasTail>
@@ -153,7 +159,7 @@ function Preview() {
           type={BUTTON_TYPES.QUATERNARY}
           size={BUTTON_SIZES.SMALL}
           onClick={openPreviewLink}
-          disabled={isSaving || isUploading}
+          disabled={isDisabled}
           aria-label={label}
         >
           <Icons.Eye />

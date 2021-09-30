@@ -19,6 +19,7 @@
 import { __ } from '@web-stories-wp/i18n';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { isPlayground } from '@web-stories-wp/playground';
 /**
  * Internal dependencies
  */
@@ -73,13 +74,17 @@ export function PriorityChecks({
         <StoryMissingTitle />
         <StoryTitleLength />
         <StoryMissingExcerpt />
-        <StoryPosterAttached />
-        {/* TODO: #8129 this overlaps alot with aspect ratio, do we need both? */}
-        <StoryPosterPortraitSize />
-        <StoryPosterAspectRatio />
-        <PublisherLogoSize />
-        <VideoElementMissingPoster />
-        {isTranscodingEnabled && <VideoOptimization />}
+        {!isPlayground() && (
+          <>
+            <StoryPosterAttached />
+            {/* TODO: #8129 this overlaps alot with aspect ratio, do we need both? */}
+            <StoryPosterPortraitSize />
+            <StoryPosterAspectRatio />
+            <PublisherLogoSize />
+            <VideoElementMissingPoster />
+            {isTranscodingEnabled && <VideoOptimization />}
+          </>
+        )}
       </StyledTablistPanel>
     </ChecklistCategoryProvider>
   );

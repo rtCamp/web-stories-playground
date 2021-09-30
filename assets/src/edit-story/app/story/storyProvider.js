@@ -19,6 +19,7 @@
  */
 import PropTypes from 'prop-types';
 import { useMemo, useEffect } from 'react';
+import { useSessionStorage } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -115,6 +116,7 @@ function StoryProvider({ storyId, children }) {
   // These effects send updates to and restores state from history.
   useHistoryEntry({ pages, current, selection, story, capabilities });
   useHistoryReplay({ restore });
+  useSessionStorage({ current, pages, selection, story });
 
   // This action allows the user to save the story
   // (and it will have side-effects because saving can update url and status,

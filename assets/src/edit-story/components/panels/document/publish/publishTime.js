@@ -26,6 +26,7 @@ import {
   useKeyDownEffect,
   useFocusOut,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -119,27 +120,29 @@ function PublishTime() {
           selectButtonStylesOverride={focusStyle}
         />
       </Row>
-      <Popup
-        anchor={dateFieldRef}
-        isOpen={showDatePicker}
-        placement={PLACEMENT.BOTTOM_END}
-        renderContents={({ propagateDimensionChange }) => (
-          <DateTime
-            value={floatingDate ? displayDate : date}
-            onChange={(value, close = false) => {
-              handleDateChange(value, close);
-            }}
-            onViewChange={() => propagateDimensionChange()}
-            is12Hour={use12HourFormat}
-            forwardedRef={dateTimeNode}
-            onClose={() => setShowDatePicker(false)}
-            canReset={
-              ['draft', 'pending', 'auto-draft'].includes(status) &&
-              !floatingDate
-            }
-          />
-        )}
-      />
+      {!isPlayground() && (
+        <Popup
+          anchor={dateFieldRef}
+          isOpen={showDatePicker}
+          placement={PLACEMENT.BOTTOM_END}
+          renderContents={({ propagateDimensionChange }) => (
+            <DateTime
+              value={floatingDate ? displayDate : date}
+              onChange={(value, close = false) => {
+                handleDateChange(value, close);
+              }}
+              onViewChange={() => propagateDimensionChange()}
+              is12Hour={use12HourFormat}
+              forwardedRef={dateTimeNode}
+              onClose={() => setShowDatePicker(false)}
+              canReset={
+                ['draft', 'pending', 'auto-draft'].includes(status) &&
+                !floatingDate
+              }
+            />
+          )}
+        />
+      )}
     </>
   );
 }

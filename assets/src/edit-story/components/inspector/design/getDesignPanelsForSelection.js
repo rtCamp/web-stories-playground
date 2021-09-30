@@ -17,6 +17,10 @@
 /**
  * Internal dependencies
  */
+/**
+ * External dependencies
+ */
+import { isPlayground } from '@web-stories-wp/playground';
 import { elementTypes } from '../../../elements';
 import {
   AnimationPanel,
@@ -74,10 +78,12 @@ function getDesignPanelsForSelection(elements) {
     // If the selected element's type is video / image , display accessibility panel, too.
     if ('video' === elements[0].type) {
       panels.push({ type: PanelTypes.VIDEO_OPTIONS, Panel: VideoOptionsPanel });
-      panels.push({
-        type: PanelTypes.CAPTIONS,
-        Panel: CaptionsPanel,
-      });
+      if (!isPlayground()) {
+        panels.push({
+          type: PanelTypes.CAPTIONS,
+          Panel: CaptionsPanel,
+        });
+      }
       panels.push({
         type: PanelTypes.VIDEO_ACCESSIBILITY,
         Panel: VideoAccessibilityPanel,
@@ -141,7 +147,7 @@ function getDesignPanelsForSelection(elements) {
         case PanelTypes.VIDEO_OPTIONS:
           return { type, Panel: VideoOptionsPanel };
         case PanelTypes.CAPTIONS:
-          return { type, Panel: CaptionsPanel };
+          return !isPlayground() ? { type, Panel: CaptionsPanel } : null;
         case PanelTypes.VIDEO_ACCESSIBILITY:
           return { type, Panel: VideoAccessibilityPanel };
         case PanelTypes.IMAGE_ACCESSIBILITY:

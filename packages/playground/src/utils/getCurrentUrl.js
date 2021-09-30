@@ -13,14 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+function getCurrentUrl() {
+  const { origin, pathname } = window.location;
+  return pathname.endsWith('/') ? origin + pathname : origin + '/' + pathname;
+}
 
-/**
- * External dependencies
- */
-import { appConfig, isPlayground } from '@web-stories-wp/playground';
-
-const editorSettings = isPlayground()
-  ? appConfig
-  : global.webStoriesEditorSettings;
-
-__webpack_public_path__ = editorSettings.publicPath;
+export default getCurrentUrl;

@@ -19,6 +19,7 @@
  */
 import { useEffect, useCallback, useRef } from 'react';
 import { getTimeTracker } from '@web-stories-wp/tracking';
+import { isPlayground, getDummyMedia } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -132,12 +133,42 @@ export default function useContextValueProvider(reducerState, reducerActions) {
 
     resetFilters();
     const isFirstPage = !pageToken;
-    if (!mediaType && !searchTerm && isFirstPage) {
+    if (!mediaType && !searchTerm && isFirstPage && !isPlayground()) {
       fetchMedia({ mediaType, cacheBust: true }, fetchMediaSuccess);
     }
   }, [fetchMedia, fetchMediaSuccess, resetFilters]);
 
   useEffect(() => {
+    if (isPlayground()) {
+      const dummyMedia = getDummyMedia();
+      const mediaArray = dummyMedia.map(getResourceFromAttachment);
+      let mediaItems = mediaArray;
+
+      if (['image', 'video'].includes(mediaType)) {
+        mediaItems = mediaArray.filter(
+          (mediaItem) => mediaType === mediaItem.type
+        );
+      }
+
+      if (searchTerm) {
+        mediaItems = mediaItems.filter((mediaItem) =>
+          mediaItem.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      fetchMediaSuccess({
+        media: mediaItems,
+        mediaType,
+        searchTerm,
+        pageToken,
+        nextPageToken: undefined,
+        totalPages: 1,
+        totalItems: mediaArray.length,
+      });
+
+      return;
+    }
+
     fetchMedia({ searchTerm, pageToken, mediaType }, fetchMediaSuccess);
   }, [fetchMedia, fetchMediaSuccess, mediaType, pageToken, searchTerm]);
 

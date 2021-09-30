@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,37 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * External dependencies
  */
-import { isPlayground } from '@web-stories-wp/playground';
+import { useEffect } from 'react';
 
 /**
  * Internal dependencies
  */
-import {
-  PublishPanel,
-  ExcerptPanel,
-  SlugPanel,
-  StatusPanel,
-  PageAdvancementPanel,
-} from '../../panels/document';
+import { saveDataOnSessionStorage } from '../utils/sessionStorage';
 
-function DocumentInspector() {
-  return (
-    <>
-      {!isPlayground() && (
-        <>
-          <StatusPanel />
-          <PublishPanel />
-          <ExcerptPanel />
-          <SlugPanel />
-        </>
-      )}
-      <PageAdvancementPanel />
-    </>
-  );
+function useSessionStorage({ current, pages, selection, story }) {
+  useEffect(() => {
+    if (!pages || !story.globalStoryStyles) {
+      return;
+    }
+
+    const storyDataForSession = {
+      current,
+      selection,
+      story: { ...story },
+      pages: [...pages],
+    };
+
+    if (current) {
+      saveDataOnSessionStorage(storyDataForSession);
+    }
+  }, [current, pages, selection, story]);
 }
 
-export default DocumentInspector;
+export default useSessionStorage;

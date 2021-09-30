@@ -19,6 +19,7 @@
  */
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -99,12 +100,16 @@ function Buttons() {
             <Preview />
             <Loading />
           </IconWithSpinner>
-          <Space />
-          {isDraft ? <Update /> : <SwitchToDraft />}
-          <Space />
-          {isDraft && <Publish />}
-          {!isDraft && <Update />}
-          <Space />
+          {!isPlayground() && (
+            <>
+              <Space />
+              {isDraft ? <Update /> : <SwitchToDraft />}
+              <Space />
+              {isDraft && <Publish />}
+              {!isDraft && <Update />}
+              <Space />
+            </>
+          )}
         </List>
       </ButtonList>
       <PostPublishDialog

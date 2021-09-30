@@ -19,6 +19,7 @@
  */
 import { useEffect } from 'react';
 import { migrate } from '@web-stories-wp/migration';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -27,6 +28,7 @@ import { useAPI } from '../../api';
 import { useHistory } from '../../history';
 import { createPage } from '../../../elements';
 import getUniquePresets from '../../../utils/getUniquePresets';
+import getPlaygroundInitialState from '../../../utils/getPlaygroundInitialState';
 
 // When ID is set, load story from API.
 function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
@@ -39,6 +41,11 @@ function useLoadStory({ storyId, shouldLoad, restore, isDemo }) {
 
   useEffect(() => {
     if (storyId && shouldLoad) {
+      if (isPlayground()) {
+        restore(getPlaygroundInitialState());
+        return;
+      }
+
       const callback = isDemo ? getDemoStoryById : getStoryById;
       callback(storyId).then((post) => {
         const {

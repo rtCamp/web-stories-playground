@@ -19,6 +19,7 @@
  */
 import styled from 'styled-components';
 import { __ } from '@web-stories-wp/i18n';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -26,6 +27,7 @@ import { __ } from '@web-stories-wp/i18n';
 import Buttons from './buttons';
 import Title from './title';
 import HeaderProvider from './provider';
+import ResetButton from './buttons/reset';
 
 const Background = styled.header.attrs({
   role: 'group',
@@ -40,6 +42,7 @@ const Background = styled.header.attrs({
 const Head = styled.div`
   flex: 1 1 auto;
   padding: 1em;
+  display: flex;
 `;
 
 const ButtonCell = styled.div`
@@ -51,6 +54,7 @@ function HeaderLayout() {
     <HeaderProvider>
       <Background>
         <Head>
+          {isPlayground() && <ResetButton />}
           <Title />
         </Head>
         <ButtonCell>

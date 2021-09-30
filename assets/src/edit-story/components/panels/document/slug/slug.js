@@ -23,8 +23,8 @@ import { __ } from '@web-stories-wp/i18n';
 import {
   Input,
   Link,
-  ThemeGlobals,
   THEME_CONSTANTS,
+  ThemeGlobals,
 } from '@web-stories-wp/design-system';
 
 /**

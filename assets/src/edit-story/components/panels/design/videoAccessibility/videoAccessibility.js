@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import { __, sprintf, translateToExclusiveList } from '@web-stories-wp/i18n';
 import { useCallback, useRef, useMemo } from 'react';
 import styled from 'styled-components';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -31,6 +32,7 @@ import { getCommonValue, useCommonObjectValue } from '../../shared';
 import { useConfig } from '../../../../app/config';
 import { MULTIPLE_DISPLAY_VALUE, MULTIPLE_VALUE } from '../../../../constants';
 import { styles, states, useFocusHighlight } from '../../../../app/highlights';
+import Tooltip from '../../../tooltip';
 
 const DEFAULT_RESOURCE = {
   alt: null,
@@ -123,19 +125,28 @@ function VideoAccessibilityPanel({ selectedElements, pushUpdate }) {
       isPersistable={!highlightInput && !highlightMediaPicker}
     >
       <Row>
-        <StyledMedia
-          ref={mediaRef}
-          value={poster}
-          cropParams={cropParams}
-          onChange={handleChangePoster}
-          onChangeErrorText={posterErrorMessage}
-          title={__('Select as video poster', 'web-stories')}
-          buttonInsertText={__('Set as video poster', 'web-stories')}
-          alt={__('Preview poster image', 'web-stories')}
-          type={allowedImageMimeTypes}
-          ariaLabel={__('Video poster', 'web-stories')}
-          menuOptions={['edit', 'reset']}
-        />
+        <Tooltip
+          title={
+            isPlayground()
+              ? __('Disabled for the playground', 'web-stories')
+              : ''
+          }
+        >
+          <StyledMedia
+            ref={mediaRef}
+            value={poster}
+            cropParams={cropParams}
+            onChange={handleChangePoster}
+            onChangeErrorText={posterErrorMessage}
+            title={__('Select as video poster', 'web-stories')}
+            buttonInsertText={__('Set as video poster', 'web-stories')}
+            alt={__('Preview poster image', 'web-stories')}
+            type={allowedImageMimeTypes}
+            ariaLabel={__('Video poster', 'web-stories')}
+            menuOptions={['edit', 'reset']}
+            disabled={isPlayground()}
+          />
+        </Tooltip>
         <InputsWrapper>
           <TextArea
             ref={inputRef}

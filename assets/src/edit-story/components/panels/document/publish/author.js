@@ -19,6 +19,7 @@
  */
 import { __ } from '@web-stories-wp/i18n';
 import { useCallback, useEffect, useState } from 'react';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -56,7 +57,7 @@ function Author() {
   const [visibleOptions, setVisibleOptions] = useState(null);
 
   useEffect(() => {
-    if (tab === 'document') {
+    if (tab === 'document' && !isPlayground()) {
       loadUsers();
     }
   }, [tab, loadUsers]);
@@ -95,6 +96,9 @@ function Author() {
   );
 
   const isLoading = isUsersLoading || !visibleOptions;
+  const placeholder = isPlayground()
+    ? __('None', 'web-stories')
+    : __('Loading…', 'web-stories');
   const dropDownParams = {
     hasSearch: true,
     lightMode: true,
@@ -102,7 +106,7 @@ function Author() {
     getOptionsByQuery: getAuthorsBySearch,
     selectedId: author.id,
     dropDownLabel: __('Author', 'web-stories'),
-    placeholder: isLoading ? __('Loading…', 'web-stories') : '',
+    placeholder: isLoading ? placeholder : '',
     disabled: isLoading ? true : isSaving,
     primaryOptions: isLoading ? [] : visibleOptions,
   };
