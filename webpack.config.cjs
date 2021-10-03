@@ -18,6 +18,7 @@
  * External dependencies
  */
 const path = require('path');
+const fs = require('fs');
 const glob = require('glob');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -51,6 +52,7 @@ function requestToExternal(request) {
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
+const isPlayground = 'true' === process.env.NODE_IS_PLAYGROUND;
 
 const sharedConfig = {
   mode,
@@ -169,10 +171,12 @@ const sharedConfig = {
         analyzerPort: 'auto',
       }),
     new MiniCssExtractPlugin({
-      filename: '../css/[name].css',
+      filename: isPlayground ? 'assets/css/[name].css' : '../css/[name].css',
     }),
     new RtlCssPlugin({
-      filename: `../css/[name]-rtl.css`,
+      filename: isPlayground
+        ? `assets/css/[name]-rtl.css`
+        : `../css/[name]-rtl.css`,
     }),
     new webpack.EnvironmentPlugin({
       DISABLE_PREVENT: false,
@@ -413,7 +417,48 @@ const storiesImgareaselect = {
   ].filter(Boolean),
 };
 
-module.exports = [
+const playgroundFilePath = (file) =>
+  path.resolve(process.cwd(), 'packages', `playground/src/${file}`);
+
+const previewMarkup = fs.readFileSync(
+  playgroundFilePath('preview/index.html'),
+  'utf8'
+);
+
+// Configuration for playground.
+const playground = {
+  ...editorAndDashboard,
+  entry: {
+    ...editorAndDashboard.entry,
+    'web-stories-playground': playgroundFilePath('style.css'),
+  },
+  output: {
+    ...editorAndDashboard.output,
+    path: isProduction ? path.resolve(process.cwd(), 'dist/assets', 'js') : editorAndDashboard.output.path,
+  },
+  plugins: [
+    ...sharedConfig.plugins,
+    new WebpackBar({
+      name: 'Web Stories Playground',
+      color: '#00FFFF',
+    }),
+    new HtmlWebpackPlugin({
+      inject: true, // Don't inject default <script> tags, etc.
+      minify: false, // PHP not HTML so don't attempt to minify.
+      template: playgroundFilePath('index.html'),
+      chunks: [EDITOR_CHUNK, 'web-stories-playground'],
+    }),
+  ],
+  devServer: {
+    before: function (app) {
+      app.get('/preview', function (req, res) {
+        res.send(previewMarkup);
+      });
+    },
+  },
+};
+
+module.exports = isPlayground ? [ playground ] : [
   editorAndDashboard,
   activationNotice,
   webStoriesBlock,

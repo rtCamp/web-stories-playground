@@ -66,8 +66,8 @@
     "@web-stories-wp/karma-failed-tests-reporter": "*",
     "@web-stories-wp/karma-puppeteer-client": "*",
     "@web-stories-wp/karma-puppeteer-launcher": "*",
-    "@web-stories-wp/story-editor": "*",
     "@web-stories-wp/playground": "*",
+    "@web-stories-wp/story-editor": "*",
     "@wordpress/babel-plugin-import-jsx-pragma": "^3.1.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^3.2.1",
     "@wordpress/eslint-plugin": "^9.1.2",
@@ -150,6 +150,7 @@
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^3.11.2",
     "webpackbar": "^4.0.0"
   },
   "scripts": {
@@ -233,7 +234,10 @@
     "workflow:migrate:templates": "migration packages/templates/src/raw",
     "postworkflow:migrate:templates": "npx prettier --write packages/templates/src/raw",
     "workflow:migrate:ftue-story": "migration includes/data/stories",
-    "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories"
+    "postworkflow:migrate:ftue-story": "npx prettier --write includes/data/stories",
+    "playground": "NODE_IS_PLAYGROUND=true webpack serve --config webpack.config.cjs --progress --open",
+    "playground:predeploy": "NODE_IS_PLAYGROUND=true npm-run-all build:*",
+    "playground:deploy": "npm run playground:predeploy && gh-pages -d dist"
   },
   "husky": {
     "hooks": {
