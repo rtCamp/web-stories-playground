@@ -27,7 +27,7 @@ export default {
   deleteMedia: mockFetch,
   getLinkMetadata: mockFetch,
   getAuthors: mockFetch,
-  getCurrentUser: mockFetch,
+  getCurrentUser: () => Promise.resolve({ id: 1 }),
   updateCurrentUser: mockFetch,
   getCustomPageTemplates: mockFetch,
   addPageTemplate: mockFetch,
