@@ -14,14 +14,85 @@
  * limitations under the License.
  */
 
-export { default as isPlayground } from './utils/isPlayground';
-export { default as savePlaygroundStory } from './utils/savePlaygroundStory';
-export { default as getCurrentUrl } from './utils/getCurrentUrl';
-export { default as getDummyMedia } from './utils/getDummyMedia';
-export {
-  getDataFromSessionStorage,
-  saveDataOnSessionStorage,
-  removeSessionStorage,
-} from './utils/sessionStorage';
-export { default as useSessionStorage } from './effects/useSessionStorage';
-export { default as appConfig } from './appConfig';
+/**
+ * Internal dependencies
+ */
+// The __webpack_public_path__ assignment will be done after the imports.
+// That's why the public path assignment is in its own dedicated module and imported here at the very top.
+// See https://webpack.js.org/guides/public-path/#on-the-fly
+import './publicPath';
+import './style.css'; // This way the general editor styles are loaded before all the component styles.
+
+/**
+ * External dependencies
+ */
+import StoryEditor from '@web-stories-wp/story-editor';
+import { setAppElement } from '@web-stories-wp/design-system';
+import { StrictMode, render } from '@web-stories-wp/react';
+import { FlagsProvider } from 'flagged';
+import { updateSettings } from '@web-stories-wp/date';
+
+/**
+ * Internal dependencies
+ */
+import * as apiCallbacks from './api';
+import appConfig from './appConfig';
+import { Layout, MediaUpload } from './components';
+
+/**
+ * Initializes the web stories editor.
+ *
+ * @param {string} id       ID of the root element to render the screen in.
+ * @param {Object} config   Story editor settings.
+ * @param {Object} flags    The flags for the application.
+ */
+const initialize = (id, config, flags) => {
+  const appElement = document.getElementById(id);
+
+  // see http://reactcommunity.org/react-modal/accessibility/
+  setAppElement(appElement);
+
+  alert('Should start');
+
+  updateSettings(config.locale);
+
+  const editorConfig = {
+    ...config,
+    apiCallbacks,
+    MediaUpload,
+  };
+
+  render(
+    <FlagsProvider features={flags}>
+      <StrictMode>
+        <StoryEditor config={editorConfig}>
+          <Layout />
+        </StoryEditor>
+      </StrictMode>
+    </FlagsProvider>,
+    appElement
+  );
+};
+
+const initializeWithConfig = () => {
+  const { id, config, flags } = appConfig;
+  initialize(id, config, flags);
+};
+
+if ('loading' === document.readyState) {
+  document.addEventListener('DOMContentLoaded', initializeWithConfig);
+} else {
+  initializeWithConfig();
+}
+
+// export { default as isPlayground } from './utils/isPlayground';
+// export { default as savePlaygroundStory } from './utils/savePlaygroundStory';
+// export { default as getCurrentUrl } from './utils/getCurrentUrl';
+// export { default as getDummyMedia } from './utils/getDummyMedia';
+// export {
+//   getDataFromSessionStorage,
+//   saveDataOnSessionStorage,
+//   removeSessionStorage,
+// } from './utils/sessionStorage';
+// export { default as useSessionStorage } from './effects/useSessionStorage';
+// export { default as appConfig } from './appConfig';

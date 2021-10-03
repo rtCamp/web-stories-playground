@@ -214,6 +214,7 @@ const sharedConfig = {
 
 const EDITOR_CHUNK = 'wp-story-editor';
 const DASHBOARD_CHUNK = 'wp-dashboard';
+const PLAYGROUND_CHUNK = 'playground';
 
 // Template for html-webpack-plugin to generate JS/CSS chunk manifests in PHP.
 const templateContent = ({ htmlWebpackPlugin, chunkNames }) => {
@@ -243,7 +244,7 @@ const templateContent = ({ htmlWebpackPlugin, chunkNames }) => {
   // ones that are not already in `js` and not primaries.
   const chunks = chunkNames.filter(
     (chunk) =>
-      !js.includes(chunk) && ![DASHBOARD_CHUNK, EDITOR_CHUNK].includes(chunk)
+      !js.includes(chunk) && ![DASHBOARD_CHUNK, EDITOR_CHUNK, PLAYGROUND_CHUNK].includes(chunk)
   );
 
   return `<?php
@@ -272,6 +273,7 @@ const editorAndDashboard = {
   entry: {
     [EDITOR_CHUNK]: './packages/wp-story-editor/src/index.js',
     [DASHBOARD_CHUNK]: './packages/wp-dashboard/src/index.js',
+    [PLAYGROUND_CHUNK]: './packages/playground/src/index.js',
   },
   plugins: [
     ...sharedConfig.plugins.filter(
@@ -446,7 +448,7 @@ const playground = {
       inject: true, // Don't inject default <script> tags, etc.
       minify: false, // PHP not HTML so don't attempt to minify.
       template: playgroundFilePath('index.html'),
-      chunks: [EDITOR_CHUNK, 'web-stories-playground'],
+      chunks: [PLAYGROUND_CHUNK, 'web-stories-playground'],
     }),
   ],
   devServer: {
