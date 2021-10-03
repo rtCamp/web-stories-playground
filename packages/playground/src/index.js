@@ -35,7 +35,7 @@ import { updateSettings } from '@web-stories-wp/date';
 /**
  * Internal dependencies
  */
-import * as apiCallbacks from './api';
+import apiCallbacks from './api';
 import appConfig from './appConfig';
 import { Layout, MediaUpload } from './components';
 
@@ -51,8 +51,6 @@ const initialize = (id, config, flags) => {
 
   // see http://reactcommunity.org/react-modal/accessibility/
   setAppElement(appElement);
-
-  alert('Should start');
 
   updateSettings(config.locale);
 

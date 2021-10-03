@@ -30,11 +30,6 @@ const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 /**
- * WordPress dependencies
- */
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-
-/**
  * Prevents externalizing certain packages.
  *
  * @param {string} request Requested module
@@ -184,7 +179,7 @@ const sharedConfig = {
       DISABLE_ERROR_BOUNDARIES: false,
       DISABLE_QUICK_TIPS: false,
     }),
-    new DependencyExtractionWebpackPlugin(),
+    // new DependencyExtractionWebpackPlugin(),
   ].filter(Boolean),
   optimization: {
     sideEffects: true,
@@ -244,7 +239,7 @@ const templateContent = ({ htmlWebpackPlugin, chunkNames }) => {
   // ones that are not already in `js` and not primaries.
   const chunks = chunkNames.filter(
     (chunk) =>
-      !js.includes(chunk) && ![DASHBOARD_CHUNK, EDITOR_CHUNK, PLAYGROUND_CHUNK].includes(chunk)
+      !js.includes(chunk) && ![DASHBOARD_CHUNK, EDITOR_CHUNK].includes(chunk)
   );
 
   return `<?php
@@ -276,12 +271,6 @@ const editorAndDashboard = {
     [PLAYGROUND_CHUNK]: './packages/playground/src/index.js',
   },
   plugins: [
-    ...sharedConfig.plugins.filter(
-      (plugin) => !(plugin instanceof DependencyExtractionWebpackPlugin)
-    ),
-    new DependencyExtractionWebpackPlugin({
-      requestToExternal,
-    }),
     new WebpackBar({
       name: 'Editor & Dashboard',
     }),
@@ -445,7 +434,7 @@ const playground = {
       color: '#00FFFF',
     }),
     new HtmlWebpackPlugin({
-      inject: true, // Don't inject default <script> tags, etc.
+      inject: true, // Inject default <script> tags, etc.
       minify: false, // PHP not HTML so don't attempt to minify.
       template: playgroundFilePath('index.html'),
       chunks: [PLAYGROUND_CHUNK, 'web-stories-playground'],
