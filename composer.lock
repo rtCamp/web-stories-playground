@@ -1419,16 +1419,16 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v5.7.2",
+            "version": "v5.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "beda02c58f1c4689d42c8dde6a84f7f0c9c93f42"
+                "reference": "67fd773742b7be5b4463f40318b0b4890a07033b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/beda02c58f1c4689d42c8dde6a84f7f0c9c93f42",
-                "reference": "beda02c58f1c4689d42c8dde6a84f7f0c9c93f42",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/67fd773742b7be5b4463f40318b0b4890a07033b",
+                "reference": "67fd773742b7be5b4463f40318b0b4890a07033b",
                 "shasum": ""
             },
             "replace": {
@@ -1457,9 +1457,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v5.7.2"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v5.8.2"
             },
-            "time": "2021-05-13T07:54:04+00:00"
+            "time": "2021-11-11T13:57:00+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -4092,5 +4092,5 @@
     "platform-overrides": {
         "php": "7.0.0"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
