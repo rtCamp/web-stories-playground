@@ -80,7 +80,7 @@ jobs:
           flags: karmatests
 
       - name: Upload CUJ coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: cuj-coverage-dashboard
           path: build/cuj-coverage-dashboard.md
