@@ -24,6 +24,8 @@ import {
   SnackbarProvider,
   ModalGlobalStyle,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
+
 /**
  * Internal dependencies
  */
@@ -60,7 +62,7 @@ function App({ config }) {
         <ErrorBoundary>
           <ConfigProvider config={config}>
             <APIProvider>
-              <StatusCheck />
+              {!isPlayground() && <StatusCheck />}
               <FileProvider>
                 <Media3pApiProvider>
                   <HistoryProvider size={50}>
@@ -68,7 +70,7 @@ function App({ config }) {
                       <MetaBoxesProvider>
                         <StoryProvider storyId={storyId}>
                           <CurrentUserProvider>
-                            <PostLock />
+                            {!isPlayground() && <PostLock />}
                             <FontProvider>
                               <MediaProvider>
                                 <AutoSaveHandler />

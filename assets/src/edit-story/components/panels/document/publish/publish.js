@@ -17,7 +17,7 @@
 /**
  * External dependencies
  */
-import { useCallback, useRef, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import { __, sprintf, translateToExclusiveList } from '@web-stories-wp/i18n';
 import {
@@ -25,16 +25,17 @@ import {
   Text,
   THEME_CONSTANTS,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
  */
 import { useStory } from '../../../../app/story';
 import { useConfig } from '../../../../app/config';
-import { useFocusHighlight, states, styles } from '../../../../app/highlights';
-import { Row, Media, Required } from '../../../form';
+import { states, styles, useFocusHighlight } from '../../../../app/highlights';
+import { Media, Required, Row } from '../../../form';
 import useInspector from '../../../inspector/useInspector';
-import { Panel, PanelTitle, PanelContent } from '../../panel';
+import { Panel, PanelContent, PanelTitle } from '../../panel';
 import PublishTime from './publishTime';
 import Author from './author';
 
@@ -181,10 +182,11 @@ function PublishPanel() {
     >
       <PanelTitle>{__('Publishing', 'web-stories')}</PanelTitle>
       <PanelContent>
-        <PublishTime />
-        {capabilities && capabilities.hasAssignAuthorAction && users && (
-          <Author />
-        )}
+        {!isPlayground() && <PublishTime />}
+        {capabilities &&
+          capabilities.hasAssignAuthorAction &&
+          users &&
+          !isPlayground() && <Author />}
         <HighlightRow
           isHighlighted={
             highlightPoster?.showEffect || highlightLogo?.showEffect

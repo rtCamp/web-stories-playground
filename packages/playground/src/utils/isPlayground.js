@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const isPlayground = () => {
+  return true === window?.isPlayground;
+};
 
-/**
- * External dependencies
- */
-import { appConfig, isPlayground } from '@web-stories-wp/playground';
-
-const editorSettings = isPlayground()
-  ? appConfig
-  : global.webStoriesEditorSettings;
-
-__webpack_public_path__ = editorSettings.publicPath;
+export default isPlayground;

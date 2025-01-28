@@ -36,6 +36,7 @@ import {
   Icons,
   useKeyDownEffect,
 } from '@web-stories-wp/design-system';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -60,9 +61,11 @@ const Container = styled.div`
     ${({ theme }) => theme.colors.border.defaultNormal};
 `;
 
+const adminToolbarHeight = isPlayground() ? 0 : ADMIN_TOOLBAR_HEIGHT;
+
 // How much less space than the full browser height can the popup occupy?
 const EXTRA_SPACE =
-  ADMIN_TOOLBAR_HEIGHT + HEADER_HEIGHT + TOP_MARGIN - 2 * BORDER_WIDTH;
+  adminToolbarHeight + HEADER_HEIGHT + TOP_MARGIN - 2 * BORDER_WIDTH;
 const FlexContent = styled.div`
   display: flex;
   flex-direction: column;

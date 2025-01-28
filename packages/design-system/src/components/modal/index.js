@@ -21,6 +21,7 @@ import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import { createGlobalStyle, ThemeContext } from 'styled-components';
+import { isPlayground } from '@web-stories-wp/playground';
 
 /**
  * Internal dependencies
@@ -30,12 +31,14 @@ import { THEME_CONSTANTS } from '../../theme';
 const CONTENT_CLASS = 'WebStories_ReactModal__Content';
 const OVERLAY_CLASS = 'WebStories_ReactModal__Overlay';
 
+const { TOOLBAR_HEIGHT, MENU_WIDTH } = THEME_CONSTANTS.WP_ADMIN;
+
 export const ModalGlobalStyle = createGlobalStyle`
   .${OVERLAY_CLASS} {
     opacity: 0;
     transition: opacity 0.1s ease-out;
-    top: ${THEME_CONSTANTS.WP_ADMIN.TOOLBAR_HEIGHT}px !important;
-    left: ${THEME_CONSTANTS.WP_ADMIN.MENU_WIDTH}px !important;
+    top: ${isPlayground() ? 0 : TOOLBAR_HEIGHT}px !important;
+    left: ${isPlayground() ? 0 : MENU_WIDTH}px !important;
   }
 
   body.folded .${OVERLAY_CLASS} {

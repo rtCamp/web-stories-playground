@@ -180,6 +180,7 @@ export const MediaInput = forwardRef(function Media(
   const StyledMedia = MediaOptions[variant];
   // Media input only allows simplified dropdown with one group.
   const options = [{ group: menuOptions }];
+
   return (
     <StyledMedia className={className} {...rest}>
       <ImageWrapper variant={variant}>

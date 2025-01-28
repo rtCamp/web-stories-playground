@@ -15,6 +15,7 @@
     "@web-stories-wp/i18n": "*",
     "@web-stories-wp/patterns": "*",
     "@web-stories-wp/tracking": "*",
+    "@web-stories-wp/playground": "*",
     "big.js": "^6.1.1",
     "focus-visible": "^5.2.0",
     "use-debounce": "^7.0.0",
