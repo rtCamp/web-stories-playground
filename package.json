@@ -164,7 +164,7 @@
     "eslint-plugin-testing-library": "^4.9.0",
     "glob": "^7.1.7",
     "html-webpack-plugin": "^4.5.2",
-    "husky": "^4.3.7",
+    "husky": "^5.2.0",
     "jasmine-core": "^3.8.0",
     "jest": "^27.0.6",
     "jest-axe": "^5.0.1",
